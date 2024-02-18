@@ -1,4 +1,4 @@
-let elementi = ["<img height ='70px' width='70px'src='img/c.png'>","<img height ='70px' width='70px'src='img/p.png'>","<img height ='70px' width='70px'src='img/v.png'>", "<img height ='70px' width='70px'src='img/s.png'>","<img height ='70px' width='70px'src='img/r.png'>"];
+let elementi = ["c.png","p.png","v.png","s.png","r.png"];
 
 var matrice = [[], [], [], [], []];
 
@@ -97,47 +97,33 @@ function swap_div() {
         // Effettua lo scambio solo se entrambi i div sono stati cliccati
         console.log(prima_cella.textContent);
         console.log(seconda_cella.textContent);
-        matrice[row2][col2] = prima_cella.innerHTML;
-        matrice[row1][col1] = seconda_cella.innerHTML;
+        let temp = matrice[row2][col2];
+        matrice[row2][col2] = matrice[row1][col1];
+        matrice[row1][col1] = temp;
+
+        stampa_matrice(matrice);
 
         console.log(matrice);
 
-
-        const temp = prima_cella.innerHTML;
-        prima_cella.innerHTML = seconda_cella.innerHTML;
-        seconda_cella.innerHTML = temp;
-
         cerca(row2, col2, matrice);
+        combo(cons_riga, cons_colonna);
+        if(combo(cons_riga, cons_colonna) == false){
+            cerca(row1, col1, matrice);
+            combo(cons_riga, cons_colonna);
+
+            if(combo(cons_riga, cons_colonna) == false){
+                setTimeout(() => {
+                    scambio_perdita();
+
+                }, 500);
+            }
+        }
+        
+
+        
+
         console.log("Combo riga = " + cons_riga + "Combo colonna = " + cons_colonna)
-        if (cons_riga == 3) {
-            console.log('combo 3 riga');
-            triplo_orizzontale(matrice);
-        }
-        else if (cons_colonna == 3) {
-            console.log('combo 3 colonna');
-            triplo_verticale();
-        }
-        else if (cons_riga == 4) {
-            console.log('combo 4 riga');
-            quaduplo_orizzontale();
-        }
-        else if (cons_colonna == 4) {
-            console.log('combo 4 colonna');
-            quaduplo_verticale();
-        }
-        else if (cons_riga == 5) {
-            console.log('combo 5 riga');
-            quintuplo_orizzontale();
-        }
-        else if (cons_colonna == 5) {
-            console.log('combo 5 colonna');
-            quintuplo_verticale();
-        }
-        else {
-            setTimeout(() => {
-                scambio_perdita();
-            }, 500);
-        }
+       
 
 
         setTimeout(() => {
@@ -148,6 +134,37 @@ function swap_div() {
             prima_cella = null;
             seconda_cella = null;
         }, 500);
+    }
+}
+
+//funzione per far partire le combo
+function combo(cons_riga, cons_colonna){
+    if (cons_riga == 5) {
+        console.log('combo 5 riga');
+        quintuplo_orizzontale(matrice);
+    }
+    else if (cons_colonna == 5) {
+        console.log('combo 5 colonna');
+        quintuplo_verticale(matrice);
+    }
+    else if (cons_riga == 4) {
+        console.log('combo 4 riga');
+        quaduplo_orizzontale(matrice);
+    }
+    else if (cons_colonna == 4) {
+        console.log('combo 4 colonna');
+        quaduplo_verticale(matrice);
+    }
+    else if (cons_riga == 3) {
+        console.log('combo 3 riga');
+        triplo_orizzontale(matrice);
+    }
+    else if (cons_colonna == 3) {
+        console.log('combo 3 colonna');
+        triplo_verticale(matrice);
+    }
+    else {
+        return false 
     }
 }
 
@@ -167,8 +184,7 @@ function stampa_matrice(matrice) {
             // creazione del div
             let div = document.createElement("div");
             div.className = "matrice-div";
-            div.innerHTML = elementi[matrice[i][j]];
-            matrice[i][j] = div.innerHTML;
+            div.innerHTML = "<img height ='70px' width='70px'src='img/" + elementi[matrice[i][j]] + "'></img>";
 
             if (matrice[i][j] == "c.png") {
                 div.style.backgroundColor = 'lightyellow'
@@ -238,72 +254,6 @@ function stampa_matrice(matrice) {
 }
 
 stampa_matrice(matrice);
-
-function stampa_matrice_secondo(matrice) {
-
-    console.log("Matrice nella" + matrice);
-    let container = document.getElementById("container");
-    container.innerHTML = "";
-    for (let i = 0; i < matrice.length; i++) {
-        for (let j = 0; j < matrice[i].length; j++) {
-            // creazione del div
-            let div = document.createElement("div");
-            div.className = "matrice-div";
-            div.innerHTML = matrice[i][j];
-
-            //assegnazione della funzione click ai div
-            //gestione di quali div vengono cliccati
-            div.addEventListener('click', function () {
-                if (!prima_cella) {
-                    let index = Array.from(divs).indexOf(this);
-
-                    // Calcola la riga e la colonna corrispondenti all'indice
-                    row1 = Math.floor(index / 5);
-                    col1 = index % 5;
-                    console.log("prima riga" + row1 + "prima colonna" + col1);
-
-                    console.log(div);
-
-                    // Se il primo div non è stato cliccato, memorizza il riferimento
-                    prima_cella = div;
-                    prima_cella.style.backgroundColor = 'lightgreen'; // Opzionale: evidenzia il primo div cliccato
-                } else if (prima_cella === div) {
-                    // Se il primo div è cliccato di nuovo, deselezionalo
-                    prima_cella.style.backgroundColor = '';
-                    prima_cella = null;
-                } else {
-                    let index = Array.from(divs).indexOf(this);
-
-                    // Calcola la riga e la colonna corrispondenti all'indice
-                    row2 = Math.floor(index / 5);
-                    col2 = index % 5;
-                    console.log("seconda riga" + row2 + "seconda colonna" + col2);
-
-                    console.log(div);
-
-                    // Se il secondo div è cliccato, memorizza il riferimento e scambia
-                    seconda_cella = div;
-                    seconda_cella.style.backgroundColor = 'lightgreen'; // Opzionale: evidenzia il secondo div cliccato
-                    if (verifica_spostamento(row1, col1, row2, col2)) {
-                        swap_div();
-                    } else {
-                        setTimeout(() => {
-                            prima_cella.style.backgroundColor = '';
-                            seconda_cella.style.backgroundColor = '';
-
-                            // Resetta le variabili delle coordinate
-                            prima_cella = null;
-                            seconda_cella = null;
-                        }, 500);
-                    }
-                }
-            });
-
-
-            container.appendChild(div);
-        }
-    }
-}
 
 function verifica_spostamento(row1, col1, row2, col2) {
     if (row2 == row1 - 1 && col1 == col2) {
@@ -422,15 +372,13 @@ function cerca(riga, colonna, matrice) {
 }
 
 function scambio_perdita(){
-    matrice[row2][col2] = prima_cella.innerHTML;
-    matrice[row1][col1] = seconda_cella.innerHTML;
+    let temp = matrice[row2][col2]
+    matrice[row2][col2] = matrice[row1][col1];
+    matrice[row1][col1] = temp;
 
     console.log(matrice);
 
-
-    const temp = prima_cella.innerHTML;
-    prima_cella.innerHTML = seconda_cella.innerHTML;
-    seconda_cella.innerHTML = temp;
+    stampa_matrice(matrice);
 }
 
 //funzione per implementare la discesa degli elementi in caso verticale
@@ -441,7 +389,7 @@ function triplo_verticale() {
         for(i = element.riga; i > 0; i--){
             matrice[i][element.colonna] = matrice[i -1][element.colonna];
         } 
-        matrice[i][element.colonna] = elementi[generaNumero(0,element.colonna)]; 
+        matrice[i][element.colonna] = generaNumero(0,element.colonna); 
     });   
 }
 
@@ -452,13 +400,13 @@ function triplo_orizzontale(matrice) {
         for(i = element.riga; i > 0; i--){
                 matrice[i][element.colonna] = matrice[i -1][element.colonna];
         }  
-        matrice[0][element.colonna] = elementi[generaNumero(0,element.colonna)]; 
+        matrice[0][element.colonna] = generaNumero(0,element.colonna); 
         
     });
     console.log(matrice);
     console.log("matrice dopo il triplo" + matrice);
 
-    stampa_matrice_secondo(matrice);
+    stampa_matrice(matrice);
  
 
 }
@@ -475,8 +423,13 @@ function quaduplo_orizzontale() {
         for(i = element.riga; i > 0; i--){
                 matrice[i][element.colonna] = matrice[i -1][element.colonna];
         }  
-        matrice[0][element.colonna] = elementi[generaNumero(0,element.colonna)]; 
+        matrice[0][element.colonna] = generaNumero(0,element.colonna); 
+        
     });
+    console.log(matrice);
+    console.log("matrice dopo il triplo" + matrice);
+
+    stampa_matrice(matrice);
 }
 
 //funzione per implementare la discesa degli elementi in caso verticale
@@ -491,7 +444,7 @@ function quintuplo_orizzontale() {
         for(i = element.riga; i > 0; i--){
                 matrice[i][element.colonna] = matrice[i -1][element.colonna];
         }  
-        matrice[0][element.colonna] = elementi[generaNumero(0,element.colonna)]; 
+        matrice[0][element.colonna] = generaNumero(0,element.colonna); 
     });
 }
 
