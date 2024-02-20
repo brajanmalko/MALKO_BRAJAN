@@ -1,0 +1,319 @@
+/*Page Setup*/
+@font-face {
+    font-family: 'stopbullying';
+    src: url('Assets/Stop_Bullying.ttf') format('truetype');
+}
+
+
+* {
+    transition: all 0.25s ease-in;
+}
+
+/*
+body {
+    font-family: 'stopbullying', serif;
+    background-image: linear-gradient(to bottom, #b7e09f, #addd91, #a2d982, #98d674, #8dd265);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    animation: FadeInAnimation ease-in 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}*/
+
+body {
+    font-family: 'stopbullying', serif;
+    background-image: url('Assets/Background.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #10120f9a;
+    animation: FadeInAnimation ease-in 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    margin: 0;
+}
+
+.BlackFade{
+    background-color: #10120f9a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.GreenFade{
+    background-color: #2a6b0a26;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/*Scrollbar*/
+body::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    border: 1px solid #a2d982;
+    background-color: #a2d982;
+    box-shadow: inset 0 0 6px #a2d982;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(.5, #396f1a), color-stop(1, #468322));
+    border-radius: 10px;
+}
+
+
+
+/*Hover Effects*/
+.HoverEffect2 {
+    background-image: linear-gradient(rgb(0 0 0/0%) 0 0);
+}
+
+.HoverEffect1:hover {
+    transform: scale(1.03);
+}
+
+.HoverEffect2:hover {
+    background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+}
+
+.HoverEffect1:active {
+    transform: scale(0.9);
+}
+
+.HoverEffect2:active {
+    background-image: linear-gradient(rgb(0 0 0/30%) 0 0);
+    transform: scale(0.95);
+}
+
+.HoverEffectSuddle1:hover {
+    transform: scale(1.02);
+}
+
+
+
+/*Black Fade*/
+@keyframes FadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes FadeOutAnimation {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes PulseAnimation {
+    0% {scale: 1}
+    50% {scale: 1.05}
+    100% {scale: 1}
+}
+
+.PulseAnimation{
+    animation-name: PulseAnimation;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+.FadeOut{
+    opacity: 0%;
+}
+
+.FadeHin{
+    opacity: 100%;
+}
+
+
+/*Text Area*/
+.TextArea {
+    width: 400px;
+    height: auto;
+    border: 5px black solid;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+.TextAreaTextCon {
+    display: grid;
+    align-content: center;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+    justify-items: center;
+}
+
+.TextAreaImage {
+    width: 90%;
+}
+
+
+/*Spalsh Screen*/
+
+.SplashLayer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SplashLayerCon{
+    margin: auto auto;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SplashLogoCon{
+    height: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Logo COn*/
+.LogoCon{
+    height: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.LogoImg{
+    height: 100%;
+}
+
+
+/*Menu Ui*/
+
+.MenuButtonsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Buttons*/
+.Button {
+    padding: 10px 50px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 30px;
+}
+
+.MenuButton{
+    padding: 25px 110px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 50px;
+    font-size: 30px;
+    margin: 5px;
+}
+
+
+.MenuButton2{
+    padding: 15px 70px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 50px;
+    font-size: 20px;
+    margin: 5px;
+}
+
+
+/*Button Colors*/
+.GreenButton {
+    background-color: #a6e659;
+}
+
+.RedButton {
+    background-color: #e65959;
+}
+
+.WhiteButton {
+    background-color: #f8fff4;
+}
+
+.BlackButton {
+    background-color: #10120f;
+}
+
+.YellowButton {
+    background-color: #f1c24d;
+}
+
+.BorderedGreenButton {
+    background-color: #a6e659;
+    border: 5px #405b1e solid;
+}
+
+
+/*Text Colors*/
+.BlackText {
+    color: black;
+}
+
+.WhiteText {
+    color: white;
+}
+
+.GreenText {
+    color: #9cdc4d;
+}
+
+
+/*Text Borders*/
+.TextBorderWhite {
+    text-shadow: -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px -1px 0 #ffffff;
+}
+.TextBorderBlack {
+    text-shadow: -1px 1px 0 #000000,
+        1px 1px 0 #000000,
+        1px -1px 0 #000000,
+        -1px -1px 0 #000000;
+}
+.TextBorderGreenBig {
+    text-shadow: -3px 3px 0 #405b1e,
+        3px 3px 0 #405b1e,
+        3px -3px 0 #405b1e,
+        -3px -3px 0 #405b1e;
+}
+
+/*Other*/
+.Hidden {
+    display: none;
+}
+
+.CursorPointer{
+    cursor: pointer;
+}
