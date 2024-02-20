@@ -1,4 +1,4 @@
-let elementi = ["c.png","p.png","v.png","s.png","r.png","pdr.png","a.png"];
+let elementi = ["c.png","p.png","v.png","s.png","r.png","pdr.png","a.png","animazione1.gif","animazione.gif"];
 
 var matrice = [[], [], [], [], []];
 
@@ -110,19 +110,32 @@ function swap_div() {
             console.log(matrice);
 
         if(matrice[row2][col2] == 5 || matrice[row1][col1] == 5){
+            setTimeout(() => {
+                scambio_perdita();
 
-             if(matrice[row2][col2] == 5){
-                    potere_del_riciclo(row2,col2);
-            }else{
-                    potere_del_riciclo(row1, col1);
-            }     
+            }, 500);
+
+            setTimeout(() => {
+                if(matrice[row2][col2] == 5){
+                        potere_del_riciclo(row2,col2);
+                }else{               
+                        potere_del_riciclo(row1, col1);
+                } 
+            }, 1000);    
         }else if(matrice[row2][col2] == 6 || matrice[row1][col1] == 6){
+            setTimeout(() => {
+                scambio_perdita();
 
+            }, 500);
+
+            setTimeout(() => {
             if(matrice[row2][col2] == 6){
                     amore_della_natura(row2,col2);
             }else{
                     amore_della_natura(row1, col1);
             }
+
+            }, 1000);  
         }else if(matrice[row2][col2] == 4 || matrice[row1][col1] == 4){
             scambio_perdita();
         }else{
@@ -455,6 +468,8 @@ function triplo_verticale() {
                 }
                 
             } 
+
+    matrice[0][colonna] = generaNumero(0,colonna);
     
     stampa_matrice(matrice);
     
@@ -469,7 +484,7 @@ function triplo_orizzontale(matrice) {
                 matrice[i][element.colonna] = matrice[i -1][element.colonna];
                 setTimeout(() => {
                     stampa_matrice(matrice);
-                }, 300);
+                }, 400);
         }  
         matrice[0][element.colonna] = generaNumero(0,element.colonna); 
         
@@ -501,6 +516,8 @@ function quaduplo_verticale() {
                 
         } 
         matrice[riga][colonna] = 5;
+
+        matrice[0][colonna] = generaNumero(0,colonna);
     
     stampa_matrice(matrice);
 
@@ -534,9 +551,12 @@ function quintuplo_verticale() {
         for(i = riga; i > 0; i--){
 
             console.log("Elemento riga = " + i);
-            matrice[i][colonna] = generaNumero(i,colonna);
+
+                    matrice[i][colonna] = generaNumero(i,colonna);
                 
-            } 
+        } 
+        matrice[riga][colonna] = 6;
+        matrice[0][colonna] = generaNumero(0,colonna);
     
     stampa_matrice(matrice);
 
@@ -544,18 +564,16 @@ function quintuplo_verticale() {
 
 //funzione per implementare la discesa degli elementi in caso orizzontale
 function quintuplo_orizzontale() {
+    ultimo = dati_riga.posizione.pop();
+    riga = dati_riga.posizione[0].riga;
     dati_riga.posizione.forEach(function(element) {
         console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
         for(i = element.riga; i > 0; i--){
-            
                 matrice[i][element.colonna] = matrice[i -1][element.colonna];
-                setTimeout(() => {
-                    stampa_matrice(matrice);
-                }, 300);
-        }  
-        matrice[0][element.colonna] = generaNumero(0,element.colonna); 
-        
+        }     
     });
+
+    matrice[riga][ultimo.colonna] = 6; 
     console.log(matrice);
     console.log("matrice dopo il triplo" + matrice);
 
@@ -572,7 +590,9 @@ function potere_del_riciclo(riga, colonna){
         for(i = riga + 1; i > 0; i--){
 
             console.log("Elemento riga = " + i);
-
+            if(i == matrice.length){
+                i--;
+            }
                 if(i == 4){
                     matrice[i][colonna] = matrice[i - 3][colonna];
                     matrice[i - 3][colonna] = generaNumero(i,colonna);
@@ -591,36 +611,45 @@ function potere_del_riciclo(riga, colonna){
         }
             
             for(n = riga; n > 0; n--){
+                if(matrice[n][colonna -1] != undefined){
                     matrice[n][colonna - 1] = matrice[n -1][colonna -1];
+
+                    matrice[0][colonna - 1] = generaNumero(0,colonna - 1); 
                     setTimeout(() => {
                         stampa_matrice(matrice);
-                     }, 300);
+                     }, 1000);
+                }  
             }  
 
             for(m = riga; m > 0; m--){
-                matrice[m][colonna + 1] = matrice[m -1][colonna +1];
-                setTimeout(() => {
-                    stampa_matrice(matrice);
-                 }, 300);
+                if(matrice[n][colonna + 1] != undefined){
+                    matrice[m][colonna + 1] = matrice[m -1][colonna +1];
+
+                    matrice[0][colonna + 1] = generaNumero(0,colonna + 1); 
+                    setTimeout(() => {
+                        stampa_matrice(matrice);
+                    }, 1000);
+                }
             }  
 
-        matrice[0][colonna - 1] = generaNumero(0,colonna - 1); 
-        matrice[0][colonna + 1] = generaNumero(0,colonna + 1); 
+        
+       
         console.log(matrice);
     
         stampa_matrice(matrice);
+
+        controllo_swap(matrice);
 }
 
 //funzione per attivare l'amore della natura se cliccato
-function amore_della_natura(row, col){
-    dati_colonna.posizione.reverse();
-    let riga = dati_colonna.posizione[0].riga;
-    let colonna = dati_colonna.posizione[0].colonna;
-        console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
-        for(i = riga; i > 0; i--){
+function amore_della_natura(riga, colonna){
+
+        for(i = riga + 1; i > 0; i--){
 
             console.log("Elemento riga = " + i);
-
+            if(i == matrice.length){
+                i--;
+            }
                 if(i == 4){
                     matrice[i][colonna] = matrice[i - 3][colonna];
                     matrice[i - 3][colonna] = generaNumero(i,colonna);
@@ -633,9 +662,67 @@ function amore_della_natura(row, col){
                     matrice[i][colonna] = generaNumero(i,colonna);
                 }
                 
-            } 
+        } 
+
+        matrice[0][colonna] = generaNumero(0,colonna);
+
+        for(let n = riga + 1; n > 0; n--){
+
+            console.log("Elemento riga = " + n);
+
+            if(n == matrice.length){
+                n--;
+            }
+            
+            if(matrice[n][colonna - 1] != undefined){
+                if(n == 4){
+                    matrice[n][colonna - 1] = matrice[n - 3][colonna - 1];
+                    matrice[n - 3][colonna - 1] = generaNumero(n,colonna - 1);
+                }
+                else if(n == 3){
+                    matrice[n][colonna - 1] = matrice[n - 3][colonna - 1];
+                    matrice[n - 3][colonna - 1] = generaNumero(n,colonna - 1);
+                }
+                else{
+                    matrice[n][colonna - 1] = generaNumero(n,colonna - 1);
+                }
+            }
+            
+            matrice[0][colonna] = generaNumero(0,colonna - 1);
+
+        } 
+
+        
+        for(let m = riga + 1; m > 0; m--){
+
+            console.log("Elemento riga = " + m);
+
+            if(m == matrice.length){
+                m--;
+            }
+
+            if(matrice[m][colonna + 1] != undefined){
+                if(m == 4){
+                    matrice[m][colonna + 1] = matrice[m - 3][colonna + 1];
+                    matrice[m - 3][colonna + 1] = generaNumero(m,colonna + 1);
+                }
+                else if(m == 3){
+                    matrice[m][colonna + 1] = matrice[m - 3][colonna + 1];
+                    matrice[m - 3][colonna + 1] = generaNumero(m,colonna + 1);
+                }
+                else{
+                    matrice[m][colonna + 1] = generaNumero(m,colonna + 1);
+                }
+            }
+            matrice[0][colonna] = generaNumero(0,colonna + 1);
+        } 
+
+        
     
     stampa_matrice(matrice);
+    
+    controllo_swap(matrice);
+
 }
 
 //Debug
