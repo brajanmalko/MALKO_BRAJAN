@@ -35,7 +35,7 @@ body {
     margin: 0;
 }
 
-.BlackFade{
+.BlackFade {
     background-color: #10120f9a;
     position: fixed;
     top: 0;
@@ -45,7 +45,7 @@ body {
     z-index: -1;
 }
 
-.GreenFade{
+.GreenFade {
     background-color: #2a6b0a26;
     position: fixed;
     top: 0;
@@ -124,25 +124,45 @@ body::-webkit-scrollbar-thumb {
 }
 
 @keyframes PulseAnimation {
-    0% {scale: 1}
-    50% {scale: 1.05}
-    100% {scale: 1}
+    0% {
+        scale: 1
+    }
+
+    50% {
+        scale: 1.05
+    }
+
+    100% {
+        scale: 1
+    }
 }
 
-.PulseAnimation{
+.PulseAnimation {
     animation-name: PulseAnimation;
     animation-duration: 3s;
     animation-iteration-count: infinite;
 }
 
-.FadeOut{
+.FadeOut {
     opacity: 0%;
 }
 
-.FadeHin{
+.FadeHin {
     opacity: 100%;
 }
 
+.BlackOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
 
 /*Text Area*/
 .TextArea {
@@ -168,7 +188,7 @@ body::-webkit-scrollbar-thumb {
 
 /*Spalsh Screen*/
 
-.SplashLayer{
+.SplashLayer {
     position: fixed;
     top: 0;
     left: 0;
@@ -179,7 +199,7 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
 }
 
-.SplashLayerCon{
+.SplashLayerCon {
     margin: auto auto;
     display: flex;
     width: 100%;
@@ -187,7 +207,7 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
 }
 
-.SplashLogoCon{
+.SplashLogoCon {
     height: 400px;
     width: 100%;
     display: flex;
@@ -195,9 +215,153 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
     align-items: center;
 }
+
+
+/*UI Layer*/
+
+.UILayer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* Settings Layer */
+
+.SettingsLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.SettingsBackground {
+    width: 90%;
+    height: 85%;
+    background-color: #9cdc4d;
+    border: 8px #405b1e solid;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+@media (orientation : landscape) {
+    .SettingsBackground {
+        width: 70%;
+        height: 85%;
+        background-color: #9cdc4d;
+        border: 8px #405b1e solid;
+        border-radius: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+}
+
+.SettingsHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.SettingsContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SettingsConRow {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.SettingsCheckbox {
+    width: 8%;
+}
+
+.SettingsConRowLanguage {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LangaugeIconsCon {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 60%;
+}
+
+.SettingsLanguageIcon {
+    width: 15%;
+}
+
+.LanguageSelected {
+    border: 4px solid #468322;
+    border-radius: 50%;
+}
+
+.SettingsConRowFooter{
+    text-align: center;
+    width: 70%;
+    margin-top: 10%;
+}
+
+
+/* Select Level Layer */
+.SelectLevelLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.LayerBackground {
+    width: 40%;
+    height: 65%;
+    background-color: #9cdc4d;
+    border: 8px #405b1e solid;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
 
 /*Logo COn*/
-.LogoCon{
+.LogoCon {
     height: 400px;
     width: 100%;
     display: flex;
@@ -206,14 +370,14 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
 }
 
-.LogoImg{
+.LogoImg {
     height: 100%;
 }
 
 
 /*Menu Ui*/
 
-.MenuButtonsContainer{
+.MenuButtonsContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -228,7 +392,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 30px;
 }
 
-.MenuButton{
+.MenuButton {
     padding: 25px 110px;
     font-family: 'stopbullying', serif;
     border: 5px black solid;
@@ -237,14 +401,23 @@ body::-webkit-scrollbar-thumb {
     margin: 5px;
 }
 
-
-.MenuButton2{
+.MenuButton2 {
     padding: 15px 70px;
     font-family: 'stopbullying', serif;
     border: 5px black solid;
     border-radius: 50px;
     font-size: 20px;
     margin: 5px;
+}
+
+.CloseXButton {
+    padding: 10px 15px;
+    font-family: 'stopbullying', serif;
+    border: 5px rgb(98, 31, 31) solid;
+    background-color: #e65959;
+    color: rgb(98, 31, 31);
+    border-radius: 15px;
+    font-size: 15px;
 }
 
 
@@ -274,6 +447,16 @@ body::-webkit-scrollbar-thumb {
     border: 5px #405b1e solid;
 }
 
+.BorderedYellowButton {
+    background-color: #f1c24d;
+    border: 5px #977828 solid;
+}
+
+.BorderedRedButton {
+    background-color: #e65959;
+    border: 5px #a42f2f solid;
+}
+
 
 /*Text Colors*/
 .BlackText {
@@ -296,12 +479,14 @@ body::-webkit-scrollbar-thumb {
         1px -1px 0 #ffffff,
         -1px -1px 0 #ffffff;
 }
+
 .TextBorderBlack {
     text-shadow: -1px 1px 0 #000000,
         1px 1px 0 #000000,
         1px -1px 0 #000000,
         -1px -1px 0 #000000;
 }
+
 .TextBorderGreenBig {
     text-shadow: -3px 3px 0 #405b1e,
         3px 3px 0 #405b1e,
@@ -314,6 +499,6 @@ body::-webkit-scrollbar-thumb {
     display: none;
 }
 
-.CursorPointer{
+.CursorPointer {
     cursor: pointer;
 }

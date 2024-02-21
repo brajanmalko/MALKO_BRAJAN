@@ -24,31 +24,90 @@
 
 <body>
     <div class="BlackFade"></div>
+    <div class="BlackOverlay" id="BlackOverlay"></div>
 
-    <audio autoplay loop id="MainMenuMusic">
-        <source src="Assets/MusicAndSounds/BGM!.mp3" type="audio/mpeg" >
+
+    <audio autoplay id="ButtonClickSFX1">
+        <source src="Assets/MusicAndSounds/UITap1.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
+    <audio autoplay id="ButtonClickSFX2">
+        <source src="Assets/MusicAndSounds/UITap2.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio autoplay loop id="MainMenuMusic">
+        <source src="Assets/MusicAndSounds/BGM1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+
     <div class="SplashLayer" id="SplashCon">
         <div class="SplashLayerCon">
-        <div class="SplashLogoCon"><img src="Assets\Logo.png" alt="Eco Rush" class="LogoImg PulseAnimation"></div>
-        <h1 class="GreenText TextBorderGreenBig">Tap to continue</h1>
-        <div class="GreenFade"></div></div>
+            <div class="SplashLogoCon"><img src="Assets\Logo.png" alt="Eco Rush" class="LogoImg PulseAnimation"></div>
+            <h1 class="GreenText TextBorderGreenBig">Tocca per continuare</h1>
+            <div class="GreenFade"></div>
+        </div>
     </div>
 
     <div class="UILayer Hidden FadeOut" id="MainUICOn">
         <div class="LogoCon"><img src="Assets\Logo.png" alt="Eco Rush" class="LogoImg"></div>
         <div class="MenuButtonsContainer">
-            <input type="button" value="Play" id="PlayButton"
-                class="MenuButton BorderedGreenButton BlackText HoverEffect1 CursorPointer">
-            <input type="button" value="Settings" id="SettingsButton"
-                class="MenuButton2 BorderedGreenButton BlackText HoverEffect1 CursorPointer">
+            <input type="button" value="Gioca" id="PlayButton"
+                class="MenuButton BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
+            <input type="button" value="Impostazioni" id="SettingsButton"
+                class="MenuButton2 BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
         </div>
     </div>
 
-    <div class="SettingsLayer FadeOut Hidden" id="SettingsCon">
-        <div class="SettingsBackground"></div>
+    <div class="SettingsLayer Hidden FadeOut" id="SettingsCon">
+        <div class="SettingsBackground">
+            <div class="SettingsHeader">
+                <h1>Impostazioni</h1>
+                <input type="button" value="X" class="CloseXButton TapSFX2 HoverEffect1 CursorPointer"
+                    id="ColseSettingsButton">
+            </div>
+            <div class="SettingsContent">
+                <div class="SettingsConRow">
+                    <h2>Musica:</h2>
+                    <img src="Assets/CheckBoxOn.png" alt="Checkbox" id="SettingsMusicCheckbox"
+                        class="SettingsCheckbox HoverEffect1 TapSFX1">
+                </div>
+                <div class="SettingsConRow">
+                    <h2>Effetti Sonori:</h2>
+                    <img src="Assets/CheckBoxOn.png" alt="Checkbox" id="SettingsSFXCheckbox"
+                        class="SettingsCheckbox HoverEffect1 TapSFX1">
+                </div>
+                <!-- Language 
+                <div class="SettingsConRowLanguage">
+                    <h2>Language</h2>
+                    <div class="LangaugeIconsCon">
+                        <img src="Assets/EnIcon.png" alt="En" id="SettingsEnIcon" class="SettingsLanguageIcon HoverEffect1 LanguageSelected">
+                        <img src="Assets/ItIcon.png" alt="It" id="SettingsItIcon" class="SettingsLanguageIcon HoverEffect1">
+                    </div>
+                </div>-->
+                <div class="SettingsConRowFooter">
+                    <h4>Brajan Malko - ✦ - Gianluca Grammatica</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="SelectLevelLayer Hidden FadeOut" id="LevelLayer">
+        <div class="LayerBackground">
+            <div class="SettingsHeader">
+                <h2>Seleziona Livello</h2>
+                <input type="button" value="X" class="CloseXButton TapSFX2 HoverEffect1 CursorPointer"
+                    id="LevelButonCancel">
+            </div>
+            <input type="button" value="Normale"
+                class="Button BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonNormale">
+            <input type="button" value="Medio"
+                class="Button BorderedYellowButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonMedio">
+            <input type="button" value="Difficile"
+                class="Button BorderedRedButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonDifficile">
+        </div>
     </div>
 
     <script type="text/javascript" src="HomePage.js"></script>
