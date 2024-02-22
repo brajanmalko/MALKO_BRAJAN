@@ -46,7 +46,7 @@
     <div class="SplashLayer" id="SplashCon">
         <div class="SplashLayerCon">
             <div class="SplashLogoCon"><img src="Assets\Logo.png" alt="Eco Rush" class="LogoImg PulseAnimation"></div>
-            <h1 class="GreenText TextBorderGreenBig">Tocca per continuare</h1>
+            <h1 class="GreenText TextBorderGreenBig ScalableH1">Tocca per continuare</h1>
             <div class="GreenFade"></div>
         </div>
     </div>
@@ -58,24 +58,26 @@
                 class="MenuButton BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
             <input type="button" value="Impostazioni" id="SettingsButton"
                 class="MenuButton2 BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
+            <input type="button" value="Classifica" id="ClassificaButton"
+                class="MenuButton2 BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
         </div>
     </div>
 
     <div class="SettingsLayer Hidden FadeOut" id="SettingsCon">
         <div class="SettingsBackground">
             <div class="SettingsHeader">
-                <h1>Impostazioni</h1>
+                <h1 class="ScalableH1">Impostazioni</h1>
                 <input type="button" value="X" class="CloseXButton TapSFX2 HoverEffect1 CursorPointer"
                     id="ColseSettingsButton">
             </div>
             <div class="SettingsContent">
                 <div class="SettingsConRow">
-                    <h2>Musica:</h2>
+                    <h2 class="ScalableH2">Musica:</h2>
                     <img src="Assets/CheckBoxOn.png" alt="Checkbox" id="SettingsMusicCheckbox"
                         class="SettingsCheckbox HoverEffect1 TapSFX1">
                 </div>
                 <div class="SettingsConRow">
-                    <h2>Effetti Sonori:</h2>
+                    <h2 class="ScalableH2">Effetti Sonori:</h2>
                     <img src="Assets/CheckBoxOn.png" alt="Checkbox" id="SettingsSFXCheckbox"
                         class="SettingsCheckbox HoverEffect1 TapSFX1">
                 </div>
@@ -88,7 +90,7 @@
                     </div>
                 </div>-->
                 <div class="SettingsConRowFooter">
-                    <h4>Brajan Malko - ✦ - Gianluca Grammatica</h4>
+                    <h4 class="ScalableH4">Brajan Malko - ✦ - Gianluca Grammatica</h4>
                 </div>
             </div>
         </div>
@@ -97,7 +99,7 @@
     <div class="SelectLevelLayer Hidden FadeOut" id="LevelLayer">
         <div class="LayerBackground">
             <div class="SettingsHeader">
-                <h2>Seleziona Livello</h2>
+                <h2 class="ScalableH2">Seleziona Livello</h2>
                 <input type="button" value="X" class="CloseXButton TapSFX2 HoverEffect1 CursorPointer"
                     id="LevelButonCancel">
             </div>
@@ -107,6 +109,30 @@
                 class="Button BorderedYellowButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonMedio">
             <input type="button" value="Difficile"
                 class="Button BorderedRedButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonDifficile">
+        </div>
+    </div>
+
+    <div class="NameLayer Hidden FadeOut" id="NameLayer">
+        <div class="LayerBackgroundSmall">
+            <div class="TitleHeader">
+                <h2 class="ScalableH2">Inserisci il tuo nome</h2>
+            </div>
+            <input type="text" placeholder="Nome"
+                class="TextInput BorderedWitheButton BlackText HoverEffect1 CursorPointer" id="NameInput">
+            <div class="NmaeLayerButtons">
+                <input type="button" value="Annulla"
+                    class="Button BorderedYellowButton BlackText HoverEffect1 CursorPointer TapSFX1"
+                    id="NameButonCancel">
+                <input type="button" value="Continua"
+                    class="Button BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1" id="NameGoButton">
+            </div>
+        </div>
+    </div>
+
+    <div class="NoNameLayer Hidden FadeOut" id="NoNameLayer">
+        <div class="LayerAlert">
+            <h2 class="ScalableH2">Inserisci un nome!</h2>
+            </div>
         </div>
     </div>
 
