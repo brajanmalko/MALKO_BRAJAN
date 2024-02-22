@@ -1,0 +1,263 @@
+/*Page Setup*/
+@font-face {
+    font-family: 'stopbullying';
+    src: url('Assets/Stop_Bullying.ttf') format('truetype');
+}
+
+* {
+    transition: all 0.25s ease-in;
+}
+
+body {
+    font-family: 'stopbullying', serif;
+    background-image: linear-gradient(to bottom, #b7e09f, #addd91, #a2d982, #98d674, #8dd265);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    animation: FadeInAnimation ease-in 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.ExampleContainer {
+    width: 50%;
+    margin: 0 auto;
+}
+
+@media (orientation : portrait) {
+    .ExampleContainer {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+.ExampleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ExampleButtonContainer {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px;
+    flex-wrap: wrap;
+}
+
+.TextExamples {
+    text-align: center;
+}
+
+.TextAresExampleCon {
+    display: flex;
+}
+
+.ExampleButtonContainer2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 10px auto;
+    flex-wrap: wrap;
+}
+
+
+
+/*Scrollbar*/
+body::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    border: 1px solid #a2d982;
+    background-color: #a2d982;
+    box-shadow: inset 0 0 6px #a2d982;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(.5, #396f1a), color-stop(1, #468322));
+    border-radius: 10px;
+}
+
+
+
+/*Hover Effects*/
+
+.HoverEffect2 {
+    background-image: linear-gradient(rgb(0 0 0/0%) 0 0);
+}
+
+.HoverEffect1:hover {
+    transform: scale(1.03);
+}
+
+.HoverEffect2:hover {
+    background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+}
+
+.HoverEffect1:active {
+    transform: scale(0.9);
+}
+
+.HoverEffect2:active {
+    background-image: linear-gradient(rgb(0 0 0/30%) 0 0);
+    transform: scale(0.95);
+}
+
+.HoverEffectSuddle1:hover {
+    transform: scale(1.02);
+}
+
+
+/*Black Fade*/
+@keyframes FadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+/*Text Area*/
+.TextArea {
+    width: 400px;
+    height: auto;
+    border: 5px black solid;
+    border-radius: 30px;
+    margin: 10px;
+}
+
+.TextAreaTextCon {
+    display: grid;
+    align-content: center;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+    justify-items: center;
+}
+
+.TextAreaImage {
+    width: 90%;
+}
+
+
+
+/*Buttons*/
+.Button {
+    padding: 10px 50px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 30px;
+}
+
+
+
+/*Progress Bars*/
+.ProgressBarContainer {
+    width: 70%;
+    margin: 0 auto;
+    height: 30px;
+    border: 5px black solid;
+    border-radius: 20px;
+    margin: 5px;
+    background-color: #82887f79;
+}
+
+.ProgressBar {
+    text-align: center;
+    height: 30px;
+    display: flex;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 0%;
+}
+
+.ImageProgressBarContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ProgressBarImage {
+    height: 30px;
+}
+
+.ProgressBarImage {
+    width: auto;
+}
+
+.GreenBackground {
+    background-image: linear-gradient(to right, #b1ef64, #a6e659, #9cdc4d, #92d341, #87ca35);
+}
+
+.YellowBackground {
+    background-image: linear-gradient(to right, #ffbf52, #fbba4b, #f6b445, #f2af3e, #edaa37);
+}
+
+.BlueBackground {
+    background-image: linear-gradient(to right, #5f7ee3, #5776dd, #4f6fd6, #4767d0, #3f60c9);
+}
+
+.DarkGreenBackground {
+    background-image: linear-gradient(to right, #166528, #145c24, #125320, #104a1d, #0e4119);
+}
+
+.VioletBackground {
+    background-image: linear-gradient(to right, #985dbf, #9256b9, #8b50b4, #8549ae, #7f42a9);
+}
+
+.WhiteBackground {
+    background-image: linear-gradient(to bottom, #edffe3, #e8fedc, #e3fed5, #dffdcd, #dafcc6);
+}
+
+
+/*Button Colors*/
+.GreenButton {
+    background-color: #a6e659;
+}
+
+.RedButton {
+    background-color: #e65959;
+}
+
+.WhiteButton {
+    background-color: #f8fff4;
+}
+
+.BlackButton {
+    background-color: #10120f;
+}
+
+.YellowButton {
+    background-color: #f1c24d;
+}
+
+
+/*Text Colors*/
+.BlackText {
+    color: black;
+}
+
+.WhiteText {
+    color: white;
+}
+
+.GreenText {
+    color: #9cdc4d;
+}
+
+
+
+/*Other*/
+.Hiden {
+    display: none;
+}
