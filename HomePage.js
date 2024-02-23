@@ -4,6 +4,7 @@ let SettingsCon = document.getElementById("SettingsCon");
 let LevelLayer = document.getElementById("LevelLayer");
 let NameLayer = document.getElementById("NameLayer");
 let NoNameLayer = document.getElementById("NoNameLayer");
+let ClassificaLayer = document.getElementById("ClassificaLayer");
 
 let MainMenuMusic = document.getElementById("MainMenuMusic");
 let ButtonClickSFX1 = document.getElementById("ButtonClickSFX1");
@@ -11,8 +12,10 @@ let ButtonClickSFX2 = document.getElementById("ButtonClickSFX2");
 
 let PlayButton = document.getElementById("PlayButton");
 let SettingsButton = document.getElementById("SettingsButton");
+let ClassificaButton = document.getElementById("ClassificaButton");
 let LevelButonCancel = document.getElementById("LevelButonCancel");
 let NameButonCancel = document.getElementById("NameButonCancel");
+let ClassificaButonCancel = document.getElementById("ClassificaButonCancel");
 let NameGoButton = document.getElementById("NameGoButton");
 let NameInput = document.getElementById("NameInput");
 let LevelButonNormale = document.getElementById("LevelButonNormale");
@@ -22,6 +25,7 @@ let LevelButonDifficile = document.getElementById("LevelButonDifficile");
 let SettingsMusicCheckbox = document.getElementById("SettingsMusicCheckbox");
 let SettingsSFXCheckbox = document.getElementById("SettingsSFXCheckbox");
 let ColseSettingsButton = document.getElementById("ColseSettingsButton");
+let ClassificaRowsCon = document.getElementById("ClassificaRowsCon");
 let BlackOverlay = document.getElementById("BlackOverlay");
 
 let TapSFX1Items = document.getElementsByClassName("TapSFX1");
@@ -38,14 +42,7 @@ let LevelsArray = ["index.html", "index.html", "index.html"]
 let SettingsSaves = {
     "MusicVolume": 1,
     "SFXVolume": 0.2,
-    "Classifica": {
-        "Sandrina" : 182,
-        "Gigiotto" : 12,
-        "Saluun" : 192,
-        "Wabakii" : 182,
-        "Sacrso" : 2,
-        "Otto" : 88
-    },
+    "Classifica": {},
     "CurrentPlayer": ""
 }
 
@@ -65,10 +62,44 @@ if (localStorage.getItem('EcoRushSettings')) {
     else {
         SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
     }
-    if(SettingsSaves.CurrentPlayer != undefined && SettingsSaves.CurrentPlayer != 0 && SettingsSaves.CurrentPlayer != ""){
+    if (SettingsSaves.CurrentPlayer != undefined && SettingsSaves.CurrentPlayer != 0 && SettingsSaves.CurrentPlayer != "") {
         NameInput.value = SettingsSaves.CurrentPlayer
     }
 
+}
+
+
+/* Classifica help */
+
+let ImmaginiClassifica = ["Classifica1.png", "Classifica2.png", "Classifica3.png", "Classifica4.png", "Classifica5.png"]
+
+let ClassificaSorted = Object.fromEntries(
+    Object.entries(SettingsSaves.Classifica)
+        .sort(([, a], [, b]) => b - a)
+);
+
+ClassificaRowsCon.innerHTML += `<div class="ClassificaRow">
+<h4 class="ScalableH4">Classifica Vuota</h4>
+</div>`
+
+if (Object.keys(SettingsSaves.Classifica ).length != 0) {
+    ClassificaRowsCon.innerHTML = ""
+    let count = 0;
+    for (let key in ClassificaSorted) {
+        if (count < 5) {
+            console.log(`${key}: ${ClassificaSorted[key]}`);
+
+            ClassificaRowsCon.innerHTML += `<div class="ClassificaRow">
+        <img src="Assets/${ImmaginiClassifica[count]}" alt="Checkbox" class="ClassificaImg">
+        <h4 class="ScalableH4">${key}</h4>
+        <h2 class="ScalableH2">${ClassificaSorted[key]}</h2>
+    </div>`
+            count++;
+        } else {
+            break;
+        }
+        console.log("aaaa")
+    }
 }
 
 
@@ -86,7 +117,7 @@ function PlayTapSFX2() {
     ButtonClickSFX2.volume = SettingsSaves.SFXVolume;
     ButtonClickSFX2.currentTime = 0;
     ButtonClickSFX2.play;
-    console.log("wap", SFXVolume)
+    console.log("wop")
 }
 
 for (let i = 0; i < TapSFX1Items.length; i++) {
@@ -147,6 +178,18 @@ SettingsButton.addEventListener("click", function () {
     }, 420);
     MainUICOn.classList.add('FadeOut')
     SettingsCon.classList.remove('Hidden');
+    PlayTapSFX1();
+}
+)
+
+ClassificaButton.addEventListener("click", function () {
+    setTimeout(function () {
+        MainUICOn.classList.add('Hidden');
+        ClassificaLayer.classList.remove('FadeOut');
+        ClassificaLayer.classList.add('FadeIn');
+    }, 420);
+    MainUICOn.classList.add('FadeOut')
+    ClassificaLayer.classList.remove('Hidden');
     PlayTapSFX1();
 }
 )
@@ -269,4 +312,17 @@ NameGoButton.addEventListener("click", function () {
         NoNameLayer.classList.remove('Hidden');
         PlayTapSFX2();
     }
+})
+
+/* Classifica Layer */
+
+ClassificaButonCancel.addEventListener("click", function () {
+    setTimeout(function () {
+        ClassificaLayer.classList.add('Hidden');
+        MainUICOn.classList.remove('FadeOut');
+        MainUICOn.classList.add('FadeIn');
+    }, 420);
+    ClassificaLayer.classList.add('FadeOut')
+    MainUICOn.classList.remove('Hidden');
+    PlayTapSFX2();
 })
