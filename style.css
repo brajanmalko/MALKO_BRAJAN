@@ -1,3 +1,8 @@
+*{
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
 body{
     display:flex;
     flex-direction: column;
@@ -6,11 +11,29 @@ body{
     height: 100vh;
     width: 100vw;
     margin:0;
+    background-image: url('Assets/Background.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.BlackFade {
+    background-color: #10120f9a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr  1fr 1fr 1fr;
+}
+
+:focus{
+    outline:none;
 }
 
 .matrice-div{
@@ -28,12 +51,4 @@ body{
 
 .hidden{
     display: none;
-}
-
-#sfondo{
-    object-fit: cover;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    position:absolute;
 }

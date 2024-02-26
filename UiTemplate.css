@@ -200,7 +200,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .YellowBackground {
-    background-image: linear-gradient(to right, #ffbf52, #fbba4b, #f6b445, #f2af3e, #edaa37);
+    background-image: linear-gradient(to right, #faca77, #fbba4b, #f6b445, #f2af3e, #edaa37);
 }
 
 .BlueBackground {
@@ -212,7 +212,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .VioletBackground {
-    background-image: linear-gradient(to right, #985dbf, #9256b9, #8b50b4, #8549ae, #7f42a9);
+    background-image: linear-gradient(to right, #c99ee6, #9256b9, #8b50b4, #8549ae, #7f42a9);
 }
 
 .WhiteBackground {
