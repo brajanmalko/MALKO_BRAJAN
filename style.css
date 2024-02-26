@@ -7,6 +7,7 @@
 * {
     user-select: none;
     -webkit-user-drag: none;
+    transition: all 0.15s ease-in;
 }
 
 body {
@@ -27,6 +28,28 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+}
+
+.FadeOut {
+    opacity: 0%;
+}
+
+.FadeIn {
+    opacity: 100%;
+}
+
+.BlackOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    background-image: linear-gradient(to bottom, #0e0f04, #0f1103, #101401, #101601, #101800);
+    z-index: 999;
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
 }
 
 :focus {
@@ -94,12 +117,21 @@ body {
 }
 
 /* UI */
-.GameStatsCon1{
+.GameStatsCon1 {
     display: flex;
     width: 50%;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: row;
+}
+
+.GameAndSideStatsCon{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: 100%;
 }
 
 /* Colors */
@@ -145,6 +177,74 @@ body {
 
 .hidden {
     display: none;
+}
+
+/*Progress Bars*/
+.ProgressBarContainer {
+    width: 95%;
+    margin: 0 auto;
+    height: 30px;
+    border: 5px black solid;
+    border-radius: 20px;
+    margin: 5px;
+    background-color: #82887f79;
+}
+
+.ProgressBar {
+    text-align: center;
+    height: 30px;
+    display: flex;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 0%;
+}
+
+.ImageProgressBarContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ProgressBarImage {
+    height: 30px;
+}
+
+.ProgressBarImage {
+    width: auto;
+}
+
+.GreenBackground {
+    background-image: linear-gradient(to right, #b1ef64, #a6e659, #9cdc4d, #92d341, #87ca35);
+}
+
+.YellowBackground {
+    background-image: linear-gradient(to right, #faca77, #fbba4b, #f6b445, #f2af3e, #edaa37);
+}
+
+.BlueBackground {
+    background-image: linear-gradient(to right, #5f7ee3, #5776dd, #4f6fd6, #4767d0, #3f60c9);
+}
+
+.DarkGreenBackground {
+    background-image: linear-gradient(to right, #166528, #145c24, #125320, #104a1d, #0e4119);
+}
+
+.VioletBackground {
+    background-image: linear-gradient(to right, #c99ee6, #9256b9, #8b50b4, #8549ae, #7f42a9);
+}
+
+.WhiteBackground {
+    background-image: linear-gradient(to bottom, #edffe3, #e8fedc, #e3fed5, #dffdcd, #dafcc6);
+}
+
+.ProgressBarsCon{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 /*Buttons*/

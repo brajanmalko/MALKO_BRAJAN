@@ -1,4 +1,4 @@
-let elementi = ["c.png","p.png","v.png","s.png","r.png","pdr.png","a.png","animazione1.gif","animazione.gif"];
+let elementi = ["c.png", "p.png", "v.png", "s.png", "r.png", "pdr.png", "a.png", "animazione1.gif", "animazione.gif"];
 
 var matrice = [[], [], [], [], []];
 
@@ -7,7 +7,7 @@ var row1, row2, col1, col2;
 //contatori per la generazione della matrice
 let numero, numero_precedente;
 let carta, secco, plastica, vetro;
-
+let CanPlay = true
 let cnt = 0;
 
 //Controlli per il radiattivo
@@ -35,6 +35,15 @@ const punti_secco = 1;
 //Elementi UI
 let ScoreText = document.getElementById('ScoreText');
 let PlayerNameText = document.getElementById('PlayerNameText');
+let ProgressBar1 = document.getElementById("ProgressBar1")
+let ProgressBarText1 = document.getElementById("ProgressBarText1")
+let ProgressBar2 = document.getElementById("ProgressBar2")
+let ProgressBarText2 = document.getElementById("ProgressBarText2")
+let ProgressBar3 = document.getElementById("ProgressBar3")
+let ProgressBarText3 = document.getElementById("ProgressBarText3")
+let ProgressBar4 = document.getElementById("ProgressBar4")
+let ProgressBarText4 = document.getElementById("ProgressBarText4")
+let BlackOverlay = document.getElementById("BlackOverlay");
 
 /*Storage*/
 let SettingsSaves = {
@@ -69,16 +78,57 @@ if (localStorage.getItem('EcoRushSettings')) {
 
 PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
 
+BlackOverlay.style.opacity = '0'
+
+
+//Aggiorna Barre di completamento
+function UpdateBars() {
+    ProgressBarText1.innerText = numero_carta
+    if (numero_carta == 0) {
+        ProgressBarText1.innerText = ""
+    }
+    if (numero_carta >= 50) {
+        ProgressBarText1.innerText = "Done"
+    }
+    ProgressBar1.style.width = numero_carta * 2 + "%"
+
+    ProgressBarText2.innerText = numero_plastica
+    if (numero_plastica == 0) {
+        ProgressBarText2.innerText = ""
+    }
+    if (numero_plastica >= 50) {
+        ProgressBarText2.innerText = "Done"
+    }
+    ProgressBar2.style.width = numero_plastica * 2 + "%"
+
+    ProgressBarText3.innerText = numero_vetro
+    if (numero_vetro == 0) {
+        ProgressBarText3.innerText = ""
+    }
+    if (numero_vetro >= 50) {
+        ProgressBarText3.innerText = "Done"
+    }
+    ProgressBar3.style.width = numero_vetro * 2 + "%"
+
+    ProgressBarText4.innerText = numero_secco
+    if (numero_secco == 0) {
+        ProgressBarText4.innerText = ""
+    }
+    if (numero_secco >= 50) {
+        ProgressBarText4.innerText = "Done"
+    }
+    ProgressBar4.style.width = numero_secco * 2 + "%"
+}
 
 //funzione per generare il contenuto dei div della matrice
 function generaNumero(i, j, max) {
 
     //Rendi possibile la caduta di un rad
-    if(rAttivi && dropsFatti > dropTraIRad){
+    if (rAttivi && dropsFatti > dropTraIRad) {
         max = 5;
         dropsFatti = 0;
     }
-    else{
+    else {
         max = 4;
     }
 
@@ -110,13 +160,13 @@ function generaNumero(i, j, max) {
 
 function genera_drop(righe, colonne) {
     let max = 4 //Massimo numero generabile
-    
+
     for (let i = 0; i < righe; i++) {
         for (let j = 0; j < colonne; j++) {
             matrice[i][j] = generaNumero(i, j, max)
 
             //Counter per i drop radiattivi
-            if(rAttivi){
+            if (rAttivi) {
                 dropsFatti++
             }
         }
@@ -138,80 +188,82 @@ function swap_div() {
         console.log(matrice[row2][col2]);
         console.log(matrice[row1][col1]);
 
-        
-            let temp = matrice[row2][col2];
-            matrice[row2][col2] = matrice[row1][col1];
-            matrice[row1][col1] = temp;
 
-            stampa_matrice(matrice);
+        let temp = matrice[row2][col2];
+        matrice[row2][col2] = matrice[row1][col1];
+        matrice[row1][col1] = temp;
 
-            console.log(matrice);
+        stampa_matrice(matrice);
 
-        if(matrice[row2][col2] == 5 || matrice[row1][col1] == 5){
+        console.log(matrice);
+
+        if (matrice[row2][col2] == 5 || matrice[row1][col1] == 5) {
             setTimeout(() => {
                 scambio_perdita();
 
             }, 500);
 
             setTimeout(() => {
-                if(matrice[row2][col2] == 5){
-                        potere_del_riciclo(row2,col2);
-                }else{               
-                        potere_del_riciclo(row1, col1);
-                } 
-            }, 1000);    
-        }else if(matrice[row2][col2] == 6 || matrice[row1][col1] == 6){
+                if (matrice[row2][col2] == 5) {
+                    potere_del_riciclo(row2, col2);
+                } else {
+                    potere_del_riciclo(row1, col1);
+                }
+            }, 1000);
+        } else if (matrice[row2][col2] == 6 || matrice[row1][col1] == 6) {
             setTimeout(() => {
                 scambio_perdita();
 
             }, 500);
 
             setTimeout(() => {
-            if(matrice[row2][col2] == 6){
-                    amore_della_natura(row2,col2);
-            }else{
+                if (matrice[row2][col2] == 6) {
+                    amore_della_natura(row2, col2);
+                } else {
                     amore_della_natura(row1, col1);
-            }
+                }
 
-            }, 1000);  
-        }else if(matrice[row2][col2] == 4 || matrice[row1][col1] == 4){
+            }, 1000);
+        } else if (matrice[row2][col2] == 4 || matrice[row1][col1] == 4) {
             scambio_perdita();
-        }else{
+        } else {
             cerca(row2, col2, matrice);
             combo(cons_riga, cons_colonna);
             console.log("Primo cliccato rig" + cons_riga + "Primo cliccato col" + cons_colonna)
-            if(valore == false){
+            if (valore == false) {
                 cerca(row1, col1, matrice);
                 combo(cons_riga, cons_colonna);
                 console.log("secondo cliccato rig" + cons_riga + "secondo cliccato col" + cons_colonna)
 
-                if(valore == false){
+                if (valore == false) {
                     setTimeout(() => {
                         scambio_perdita();
 
                     }, 500);
                 }
             }
-            
 
-            
+
+
 
             console.log("Combo riga = " + cons_riga + "Combo colonna = " + cons_colonna)
         }
-        
-            setTimeout(() => {
-                prima_cella.classList.remove('SelectedDivBG');
-                seconda_cella.classList.remove('SelectedDivBG');
+        CanPlay = false
 
-                // Resetta le variabili delle coordinate
-                prima_cella = null;
-                seconda_cella = null;
-            }, 500);
+        setTimeout(() => {
+            prima_cella.classList.remove('SelectedDivBG');
+            seconda_cella.classList.remove('SelectedDivBG');
 
-            controllo_swap(matrice);
-        }
-        
-       
+            // Resetta le variabili delle coordinate
+            prima_cella = null;
+            seconda_cella = null;
+            CanPlay = true
+        }, 500);
+
+        controllo_swap(matrice);
+    }
+
+
 }
 
 
@@ -219,7 +271,7 @@ function swap_div() {
 
 var valore;
 
-function combo(cons_riga, cons_colonna){
+function combo(cons_riga, cons_colonna) {
     valore = true;
     if (cons_riga == 5) {
         console.log('combo 5 riga');
@@ -240,23 +292,23 @@ function combo(cons_riga, cons_colonna){
     else if (cons_riga == 3) {
         let tipo = true;
         verifica_combo_speciale(tipo);
-            if(combo_speciale == true){
-                return
-            }else{
-                console.log('combo 3 riga');
-                triplo_orizzontale(matrice);      
-            }
+        if (combo_speciale == true) {
+            return
+        } else {
+            console.log('combo 3 riga');
+            triplo_orizzontale(matrice);
+        }
     }
     else if (cons_colonna == 3) {
         let tipo = false;
         verifica_combo_speciale(tipo);
-            if(combo_speciale == true){
-                return;
-            }else{
-                console.log('combo 3 colonna');
-                    triplo_verticale(matrice);
-            }            
-    }else {
+        if (combo_speciale == true) {
+            return;
+        } else {
+            console.log('combo 3 colonna');
+            triplo_verticale(matrice);
+        }
+    } else {
         valore = false;
     }
 }
@@ -304,47 +356,55 @@ function stampa_matrice(matrice) {
             //assegnazione della funzione click ai div
             //gestione di quali div vengono cliccati
             div.addEventListener('click', function () {
-                if (!prima_cella) {
-                    let index = Array.from(divs).indexOf(this);
+                if (CanPlay) {
+                    if (!prima_cella) {
+                        let index = Array.from(divs).indexOf(this);
 
-                    // Calcola la riga e la colonna corrispondenti all'indice
-                    row1 = Math.floor(index / 5);
-                    col1 = index % 5;
-                    console.log("prima riga" + row1 + "prima colonna" + col1);
+                        // Calcola la riga e la colonna corrispondenti all'indice
+                        row1 = Math.floor(index / 5);
+                        col1 = index % 5;
+                        console.log("prima riga" + row1 + "prima colonna" + col1);
 
-                    console.log(div);
+                        console.log(div);
 
-                    // Se il primo div non è stato cliccato, memorizza il riferimento
-                    prima_cella = div;
-                    prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
-                } else if (prima_cella === div) {
-                    // Se il primo div è cliccato di nuovo, deselezionalo
-                    prima_cella.classList.remove('SelectedDivBG');
-                    prima_cella = null;
-                } else {
-                    let index = Array.from(divs).indexOf(this);
-
-                    // Calcola la riga e la colonna corrispondenti all'indice
-                    row2 = Math.floor(index / 5);
-                    col2 = index % 5;
-                    console.log("seconda riga" + row2 + "seconda colonna" + col2);
-
-                    console.log(div);
-
-                    // Se il secondo div è cliccato, memorizza il riferimento e scambia
-                    seconda_cella = div;
-                    seconda_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il secondo div cliccato
-                    if (verifica_spostamento(row1, col1, row2, col2)) {
-                        swap_div();
+                        // Se il primo div non è stato cliccato, memorizza il riferimento
+                        prima_cella = div;
+                        prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
+                    } else if (prima_cella === div) {
+                        // Se il primo div è cliccato di nuovo, deselezionalo
+                        prima_cella.classList.remove('SelectedDivBG');
+                        prima_cella = null;
                     } else {
-                        setTimeout(() => {
-                            prima_cella.classList.remove('SelectedDivBG');
-                            seconda_cella.classList.remove('SelectedDivBG');
+                        let index = Array.from(divs).indexOf(this);
 
-                            // Resetta le variabili delle coordinate
-                            prima_cella = null;
-                            seconda_cella = null;
-                        }, 500);
+                        // Calcola la riga e la colonna corrispondenti all'indice
+                        row2 = Math.floor(index / 5);
+                        col2 = index % 5;
+                        console.log("seconda riga" + row2 + "seconda colonna" + col2);
+
+                        console.log(div);
+
+                        // Se il secondo div è cliccato, memorizza il riferimento e scambia
+                        seconda_cella = div;
+                        seconda_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il secondo div cliccato
+                        if (verifica_spostamento(row1, col1, row2, col2)) {
+                            swap_div();
+                        } else {
+                            CanPlay = false
+                            setTimeout(() => {
+                                if (prima_cella.classList.contains('SelectedDivBG')) {
+                                    prima_cella.classList.remove('SelectedDivBG');
+                                }
+                                if (seconda_cella.classList.contains('SelectedDivBG')) {
+                                    seconda_cella.classList.remove('SelectedDivBG');
+                                }
+
+                                // Resetta le variabili delle coordinate
+                                prima_cella = null;
+                                seconda_cella = null;
+                                CanPlay = true
+                            }, 500);
+                        }
                     }
                 }
             });
@@ -431,47 +491,47 @@ function cerca(riga, colonna, matrice) {
     console.log(riga);
     console.log(colonna);
 
-    for (let m = 0; m < matrice.length -1; m++) {
-            if(matrice[m+1][colonna] != undefined && matrice[m + 1][colonna] === matrice[m][colonna]){
-                cons_colonna++;
-                dati_colonna.cons_colonna++;
-                dati_colonna.posizione.push({ riga: m, colonna });
+    for (let m = 0; m < matrice.length - 1; m++) {
+        if (matrice[m + 1][colonna] != undefined && matrice[m + 1][colonna] === matrice[m][colonna]) {
+            cons_colonna++;
+            dati_colonna.cons_colonna++;
+            dati_colonna.posizione.push({ riga: m, colonna });
 
-                if(m == 3){
-                    dati_colonna.posizione.push({ riga: m + 1, colonna });
-                }
+            if (m == 3) {
+                dati_colonna.posizione.push({ riga: m + 1, colonna });
             }
-            else {
-                if (cons_colonna != 1) {
-                    if(cons_colonna >= 3){
-                        dati_colonna.posizione.push({ riga: m, colonna });
-                    }
-                    break;
+        }
+        else {
+            if (cons_colonna != 1) {
+                if (cons_colonna >= 3) {
+                    dati_colonna.posizione.push({ riga: m, colonna });
                 }
-            } 
-            
+                break;
+            }
+        }
+
     }
-        
 
-    
 
-    for (let l = 0; l < matrice.length ; l++) {
 
-        if(matrice[riga][l+1] != undefined && matrice[riga][l + 1] === matrice[riga][l]){
-                cons_riga++;
-                dati_riga.cons_riga++;
-                dati_riga.posizione.push({ riga, colonna: l });
-            }
-            else {
-                if (cons_riga != 1) {
-                    if(cons_riga >= 3){
-                        dati_riga.posizione.push({ riga, colonna : l});
-                    }
-                    break;
+
+    for (let l = 0; l < matrice.length; l++) {
+
+        if (matrice[riga][l + 1] != undefined && matrice[riga][l + 1] === matrice[riga][l]) {
+            cons_riga++;
+            dati_riga.cons_riga++;
+            dati_riga.posizione.push({ riga, colonna: l });
+        }
+        else {
+            if (cons_riga != 1) {
+                if (cons_riga >= 3) {
+                    dati_riga.posizione.push({ riga, colonna: l });
                 }
+                break;
             }
-            
-        
+        }
+
+
     }
     console.log(dati_colonna);
     console.log(dati_riga);
@@ -572,36 +632,36 @@ function cerca_doppio(tipo){
 */
 var combo_speciale = false;
 
-function verifica_combo_speciale(tipo){
-    if(tipo == true){
-        dati_riga.posizione.forEach(function(element) {
+function verifica_combo_speciale(tipo) {
+    if (tipo == true) {
+        dati_riga.posizione.forEach(function (element) {
             cerca(element.riga, element.colonna, matrice);
-            if(dati_colonna.posizione.length === 3){
+            if (dati_colonna.posizione.length === 3) {
                 riga_i = dati_colonna.posizione[0].riga;
                 riga_f = dati_colonna.posizione[2].riga;
-        
-                if(matrice[riga_f][element.colonna] == matrice[element.riga][element.colonna]){
+
+                if (matrice[riga_f][element.colonna] == matrice[element.riga][element.colonna]) {
                     combo_speciale = true;
                     quintuplo_croce_sopra();
-                }else if(matrice[riga_i][element.colonna] == matrice[element.riga][element.colonna]){
+                } else if (matrice[riga_i][element.colonna] == matrice[element.riga][element.colonna]) {
                     combo_speciale = true;
                     quintuplo_croce_sotto();
                 }
             }
         });
-    }else{
-        let cnt  = 0;
-        dati_colonna.posizione.forEach(function(element) {
+    } else {
+        let cnt = 0;
+        dati_colonna.posizione.forEach(function (element) {
             cerca(element.riga, element.colonna, matrice);
-            if(dati_riga.posizione.length == 3){
+            if (dati_riga.posizione.length == 3) {
                 colonna_i = dati_riga.posizione[0].riga;
                 colonna_f = dati_riga.posizione[2].riga;
-        
-                if(matrice[element.riga][colonna_f] == matrice[element.riga][element.colonna] || matrice[element.riga][colonna_i] == matrice[element.riga][element.colonna]){
-                    if(cnt == 0){
+
+                if (matrice[element.riga][colonna_f] == matrice[element.riga][element.colonna] || matrice[element.riga][colonna_i] == matrice[element.riga][element.colonna]) {
+                    if (cnt == 0) {
                         combo_speciale = true;
                         quintuplo_croce_sopra();
-                    }else if(cnt == 2){
+                    } else if (cnt == 2) {
                         combo_speciale = true;
                         quintuplo_croce_sotto();
                     }
@@ -611,24 +671,24 @@ function verifica_combo_speciale(tipo){
         });
     }
 
-    if(dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3){
+    if (dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3) {
         combo_speciale = false;
     }
-    
+
 }
 
 //funzione per verificare se ci sono combo nella matrice dopo gli swap
 
-function controllo_swap(matrice){
-    for(i = 0; i<matrice.length; i++){
-        for(j = 0; j<matrice.length; j++){
+function controllo_swap(matrice) {
+    for (i = 0; i < matrice.length; i++) {
+        for (j = 0; j < matrice.length; j++) {
             cerca(i, j, matrice);
             combo(cons_riga, cons_colonna)
         }
     }
 }
 
-function scambio_perdita(){
+function scambio_perdita() {
     let temp = matrice[row2][col2]
     matrice[row2][col2] = matrice[row1][col1];
     matrice[row1][col1] = temp;
@@ -646,30 +706,30 @@ function triplo_verticale() {
 
     let combo = 3;
     assegna_punti(riga, colonna, combo);
-    
-        console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
-        for(i = riga; i > 0; i--){
 
-            console.log("Elemento riga = " + i);
+    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    for (i = riga; i > 0; i--) {
 
-                if(i == 4){
-                    matrice[i][colonna] = matrice[i - 3][colonna];
-                    matrice[i - 3][colonna] = generaNumero(i,colonna);
-                }
-                else if(i == 3){
-                    matrice[i][colonna] = matrice[i - 3][colonna];
-                    matrice[i - 3][colonna] = generaNumero(i,colonna);
-                }
-                else{
-                    matrice[i][colonna] = generaNumero(i,colonna);
-                }
-                
-            } 
+        console.log("Elemento riga = " + i);
 
-    matrice[0][colonna] = generaNumero(0,colonna);
+        if (i == 4) {
+            matrice[i][colonna] = matrice[i - 3][colonna];
+            matrice[i - 3][colonna] = generaNumero(i, colonna);
+        }
+        else if (i == 3) {
+            matrice[i][colonna] = matrice[i - 3][colonna];
+            matrice[i - 3][colonna] = generaNumero(i, colonna);
+        }
+        else {
+            matrice[i][colonna] = generaNumero(i, colonna);
+        }
+
+    }
+
+    matrice[0][colonna] = generaNumero(0, colonna);
 
     stampa_matrice(matrice);
-    
+
 }
 
 //funzione per implementare la discesa degli elementi in caso orizzontale
@@ -680,21 +740,21 @@ function triplo_orizzontale(matrice) {
     let combo = 3;
     assegna_punti(riga, colonna, combo);
 
-    dati_riga.posizione.forEach(function(element) {
+    dati_riga.posizione.forEach(function (element) {
         console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
-        for(i = element.riga; i > 0; i--){
-            
-                matrice[i][element.colonna] = matrice[i -1][element.colonna];
-                setTimeout(() => {
-                    stampa_matrice(matrice);
-                }, 400);
-        }  
-        matrice[0][element.colonna] = generaNumero(0,element.colonna); 
-        
+        for (i = element.riga; i > 0; i--) {
+
+            matrice[i][element.colonna] = matrice[i - 1][element.colonna];
+            setTimeout(() => {
+                stampa_matrice(matrice);
+            }, 400);
+        }
+        matrice[0][element.colonna] = generaNumero(0, element.colonna);
+
     });
     console.log(matrice);
     console.log("matrice dopo il triplo" + matrice);
-    
+
     stampa_matrice(matrice);
 
 }
@@ -708,24 +768,24 @@ function quaduplo_verticale() {
     let combo = 4;
     assegna_punti(riga, colonna, combo);
 
-        console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
-        for(i = riga; i > 0; i--){
+    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    for (i = riga; i > 0; i--) {
 
-            console.log("Elemento riga = " + i);
+        console.log("Elemento riga = " + i);
 
-                if(i == 4){
-                    matrice[i][colonna] = matrice[i - 4][colonna];
-                    matrice[0][colonna] = generaNumero(i,colonna);
-                }
-                else{
-                    matrice[i][colonna] = generaNumero(i,colonna);
-                }
-                
-        } 
-        matrice[riga][colonna] = 5;
+        if (i == 4) {
+            matrice[i][colonna] = matrice[i - 4][colonna];
+            matrice[0][colonna] = generaNumero(i, colonna);
+        }
+        else {
+            matrice[i][colonna] = generaNumero(i, colonna);
+        }
 
-        matrice[0][colonna] = generaNumero(0,colonna);
-    
+    }
+    matrice[riga][colonna] = 5;
+
+    matrice[0][colonna] = generaNumero(0, colonna);
+
     stampa_matrice(matrice);
 
 }
@@ -741,14 +801,14 @@ function quaduplo_orizzontale() {
 
     ultimo = dati_riga.posizione.pop();
     riga = dati_riga.posizione[0].riga;
-    dati_riga.posizione.forEach(function(element) {
+    dati_riga.posizione.forEach(function (element) {
         console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
-        for(i = element.riga; i > 0; i--){
-                matrice[i][element.colonna] = matrice[i -1][element.colonna];
-        }     
+        for (i = element.riga; i > 0; i--) {
+            matrice[i][element.colonna] = matrice[i - 1][element.colonna];
+        }
     });
 
-    matrice[riga][ultimo.colonna] = 5; 
+    matrice[riga][ultimo.colonna] = 5;
     console.log(matrice);
     console.log("matrice dopo il triplo" + matrice);
 
@@ -765,17 +825,17 @@ function quintuplo_verticale() {
     let combo = 5;
     assegna_punti(riga, colonna, combo);
 
-        console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
-        for(i = riga; i > 0; i--){
+    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    for (i = riga; i > 0; i--) {
 
-            console.log("Elemento riga = " + i);
+        console.log("Elemento riga = " + i);
 
-                    matrice[i][colonna] = generaNumero(i,colonna);
-                
-        } 
-        matrice[riga][colonna] = 6;
-        matrice[0][colonna] = generaNumero(0,colonna);
-    
+        matrice[i][colonna] = generaNumero(i, colonna);
+
+    }
+    matrice[riga][colonna] = 6;
+    matrice[0][colonna] = generaNumero(0, colonna);
+
     stampa_matrice(matrice);
 
 }
@@ -790,14 +850,14 @@ function quintuplo_orizzontale() {
 
     ultimo = dati_riga.posizione.pop();
     riga = dati_riga.posizione[0].riga;
-    dati_riga.posizione.forEach(function(element) {
+    dati_riga.posizione.forEach(function (element) {
         console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
-        for(i = element.riga; i > 0; i--){
-                matrice[i][element.colonna] = matrice[i -1][element.colonna];
-        }     
+        for (i = element.riga; i > 0; i--) {
+            matrice[i][element.colonna] = matrice[i - 1][element.colonna];
+        }
     });
 
-    matrice[riga][ultimo.colonna] = 6; 
+    matrice[riga][ultimo.colonna] = 6;
     console.log(matrice);
     console.log("matrice dopo il triplo" + matrice);
 
@@ -806,7 +866,7 @@ function quintuplo_orizzontale() {
 
 //funzione per far partire la combo ad L se trovata
 
-function quintuplo_croce_sopra(){
+function quintuplo_croce_sopra() {
     console.log("COMBO CROCE sopra");
     triplo_orizzontale(matrice);
     dati_colonna.posizione.reverse();
@@ -815,28 +875,28 @@ function quintuplo_croce_sopra(){
     let colonna = dati_colonna.posizione[0].colonna;
 
     riga++;
-    
+
 
     console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
-        for(i = riga; i > 0; i--){
+    for (i = riga; i > 0; i--) {
 
-            console.log("Elemento riga = " + i);
+        console.log("Elemento riga = " + i);
 
-                if(i == 4 || i== 2 || i==3){
-                    matrice[i][colonna] = matrice[i - 2][colonna];
-                    matrice[i - 2][colonna] = generaNumero(i,colonna);
-                }else{
-                    matrice[i][colonna] = generaNumero(i,colonna);
-                }
-                
-            } 
+        if (i == 4 || i == 2 || i == 3) {
+            matrice[i][colonna] = matrice[i - 2][colonna];
+            matrice[i - 2][colonna] = generaNumero(i, colonna);
+        } else {
+            matrice[i][colonna] = generaNumero(i, colonna);
+        }
 
-    matrice[0][colonna] = generaNumero(0,colonna);
-    
+    }
+
+    matrice[0][colonna] = generaNumero(0, colonna);
+
     stampa_matrice(matrice);
 }
 
-function quintuplo_croce_sotto(){
+function quintuplo_croce_sotto() {
     console.log("COMBO CROCE sotto");
     triplo_orizzontale(matrice);
     dati_colonna.posizione.reverse();
@@ -844,230 +904,252 @@ function quintuplo_croce_sotto(){
     let riga = dati_colonna.posizione[0].riga;
     let colonna = dati_colonna.posizione[0].colonna;
 
-    
+
 
     console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
-        for(i = riga; i > 0; i--){
+    for (i = riga; i > 0; i--) {
 
-            console.log("Elemento riga = " + i);
+        console.log("Elemento riga = " + i);
 
-                if(i == 4 || i== 2 || i==3){
-                    matrice[i][colonna] = matrice[i - 2][colonna];
-                    matrice[i - 2][colonna] = generaNumero(i,colonna);
-                }else{
-                    matrice[i][colonna] = generaNumero(i,colonna);
-                }
-                
-            } 
+        if (i == 4 || i == 2 || i == 3) {
+            matrice[i][colonna] = matrice[i - 2][colonna];
+            matrice[i - 2][colonna] = generaNumero(i, colonna);
+        } else {
+            matrice[i][colonna] = generaNumero(i, colonna);
+        }
 
-    matrice[0][colonna] = generaNumero(0,colonna);
-    
+    }
+
+    matrice[0][colonna] = generaNumero(0, colonna);
+
     stampa_matrice(matrice);
 }
 //funzione per attivare il potere del riciclo se cliccato
-function potere_del_riciclo(riga, colonna){
-        let combo = 1
+function potere_del_riciclo(riga, colonna) {
+    let combo = 1
 
-        if(matrice[riga -1][colonna] != undefined){
-            assegna_punti(riga -1, colonna, combo);
-        }
-        else if(matrice[riga +1][colonna] != undefined){
-            assegna_punti(riga +1, colonna, combo);
-        }
-        else if(matrice[riga][colonna -1] != undefined){
-            assegna_punti(riga, colonna -1, combo);
-        }
-        else if(matrice[riga][colonna +1] != undefined){
-            assegna_punti(riga, colonna +1, combo);
-        }
-        
-        
+    if (matrice[riga - 1][colonna] != undefined) {
+        assegna_punti(riga - 1, colonna, combo);
+    }
+    else if (matrice[riga + 1][colonna] != undefined) {
+        assegna_punti(riga + 1, colonna, combo);
+    }
+    else if (matrice[riga][colonna - 1] != undefined) {
+        assegna_punti(riga, colonna - 1, combo);
+    }
+    else if (matrice[riga][colonna + 1] != undefined) {
+        assegna_punti(riga, colonna + 1, combo);
+    }
 
-        for(i = riga + 1; i > 0; i--){
 
-            console.log("Elemento riga = " + i);
-            if(i == matrice.length){
-                i--;
-            }
-                if(i == 4){
-                    matrice[i][colonna] = matrice[i - 3][colonna];
-                    matrice[i - 3][colonna] = generaNumero(i,colonna);
-                    stampa_matrice(matrice)
-                }
-                else if(i == 3){
-                    matrice[i][colonna] = matrice[i - 3][colonna];
-                    matrice[i - 3][colonna] = generaNumero(i,colonna);
-                    stampa_matrice(matrice)
-                }
-                else{
-                    matrice[i][colonna] = generaNumero(i,colonna);
-                    stampa_matrice(matrice)
-                }
-                
+
+    for (i = riga + 1; i > 0; i--) {
+
+        console.log("Elemento riga = " + i);
+        if (i == matrice.length) {
+            i--;
+        }
+        if (i == 4) {
+            matrice[i][colonna] = matrice[i - 3][colonna];
+            matrice[i - 3][colonna] = generaNumero(i, colonna);
+            stampa_matrice(matrice)
+        }
+        else if (i == 3) {
+            matrice[i][colonna] = matrice[i - 3][colonna];
+            matrice[i - 3][colonna] = generaNumero(i, colonna);
+            stampa_matrice(matrice)
+        }
+        else {
+            matrice[i][colonna] = generaNumero(i, colonna);
+            stampa_matrice(matrice)
         }
 
-        matrice[0][colonna] = generaNumero(0,colonna);
-            
-            for(n = riga; n > 0; n--){
-                if(matrice[n][colonna -1] != undefined){
-                    matrice[n][colonna - 1] = matrice[n -1][colonna -1];
+    }
 
-                    matrice[0][colonna - 1] = generaNumero(0,colonna - 1); 
-                    setTimeout(() => {
-                        stampa_matrice(matrice);
-                     }, 1000);
-                }  
-            }  
+    matrice[0][colonna] = generaNumero(0, colonna);
 
-            for(m = riga; m > 0; m--){
-                if(matrice[n][colonna + 1] != undefined){
-                    matrice[m][colonna + 1] = matrice[m -1][colonna +1];
+    for (n = riga; n > 0; n--) {
+        if (matrice[n][colonna - 1] != undefined) {
+            matrice[n][colonna - 1] = matrice[n - 1][colonna - 1];
 
-                    matrice[0][colonna + 1] = generaNumero(0,colonna + 1); 
-                    setTimeout(() => {
-                        stampa_matrice(matrice);
-                    }, 1000);
-                }
-            }  
+            matrice[0][colonna - 1] = generaNumero(0, colonna - 1);
+            setTimeout(() => {
+                stampa_matrice(matrice);
+            }, 1000);
+        }
+    }
 
-        
-       
-        console.log(matrice);
-    
-        stampa_matrice(matrice);
+    for (m = riga; m > 0; m--) {
+        if (matrice[n][colonna + 1] != undefined) {
+            matrice[m][colonna + 1] = matrice[m - 1][colonna + 1];
 
-        controllo_swap(matrice);
+            matrice[0][colonna + 1] = generaNumero(0, colonna + 1);
+            setTimeout(() => {
+                stampa_matrice(matrice);
+            }, 1000);
+        }
+    }
+
+
+
+    console.log(matrice);
+
+    stampa_matrice(matrice);
+
+    controllo_swap(matrice);
 }
 
 //funzione per attivare l'amore della natura se cliccato
-function amore_della_natura(riga, colonna){
+function amore_della_natura(riga, colonna) {
 
     let combo = 1
-    if(matrice[riga -1][colonna] != undefined){
-        assegna_punti(riga -1, colonna, combo);
+    if (matrice[riga - 1][colonna] != undefined) {
+        assegna_punti(riga - 1, colonna, combo);
     }
-    else if(matrice[riga +1][colonna] != undefined){
-        assegna_punti(riga +1, colonna, combo);
+    else if (matrice[riga + 1][colonna] != undefined) {
+        assegna_punti(riga + 1, colonna, combo);
     }
-    else if(matrice[riga][colonna -1] != undefined){
-        assegna_punti(riga, colonna -1, combo);
+    else if (matrice[riga][colonna - 1] != undefined) {
+        assegna_punti(riga, colonna - 1, combo);
     }
-    else if(matrice[riga][colonna +1] != undefined){
-        assegna_punti(riga, colonna +1, combo);
-    }
-    
-    else if(matrice[riga -1][colonna +1] != undefined){
-        assegna_punti(riga -1, colonna +1, combo);
-    }
-    else if(matrice[riga -1][colonna -1] != undefined){
-        assegna_punti(riga -1, colonna -1, combo);
-    }
-    else if(matrice[riga +1][colonna -1] != undefined){
-        assegna_punti(riga +1, colonna -1, combo);
-    }
-    else if(matrice[riga +1][colonna +1] != undefined){
-        assegna_punti(riga +1, colonna +1, combo);
+    else if (matrice[riga][colonna + 1] != undefined) {
+        assegna_punti(riga, colonna + 1, combo);
     }
 
-        for(i = riga + 1; i > 0; i--){
+    else if (matrice[riga - 1][colonna + 1] != undefined) {
+        assegna_punti(riga - 1, colonna + 1, combo);
+    }
+    else if (matrice[riga - 1][colonna - 1] != undefined) {
+        assegna_punti(riga - 1, colonna - 1, combo);
+    }
+    else if (matrice[riga + 1][colonna - 1] != undefined) {
+        assegna_punti(riga + 1, colonna - 1, combo);
+    }
+    else if (matrice[riga + 1][colonna + 1] != undefined) {
+        assegna_punti(riga + 1, colonna + 1, combo);
+    }
 
-            console.log("Elemento riga = " + i);
-            if(i == matrice.length){
-                i--;
+    for (i = riga + 1; i > 0; i--) {
+
+        console.log("Elemento riga = " + i);
+        if (i == matrice.length) {
+            i--;
+        }
+        if (i == 4) {
+            matrice[i][colonna] = matrice[i - 3][colonna];
+            matrice[i - 3][colonna] = generaNumero(i, colonna);
+        }
+        else if (i == 3) {
+            matrice[i][colonna] = matrice[i - 3][colonna];
+            matrice[i - 3][colonna] = generaNumero(i, colonna);
+        }
+        else {
+            matrice[i][colonna] = generaNumero(i, colonna);
+        }
+
+    }
+
+    matrice[0][colonna] = generaNumero(0, colonna);
+
+    for (let n = riga + 1; n > 0; n--) {
+
+        console.log("Elemento riga = " + n);
+
+        if (n == matrice.length) {
+            n--;
+        }
+
+        if (matrice[n][colonna - 1] != undefined) {
+            if (n == 4) {
+                matrice[n][colonna - 1] = matrice[n - 3][colonna - 1];
+                matrice[n - 3][colonna - 1] = generaNumero(n, colonna - 1);
             }
-                if(i == 4){
-                    matrice[i][colonna] = matrice[i - 3][colonna];
-                    matrice[i - 3][colonna] = generaNumero(i,colonna);
-                }
-                else if(i == 3){
-                    matrice[i][colonna] = matrice[i - 3][colonna];
-                    matrice[i - 3][colonna] = generaNumero(i,colonna);
-                }
-                else{
-                    matrice[i][colonna] = generaNumero(i,colonna);
-                }
-                
-        } 
-
-        matrice[0][colonna] = generaNumero(0,colonna);
-
-        for(let n = riga + 1; n > 0; n--){
-
-            console.log("Elemento riga = " + n);
-
-            if(n == matrice.length){
-                n--;
+            else if (n == 3) {
+                matrice[n][colonna - 1] = matrice[n - 3][colonna - 1];
+                matrice[n - 3][colonna - 1] = generaNumero(n, colonna - 1);
             }
-            
-            if(matrice[n][colonna - 1] != undefined){
-                if(n == 4){
-                    matrice[n][colonna - 1] = matrice[n - 3][colonna - 1];
-                    matrice[n - 3][colonna - 1] = generaNumero(n,colonna - 1);
-                }
-                else if(n == 3){
-                    matrice[n][colonna - 1] = matrice[n - 3][colonna - 1];
-                    matrice[n - 3][colonna - 1] = generaNumero(n,colonna - 1);
-                }
-                else{
-                    matrice[n][colonna - 1] = generaNumero(n,colonna - 1);
-                }
+            else {
+                matrice[n][colonna - 1] = generaNumero(n, colonna - 1);
             }
-            
-            matrice[0][colonna] = generaNumero(0,colonna - 1);
+        }
 
-        } 
+        matrice[0][colonna] = generaNumero(0, colonna - 1);
 
-        
-        for(let m = riga + 1; m > 0; m--){
+    }
 
-            console.log("Elemento riga = " + m);
 
-            if(m == matrice.length){
-                m--;
+    for (let m = riga + 1; m > 0; m--) {
+
+        console.log("Elemento riga = " + m);
+
+        if (m == matrice.length) {
+            m--;
+        }
+
+        if (matrice[m][colonna + 1] != undefined) {
+            if (m == 4) {
+                matrice[m][colonna + 1] = matrice[m - 3][colonna + 1];
+                matrice[m - 3][colonna + 1] = generaNumero(m, colonna + 1);
             }
-
-            if(matrice[m][colonna + 1] != undefined){
-                if(m == 4){
-                    matrice[m][colonna + 1] = matrice[m - 3][colonna + 1];
-                    matrice[m - 3][colonna + 1] = generaNumero(m,colonna + 1);
-                }
-                else if(m == 3){
-                    matrice[m][colonna + 1] = matrice[m - 3][colonna + 1];
-                    matrice[m - 3][colonna + 1] = generaNumero(m,colonna + 1);
-                }
-                else{
-                    matrice[m][colonna + 1] = generaNumero(m,colonna + 1);
-                }
+            else if (m == 3) {
+                matrice[m][colonna + 1] = matrice[m - 3][colonna + 1];
+                matrice[m - 3][colonna + 1] = generaNumero(m, colonna + 1);
             }
-            matrice[0][colonna] = generaNumero(0,colonna + 1);
-        } 
+            else {
+                matrice[m][colonna + 1] = generaNumero(m, colonna + 1);
+            }
+        }
+        matrice[0][colonna] = generaNumero(0, colonna + 1);
+    }
 
-        
-    
+
+
     stampa_matrice(matrice);
-    
+
     controllo_swap(matrice);
 
 }
 
-function assegna_punti(riga, colonna, combo){
-    if(matrice[riga][colonna] != undefined){
-        if(matrice[riga][colonna] == 0){
+function assegna_punti(riga, colonna, combo) {
+    if (matrice[riga][colonna] != undefined) {
+        if (matrice[riga][colonna] == 0) {
             punti_totale += punti_carta * combo;
-            numero_carta += combo;
+            if (numero_carta < 50) {
+                numero_carta += combo;
+            }
+            if (numero_carta > 50) {
+                numero_carta =50;
+            }
         }
-        else if(matrice[riga][colonna] == 1){
+        else if (matrice[riga][colonna] == 1) {
             punti_totale += punti_plastica * combo;
-            numero_plastica += combo;
+            if (numero_plastica < 50) {
+                numero_plastica += combo;
+            }
+            if (numero_plastica > 50) {
+                numero_plastica =50;
+            }
         }
-        else if(matrice[riga][colonna] == 2){
-            punti_totale += punti_vetro* combo;
-            numero_vetro += combo;
+        else if (matrice[riga][colonna] == 2) {
+            punti_totale += punti_vetro * combo;
+            if (numero_vetro < 50) {
+                numero_vetro += combo;
+            }
+            if (numero_vetro > 50) {
+                numero_vetro =50;
+            }
         }
-        else if(matrice[riga][colonna] == 3){
+        else if (matrice[riga][colonna] == 3) {
             punti_totale += punti_secco * combo;
-            numero_secco += combo;
+            if (numero_secco < 50) {
+                numero_secco += combo;
+            }
+            if (numero_secco > 50) {
+                numero_secco =50;
+            }
         }
+
+        UpdateBars()
     }
 
     ScoreText.innerText = "Punteggio: " + punti_totale;
@@ -1076,16 +1158,16 @@ function assegna_punti(riga, colonna, combo){
 }
 
 //funzione per animazione prima di effettuare la combo
-function animazione_orizz(){
-    dati_riga.posizione.forEach(function(element) {
+function animazione_orizz() {
+    dati_riga.posizione.forEach(function (element) {
         console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
-        matrice[element.riga][element.colonna] = 7;  
+        matrice[element.riga][element.colonna] = 7;
     });
 }
 
-function animazione_vert(){
-    dati_colonna.posizione.forEach(function(element) {
+function animazione_vert() {
+    dati_colonna.posizione.forEach(function (element) {
         console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
-        matrice[element.riga][element.colonna] = 7;  
+        matrice[element.riga][element.colonna] = 7;
     });
 }

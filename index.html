@@ -10,14 +10,55 @@
 
 <body>
     <div class="BlackFade"></div>
+    <div class="BlackOverlay" id="BlackOverlay"></div>
 
     <div class="GameGridLayer">
         <div class="GameStatsCon1">
             <h2 class="ScalableH2 TextBorderWhite" id="PlayerNameText">Name</h2>
             <h2 class="ScalableH2 TextBorderWhite" id="ScoreText">Punteggio: 0</h2>
         </div>
-        <div class="GridContainer">
-            <div id="container" class="container">
+        <div class="GameAndSideStatsCon">
+            <div class="ProgressBarsCon">
+                <div class="ImageProgressBarContainer">
+                    <img src="img/c.png" alt="Paper" class="ProgressBarImage">
+                    <div class="ProgressBarContainer">
+                        <div class="ProgressBar YellowBackground" id="ProgressBar1">
+                            <p class="ProgressBarText BlackText" id="ProgressBarText1"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ImageProgressBarContainer">
+                    <img src="img/p.png" alt="Paper" class="ProgressBarImage">
+                    <div class="ProgressBarContainer">
+                        <div class="ProgressBar BlueBackground" id="ProgressBar2">
+                            <p class="ProgressBarText BlackText" id="ProgressBarText2"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ImageProgressBarContainer">
+                    <img src="img/v.png" alt="Paper" class="ProgressBarImage">
+                    <div class="ProgressBarContainer">
+                        <div class="ProgressBar GreenBackground" id="ProgressBar3">
+                            <p class="ProgressBarText BlackText" id="ProgressBarText3"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ImageProgressBarContainer">
+                    <img src="img/s.png" alt="Paper" class="ProgressBarImage">
+                    <div class="ProgressBarContainer">
+                        <div class="ProgressBar VioletBackground" id="ProgressBar4">
+                            <p class="ProgressBarText BlackText" id="ProgressBarText4"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="GridContainer">
+
+                <div id="container" class="container">
+                </div>
             </div>
         </div>
     </div>
