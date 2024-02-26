@@ -32,13 +32,38 @@ const punti_plastica = 3;
 const punti_vetro = 5;
 const punti_secco = 1;
 
-//Debug
-let DevOptions = true
-let GeneraDropButton = document.getElementById("GeneraDropButton")
-let GeneraDropInputRighe = document.getElementById("GeneraDropInputRighe")
-let GeneraDropInputColonne = document.getElementById("GeneraDropInputColonne")
-let RadSwitchInput = document.getElementById("RadSwitchInput")
-let RadSwitchText = document.getElementById("RadSwitchText")
+/*Storage*/
+let SettingsSaves = {
+    "MusicVolume": 1,
+    "SFXVolume": 0.2,
+    "Classifica": {},
+    "CurrentPlayer": "",
+    "CurrentScore": 0
+}
+
+if (localStorage.getItem('EcoRushSettings')) {
+    let TempLoad = localStorage.getItem('EcoRushSettings');
+    SettingsSaves = JSON.parse(TempLoad)
+    /*
+    if (SettingsSaves.MusicVolume == 1) {
+        SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else {
+        SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
+    }
+
+    if (SettingsSaves.SFXVolume == 0.2) {
+        SettingsSFXCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else {
+        SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    if (SettingsSaves.CurrentPlayer != undefined && SettingsSaves.CurrentPlayer != 0 && SettingsSaves.CurrentPlayer != "") {
+        NameInput.value = SettingsSaves.CurrentPlayer
+    }*/
+}
+
+console.log(SettingsSaves.CurrentPlayer)
 
 
 //funzione per generare il contenuto dei div della matrice
@@ -1043,6 +1068,8 @@ function assegna_punti(riga, colonna, combo){
     }
 
     console.log("PUNTI= " + punti_totale);
+    SettingsSaves.Classifica[SettingsSaves.CurrentPlayer] = punti_totale;
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 }
 
 //funzione per animazione prima di effettuare la combo
@@ -1060,15 +1087,6 @@ function animazione_vert(){
     });
 }
 
-//Debug
-
-//Prova stampa matrice
-GeneraDropButton.addEventListener("click", function(){
-    if(GeneraDropInputRighe.value > 0 && GeneraDropInputRighe.value < 6 && GeneraDropInputColonne.value > 0 && GeneraDropInputColonne.value < 6){
-        genera_drop(GeneraDropInputRighe.value, GeneraDropInputColonne.value);
-        stampa_matrice(matrice);
-    }
-})
 
 //Switch rad
 RadSwitchInput.addEventListener("click", function(){

@@ -14,6 +14,30 @@ let ButtonSubBar1 = document.getElementById("ButtonSubBar1")
 
 let ValueBar1 = 0
 
+/*Storage*/
+let SettingsSaves = {
+    "MusicVolume" : 1,
+    "SFXVolume" : 0.2
+}
+
+if (localStorage.getItem('EcoRushSettings')) {
+    let TempLoad = localStorage.getItem('EcoRushSettings');
+    SettingsSaves = JSON.parse(TempLoad)
+    if(SettingsSaves.MusicVolume == 1){
+        SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else{
+        SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
+    }
+
+    if(SettingsSaves.SFXVolume == 0.2){
+        SettingsSFXCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else{
+        SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
+    }
+}
+
 function UpdateBar1() {
     ProgressBarText1.innerText = ValueBar1
     ProgressBarText2.innerText = ValueBar1
