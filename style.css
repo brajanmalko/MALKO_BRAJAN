@@ -1,9 +1,16 @@
+/*Page Setup*/
+@font-face {
+    font-family: 'stopbullying';
+    src: url('Assets/Stop_Bullying.ttf') format('truetype');
+}
+
 * {
     user-select: none;
     -webkit-user-drag: none;
 }
 
 body {
+    font-family: 'stopbullying', serif;
     height: 100%;
     margin: 0;
     background-image: url('Assets/Background.jpeg');
@@ -39,7 +46,8 @@ body {
 }
 
 .GridContainer {
-    background-color: antiquewhite;
+    background-color: #faebd7;
+    border: 5px solid #66553e;
     padding: 20px;
     margin: 3px;
     border-radius: 20px;
@@ -85,6 +93,16 @@ body {
     }
 }
 
+/* UI */
+.GameStatsCon1{
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+/* Colors */
 .PaperDivBG {
     background-color: #faca77;
     border: 3px solid #b48533;
@@ -120,6 +138,175 @@ body {
     border: 3px solid #9c6b6c;
 }
 
+.SelectedDivBG {
+    background-color: #e0ffa8;
+    border: 3px solid #6a823e;
+}
+
 .hidden {
     display: none;
+}
+
+/*Buttons*/
+.Button {
+    padding: 10px 50px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 30px;
+}
+
+.MenuButton {
+    padding: 25px 110px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 50px;
+    font-size: 30px;
+    margin: 5px;
+}
+
+.MenuButton2 {
+    padding: 15px 0;
+    width: 260px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 50px;
+    font-size: 20px;
+    margin: 5px;
+}
+
+.CloseXButton {
+    padding: 10px 15px;
+    font-family: 'stopbullying', serif;
+    border: 5px rgb(98, 31, 31) solid;
+    background-color: #e65959;
+    color: rgb(98, 31, 31);
+    border-radius: 15px;
+    font-size: 15px;
+}
+
+.TextInput {
+    padding: 10px 5px;
+    width: 70%;
+    font-family: 'stopbullying', serif;
+    border-radius: 30px;
+    text-align: center;
+}
+
+/*Button Colors*/
+.GreenButton {
+    background-color: #a6e659;
+}
+
+.RedButton {
+    background-color: #e65959;
+}
+
+.WhiteButton {
+    background-color: #f8fff4;
+}
+
+.BlackButton {
+    background-color: #10120f;
+}
+
+.YellowButton {
+    background-color: #f1c24d;
+}
+
+.BorderedGreenButton {
+    background-color: #a6e659;
+    border: 5px #405b1e solid;
+}
+
+.BorderedYellowButton {
+    background-color: #f1c24d;
+    border: 5px #977828 solid;
+}
+
+.BorderedRedButton {
+    background-color: #e65959;
+    border: 5px #a42f2f solid;
+}
+
+.BorderedWitheButton {
+    background-color: #eaf8ca;
+    border: 5px #6f755f solid;
+}
+
+
+/*Text Colors*/
+.BlackText {
+    color: black;
+}
+
+.WhiteText {
+    color: white;
+}
+
+.GreenText {
+    color: #9cdc4d;
+}
+
+/* Font Sizes */
+
+.ScalableH1 {
+    font-size: 32px;
+}
+
+@media (orientation : portrait) {
+    .ScalableH1 {
+        font-size: 23px;
+    }
+}
+
+.ScalableH2 {
+    font-size: 24px;
+}
+
+@media (orientation : portrait) {
+    .ScalableH2 {
+        font-size: 18px;
+    }
+}
+
+.ScalableH4 {
+    font-size: 21px;
+}
+
+@media (orientation : portrait) {
+    .ScalableH4 {
+        font-size: 15px;
+    }
+}
+
+
+/*Text Borders*/
+.TextBorderWhite {
+    text-shadow: -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px -1px 0 #ffffff;
+}
+
+.TextBorderBlack {
+    text-shadow: -1px 1px 0 #000000,
+        1px 1px 0 #000000,
+        1px -1px 0 #000000,
+        -1px -1px 0 #000000;
+}
+
+.TextBorderGreenBig {
+    text-shadow: -3px 3px 0 #405b1e,
+        3px 3px 0 #405b1e,
+        3px -3px 0 #405b1e,
+        -3px -3px 0 #405b1e;
+}
+
+/*Other*/
+.Hidden {
+    display: none;
+}
+
+.CursorPointer {
+    cursor: pointer;
 }

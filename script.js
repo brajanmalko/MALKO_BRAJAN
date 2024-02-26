@@ -32,6 +32,10 @@ const punti_plastica = 3;
 const punti_vetro = 5;
 const punti_secco = 1;
 
+//Elementi UI
+let ScoreText = document.getElementById('ScoreText');
+let PlayerNameText = document.getElementById('PlayerNameText');
+
 /*Storage*/
 let SettingsSaves = {
     "MusicVolume": 1,
@@ -63,7 +67,7 @@ if (localStorage.getItem('EcoRushSettings')) {
     }*/
 }
 
-console.log(SettingsSaves.CurrentPlayer)
+PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
 
 
 //funzione per generare il contenuto dei div della matrice
@@ -196,8 +200,8 @@ function swap_div() {
         }
         
             setTimeout(() => {
-                prima_cella.style.backgroundColor = '';
-                seconda_cella.style.backgroundColor = '';
+                prima_cella.classList.remove('SelectedDivBG');
+                seconda_cella.classList.remove('SelectedDivBG');
 
                 // Resetta le variabili delle coordinate
                 prima_cella = null;
@@ -312,10 +316,10 @@ function stampa_matrice(matrice) {
 
                     // Se il primo div non è stato cliccato, memorizza il riferimento
                     prima_cella = div;
-                    prima_cella.style.backgroundColor = 'lightgreen'; // Opzionale: evidenzia il primo div cliccato
+                    prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
                 } else if (prima_cella === div) {
                     // Se il primo div è cliccato di nuovo, deselezionalo
-                    prima_cella.style.backgroundColor = '';
+                    prima_cella.classList.remove('SelectedDivBG');
                     prima_cella = null;
                 } else {
                     let index = Array.from(divs).indexOf(this);
@@ -329,13 +333,13 @@ function stampa_matrice(matrice) {
 
                     // Se il secondo div è cliccato, memorizza il riferimento e scambia
                     seconda_cella = div;
-                    seconda_cella.style.backgroundColor = 'lightgreen'; // Opzionale: evidenzia il secondo div cliccato
+                    seconda_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il secondo div cliccato
                     if (verifica_spostamento(row1, col1, row2, col2)) {
                         swap_div();
                     } else {
                         setTimeout(() => {
-                            prima_cella.style.backgroundColor = '';
-                            seconda_cella.style.backgroundColor = '';
+                            prima_cella.classList.remove('SelectedDivBG');
+                            seconda_cella.classList.remove('SelectedDivBG');
 
                             // Resetta le variabili delle coordinate
                             prima_cella = null;
@@ -469,9 +473,6 @@ function cerca(riga, colonna, matrice) {
             
         
     }
-
-    
-
     console.log(dati_colonna);
     console.log(dati_riga);
 
@@ -1069,7 +1070,7 @@ function assegna_punti(riga, colonna, combo){
         }
     }
 
-    console.log("PUNTI= " + punti_totale);
+    ScoreText.innerText = "Punteggio: " + punti_totale;
     SettingsSaves.Classifica[SettingsSaves.CurrentPlayer] = punti_totale;
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 }
