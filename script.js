@@ -809,11 +809,12 @@ function quintuplo_croce_sopra(){
     console.log("COMBO CROCE sopra");
     triplo_orizzontale(matrice);
     dati_colonna.posizione.reverse();
+    dati_colonna.posizione.unshift();
     let riga = dati_colonna.posizione[0].riga;
     let colonna = dati_colonna.posizione[0].colonna;
 
     riga++;
-    dati_colonna.posizione.unshift();
+    
 
     console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
         for(i = riga; i > 0; i--){
@@ -838,10 +839,11 @@ function quintuplo_croce_sotto(){
     console.log("COMBO CROCE sotto");
     triplo_orizzontale(matrice);
     dati_colonna.posizione.reverse();
+    dati_colonna.posizione.pop();
     let riga = dati_colonna.posizione[0].riga;
     let colonna = dati_colonna.posizione[0].colonna;
 
-    dati_colonna.posizione.pop();
+    
 
     console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
         for(i = riga; i > 0; i--){
