@@ -276,25 +276,25 @@ function stampa_matrice(matrice) {
             div.innerHTML = "<img height ='70px' width='70px'src='img/" + elementi[matrice[i][j]] + "'></img>";
 
             if (matrice[i][j] == 0) {
-                div.style.backgroundColor = '#faca77'
+                div.classList.add('PaperDivBG');
             }
             if (matrice[i][j] == 1) {
-                div.style.backgroundColor = 'lightblue'
+                div.classList.add('PlasticDivBG');
             }
             if (matrice[i][j] == 2) {
-                div.style.backgroundColor = 'lightgreen'
+                div.classList.add('GlassDivBG');
             }
             if (matrice[i][j] == 3) {
-                div.style.backgroundColor = '#c99ee6'
+                div.classList.add('TrashDivBG');
             }
             if (matrice[i][j] == 4) {
-                div.style.backgroundColor = '#b7bcb3'
+                div.classList.add('RadioactiveDivBG');
             }
             if (matrice[i][j] == 5) {
-                div.style.backgroundColor = '#F5EBA1'
+                div.classList.add('RecycleDivBG');
             }
             if (matrice[i][j] == 6) {
-                div.style.backgroundColor = '#F5C6C7'
+                div.classList.add('NatureLoveDivBG');
             }
 
             //assegnazione della funzione click ai div
@@ -1086,16 +1086,3 @@ function animazione_vert(){
         matrice[element.riga][element.colonna] = 7;  
     });
 }
-
-
-//Switch rad
-RadSwitchInput.addEventListener("click", function(){
-    if(rAttivi == true){
-        rAttivi = false
-    }
-    else{
-        rAttivi = true
-    }
-    RadSwitchText.innerText="Rad: " + rAttivi
-    console.log(rAttivi)
-})
