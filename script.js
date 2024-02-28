@@ -13,7 +13,7 @@ let cnt = 0;
 //Controlli per il radiattivo
 let dropsFatti = 0
 let dropTraIRad = 4
-let rAttivi = false
+let rAttivi = true
 
 //variabili per cercare le combo
 let cons_riga = 0;
@@ -189,15 +189,12 @@ function genera_drop(righe, colonne) {
 }
 
 if(difficoltà == "facile"){
-    grandezza_matrice = 5;
     genera_drop(5, 5);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr";
 }else if(difficoltà == "media"){
-    grandezza_matrice = 6;
     genera_drop(6, 6);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr";
 }else if(difficoltà == "difficile"){
-    grandezza_matrice = 7;
     genera_drop(7, 7);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr 1fr";
 }
@@ -684,11 +681,7 @@ function triplo_verticale() {
 
         console.log("Elemento riga = " + i);
 
-        if (i == 4) {
-            matrice[i][colonna] = matrice[i - 3][colonna];
-            matrice[i - 3][colonna] = generaNumero(i, colonna);
-        }
-        else if (i == 3) {
+        if (i == 4 || i==5 || i==6) {
             matrice[i][colonna] = matrice[i - 3][colonna];
             matrice[i - 3][colonna] = generaNumero(i, colonna);
         }
@@ -721,9 +714,7 @@ function triplo_orizzontale(matrice) {
         for (i = element.riga; i > 0; i--) {
 
             matrice[i][element.colonna] = matrice[i - 1][element.colonna];
-            setTimeout(() => {
                 stampa_matrice(matrice);
-            }, 400);
         }
         matrice[0][element.colonna] = generaNumero(0, element.colonna);
 
@@ -753,7 +744,7 @@ function quaduplo_verticale() {
 
         console.log("Elemento riga = " + i);
 
-        if (i == 4) {
+        if (i == 4 || i == 5 || i == 6) {
             matrice[i][colonna] = matrice[i - 4][colonna];
             matrice[0][colonna] = generaNumero(i, colonna);
         }
@@ -819,6 +810,14 @@ function quintuplo_verticale() {
         console.log("Elemento riga = " + i);
 
         matrice[i][colonna] = generaNumero(i, colonna);
+
+        if (i == 5 || i == 6) {
+            matrice[i][colonna] = matrice[i - 5][colonna];
+            matrice[0][colonna] = generaNumero(i, colonna);
+        }
+        else {
+            matrice[i][colonna] = generaNumero(i, colonna);
+        }
 
     }
     matrice[riga][colonna] = 6;
@@ -899,7 +898,7 @@ function quintuplo_croce_sopra() {
 
         console.log("Elemento riga = " + i);
 
-        if (i == 4 || i == 2 || i == 3) {
+        if (i >= 2) {
             matrice[i][colonna] = matrice[i - 2][colonna];
             matrice[i - 2][colonna] = generaNumero(i, colonna);
         } else {
@@ -985,26 +984,30 @@ function potere_del_riciclo(riga, colonna) {
 
     matrice[0][colonna] = generaNumero(0, colonna);
 
-    for (n = riga; n > 0; n--) {
-        if (matrice[n][colonna - 1] != undefined) {
-            matrice[n][colonna - 1] = matrice[n - 1][colonna - 1];
-
-            matrice[0][colonna - 1] = generaNumero(0, colonna - 1);
-            setTimeout(() => {
-                stampa_matrice(matrice);
-            }, 1000);
+    let n = riga;
+    if(matrice[n][colonna - 1] != 4){
+        for (n = riga; n > 0; n--) {
+            
+                if (matrice[n][colonna - 1] != undefined) {
+                    matrice[n][colonna - 1] = matrice[n - 1][colonna - 1];
+        
+                    matrice[0][colonna - 1] = generaNumero(0, colonna - 1);
+                    stampa_matrice(matrice);
+                }
         }
     }
 
-    for (m = riga; m > 0; m--) {
-        if (matrice[n][colonna + 1] != undefined) {
-            matrice[m][colonna + 1] = matrice[m - 1][colonna + 1];
+    let m = riga ;
+    if(matrice[m][colonna + 1] != 4){
+        for (m = riga; m > 0; m--) {
+            
+                if (matrice[m][colonna + 1] != undefined) {
+                    matrice[m][colonna + 1] = matrice[m - 1][colonna + 1];
 
-            matrice[0][colonna + 1] = generaNumero(0, colonna + 1);
-            setTimeout(() => {
-                stampa_matrice(matrice);
-            }, 1000);
-        }
+                    matrice[0][colonna + 1] = generaNumero(0, colonna + 1);
+                    stampa_matrice(matrice);
+                }
+        }   
     }
 
 
