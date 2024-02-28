@@ -52,6 +52,87 @@ body {
     transition: opacity 0.5s ease;
 }
 
+/* Tutorial Layer */ 
+.TutrialLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+    background-image: linear-gradient(to bottom, #0e0f04ad, #0f1103ad, #101401ad, #101601ad, #101800ad);
+}
+
+.TuoralDialoguesCon{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.TutorialTextConatiner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 65%;
+}
+
+.TutorialButtonContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.TutorialImage{
+    height: 50%;
+    margin-top: 5%;
+}
+
+.TutroialNutriaImage{
+    width: 20%;
+}
+
+.TutroialButton{
+        padding: 10px 50px;
+        font-family: 'stopbullying', serif;
+        border: 5px black solid;
+        border-radius: 30px;
+}
+
+@media screen and (max-width: 600px) {
+    .TuoralDialoguesCon{
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+
+    .TutorialImage{
+        width: 100%;
+        margin-bottom: 20%;
+        height: auto;
+    }
+    
+    .TutroialNutriaImage{
+        width: 40%;
+        margin-top: 20px;
+    }
+
+    .TutrialLayer {
+        justify-content: flex-end;
+    }
+}
+
+
 :focus {
     outline: none;
 }

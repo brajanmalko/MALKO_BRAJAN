@@ -34,16 +34,9 @@ const punti_secco = 1;
 let contatore_perdita = 0;
 
 //variabile per la difficoltà
-let difficoltà = "media";
 let grandezza_matrice;
 
-if(difficoltà == "facile"){
-    matrice = [[],[],[],[],[]]
-}else if(difficoltà == "media"){
-    matrice = [[],[],[],[],[],[]]
-}else if(difficoltà == "difficile"){
-    matrice = [[],[],[],[],[],[],[]]
-}
+
 
 
 //Elementi UI
@@ -59,18 +52,30 @@ let ProgressBar4 = document.getElementById("ProgressBar4")
 let ProgressBarText4 = document.getElementById("ProgressBarText4")
 let BlackOverlay = document.getElementById("BlackOverlay");
 
+
 /*Storage*/
 let SettingsSaves = {
     "MusicVolume": 1,
     "SFXVolume": 0.2,
     "Classifica": {},
     "CurrentPlayer": "",
-    "CurrentScore": 0
+    "CurrentScore": 0,
+    "CurrentLevel": "facile"
 }
 
 if (localStorage.getItem('EcoRushSettings')) {
     let TempLoad = localStorage.getItem('EcoRushSettings');
     SettingsSaves = JSON.parse(TempLoad)
+
+    console.log(SettingsSaves.CurrentLevel)
+
+    if (SettingsSaves.CurrentLevel == "facile") {
+        matrice = [[], [], [], [], []]
+    } else if (SettingsSaves.CurrentLevel == "media") {
+        matrice = [[], [], [], [], [], []]
+    } else if (SettingsSaves.CurrentLevel == "difficile") {
+        matrice = [[], [], [], [], [], [], []]
+    }
     /*
     if (SettingsSaves.MusicVolume == 1) {
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
@@ -90,9 +95,103 @@ if (localStorage.getItem('EcoRushSettings')) {
     }*/
 }
 
+
+
+/*Caricamento Tutorial */
+let DialoghiTutorial = {
+    "1": {
+        "Sprite": 2,
+        "Image": 0,
+        "Text": "Ciao giovane! Finalmente sei qui"
+    },
+
+    "2": {
+        "Sprite": 4,
+        "Image": 0,
+        "Text": "Lascia che ti spieghi il dafarsi"
+    },
+    "3": {
+        "Sprite": 2,
+        "Image": 0,
+        "Text": "Il tuo compito e' aiutarmi a togliere la spazzatura dall'argine del fiume"
+    },
+    "4": {
+        "Sprite": 5,
+        "Image": 1,
+        "Text": "Tris, sisi, blaba"
+    },
+    "5": {
+        "Sprite": 3,
+        "Image": 2,
+        "Text": "Qui finisce"
+    }
+}
+
+let TutrialLayer = document.getElementById("TutrialLayer");
+let TutorialText = document.getElementById("TutorialText");
+let TutorialImage = document.getElementById("TutorialImage");
+let TutroialNutriaImage = document.getElementById("TutroialNutriaImage");
+let TutorialButtonBack = document.getElementById("TutorialButtonBack");
+let TutorialButtonNext = document.getElementById("TutorialButtonNext");
+
+let TutorialImages = ['Assets/Tutorial/Placeholder.png', 'Assets/Tutorial/Tris.png', 'Assets/Tutorial/Riciclo.png']
+let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.png', 'Assets/NutriaSprites/3.png', 'Assets/NutriaSprites/4.png', 'Assets/NutriaSprites/5.png', 'Assets/NutriaSprites/6.png']
+
+let TutorialIndex = 1;
+
+function UpdateTutorial() {
+    TutorialText.innerText = DialoghiTutorial[TutorialIndex].Text;
+    TutorialImage.src = TutorialImages[DialoghiTutorial[TutorialIndex].Image];
+    TutroialNutriaImage.src = SpriteNutria[DialoghiTutorial[TutorialIndex].Sprite];
+}
+
+function EndTuorial() {
+    setTimeout(function () {
+        TutrialLayer.classList.add('Hidden');
+    }, 420);
+    TutrialLayer.classList.add('FadeOut')
+    localStorage.setItem('EcoRushTutorial', "Done :D");
+}
+
+if (!localStorage.getItem('EcoRushTutorial')) {
+
+    setTimeout(function () {
+        TutrialLayer.classList.remove('FadeOut');
+        TutrialLayer.classList.add('FadeIn');
+    }, 320);
+    TutrialLayer.classList.remove('Hidden');
+
+    UpdateTutorial()
+
+    TutorialButtonNext.addEventListener("click", function () {
+        if (TutorialIndex < 5) {
+            if(TutorialIndex == 1){
+                TutorialButtonBack.classList.remove('Hidden')
+            }
+            TutorialIndex++
+            UpdateTutorial()
+        }
+        else {
+            EndTuorial()
+        }
+    })
+    
+    TutorialButtonBack.addEventListener("click", function () {
+        if (TutorialIndex > 1) {
+            if(TutorialIndex == 2){
+                TutorialButtonBack.classList.add('Hidden')
+            }
+            TutorialIndex--
+            UpdateTutorial()
+        }
+    })
+}
+
+
 PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
 
 BlackOverlay.style.opacity = '0'
+
 
 
 //Aggiorna Barre di completamento
@@ -188,13 +287,13 @@ function genera_drop(righe, colonne) {
     console.log(matrice);
 }
 
-if(difficoltà == "facile"){
+if (SettingsSaves.CurrentLevel == "facile") {
     genera_drop(5, 5);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr";
-}else if(difficoltà == "media"){
+} else if (SettingsSaves.CurrentLevel == "medio") {
     genera_drop(6, 6);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr";
-}else if(difficoltà == "difficile"){
+} else if (SettingsSaves.CurrentLevel == "difficile") {
     genera_drop(7, 7);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr 1fr";
 }
@@ -283,7 +382,7 @@ function swap_div() {
             CanPlay = true
         }, 500);
 
-        
+
     }
 
     controllo_swap(matrice);
@@ -384,17 +483,17 @@ function stampa_matrice(matrice) {
                         let index = Array.from(divs).indexOf(this);
 
                         // Calcola la riga e la colonna corrispondenti all'indice
-                        if(difficoltà == "facile"){
+                        if (SettingsSaves.CurrentLevel == "facile") {
                             row1 = Math.floor(index / 5);
                             col1 = index % 5;
-                        }else if(difficoltà == "media"){
+                        } else if (SettingsSaves.CurrentLevel == "media") {
                             row1 = Math.floor(index / 6);
                             col1 = index % 6;
-                        }else if(difficoltà == "difficile"){
+                        } else if (SettingsSaves.CurrentLevel == "difficile") {
                             row1 = Math.floor(index / 7);
                             col1 = index % 7;
                         }
-                        
+
                         console.log("prima riga" + row1 + "prima colonna" + col1);
 
                         console.log(div);
@@ -410,13 +509,13 @@ function stampa_matrice(matrice) {
                         let index = Array.from(divs).indexOf(this);
 
                         // Calcola la riga e la colonna corrispondenti all'indice
-                        if(difficoltà == "facile"){
+                        if (SettingsSaves.CurrentLevel == "facile") {
                             row2 = Math.floor(index / 5);
                             col2 = index % 5;
-                        }else if(difficoltà == "media"){
+                        } else if (SettingsSaves.CurrentLevel == "media") {
                             row2 = Math.floor(index / 6);
                             col2 = index % 6;
-                        }else if(difficoltà == "difficile"){
+                        } else if (SettingsSaves.CurrentLevel == "difficile") {
                             row2 = Math.floor(index / 7);
                             col2 = index % 7;
                         }
@@ -662,7 +761,7 @@ function scambio_perdita_swap() {
 
     stampa_matrice(matrice);
 
-    if(contatore_perdita >= 3){
+    if (contatore_perdita >= 3) {
         alert("HAI PERSO");
     }
 }
@@ -864,13 +963,13 @@ function quintuplo_croce_sopra() {
     let riga = dati_colonna.posizione[0].riga;
     let colonna = dati_colonna.posizione[0].colonna;
 
-    let riga_riga =  dati_colonna.posizione[0].riga;
+    let riga_riga = dati_colonna.posizione[0].riga;
     let colonna_riga = dati_colonna.posizione[0].colonna;
 
-    if(matrice[riga][colonna] == matrice[riga_riga][colonna_riga]){
+    if (matrice[riga][colonna] == matrice[riga_riga][colonna_riga]) {
         dati_riga.posizione.unshift();
         matrice[riga_riga][colonna_riga] = 6;
-    }else{
+    } else {
         riga_riga = dati_riga.posizione[2].riga;
         colonna_riga = dati_riga.posizione[2].colonna;
 
@@ -891,7 +990,7 @@ function quintuplo_croce_sopra() {
         matrice[0][element.colonna] = generaNumero(0, element.colonna);
     });
 
-   
+
 
     console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
     for (i = riga; i > 0; i--) {
@@ -1138,7 +1237,7 @@ function assegna_punti(riga, colonna, combo) {
                 numero_carta += combo;
             }
             if (numero_carta > 50) {
-                numero_carta =50;
+                numero_carta = 50;
             }
         }
         else if (matrice[riga][colonna] == 1) {
@@ -1147,7 +1246,7 @@ function assegna_punti(riga, colonna, combo) {
                 numero_plastica += combo;
             }
             if (numero_plastica > 50) {
-                numero_plastica =50;
+                numero_plastica = 50;
             }
         }
         else if (matrice[riga][colonna] == 2) {
@@ -1156,7 +1255,7 @@ function assegna_punti(riga, colonna, combo) {
                 numero_vetro += combo;
             }
             if (numero_vetro > 50) {
-                numero_vetro =50;
+                numero_vetro = 50;
             }
         }
         else if (matrice[riga][colonna] == 3) {
@@ -1165,7 +1264,7 @@ function assegna_punti(riga, colonna, combo) {
                 numero_secco += combo;
             }
             if (numero_secco > 50) {
-                numero_secco =50;
+                numero_secco = 50;
             }
         }
 

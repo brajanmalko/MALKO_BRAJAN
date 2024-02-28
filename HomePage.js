@@ -7,8 +7,6 @@ let NoNameLayer = document.getElementById("NoNameLayer");
 let ClassificaLayer = document.getElementById("ClassificaLayer");
 
 let MainMenuMusic = document.getElementById("MainMenuMusic");
-let ButtonClickSFX1 = document.getElementById("ButtonClickSFX1");
-let ButtonClickSFX2 = document.getElementById("ButtonClickSFX2");
 
 let PlayButton = document.getElementById("PlayButton");
 let SettingsButton = document.getElementById("SettingsButton");
@@ -28,14 +26,14 @@ let ColseSettingsButton = document.getElementById("ColseSettingsButton");
 let ClassificaRowsCon = document.getElementById("ClassificaRowsCon");
 let BlackOverlay = document.getElementById("BlackOverlay");
 
-let TapSFX1Items = document.getElementsByClassName("TapSFX1");
-let TapSFX2Items = document.getElementsByClassName("TapSFX2");
+let TapSFX1Items = document.querySelectorAll('.TapSFX1');
+let TapSFX2Items = document.querySelectorAll('.TapSFX2');
 
 let ShwoingSplash = true;
 let ShowingMain = false;
 let ShowingSettings = false;
 let SelectedLevel = 0
-let LevelsArray = ["index.html", "index.html", "index.html"]
+let LevelsArray = ["facile", "medio", "difficile"]
 
 
 /*Storage*/
@@ -44,7 +42,8 @@ let SettingsSaves = {
     "SFXVolume": 0.2,
     "Classifica": {},
     "CurrentPlayer": "",
-    "CurrentScore": 0
+    "CurrentScore": 0,
+    "CurrentLevel": "facile"
 }
 
 if (localStorage.getItem('EcoRushSettings')) {
@@ -107,35 +106,46 @@ if (Object.keys(SettingsSaves.Classifica ).length != 0) {
 
 /* Tap Sound */
 
+const ButtonClickSFX1 = new Audio();
+ButtonClickSFX1.src = './Assets/MusicAndSounds/UITap1.mp3'
+
+const ButtonClickSFX2 = new Audio();
+ButtonClickSFX2.src = './Assets/MusicAndSounds/UITap2.mp3'
+
 function PlayTapSFX1() {
     ButtonClickSFX1.volume = SettingsSaves.SFXVolume;
     ButtonClickSFX1.currentTime = 0;
-    ButtonClickSFX1.play;
-    console.log("wap")
+    ButtonClickSFX1.play();
 }
 
 function PlayTapSFX2() {
     ButtonClickSFX2.volume = SettingsSaves.SFXVolume;
     ButtonClickSFX2.currentTime = 0;
-    ButtonClickSFX2.play;
-    console.log("wop")
+    ButtonClickSFX2.play();
 }
 
-for (let i = 0; i < TapSFX1Items.length; i++) {
-    TapSFX1Items[i].addEventListener("click", PlayTapSFX1)
-}
-for (let i = 0; i < TapSFX2Items.length; i++) {
-    TapSFX2Items[i].addEventListener("click", PlayTapSFX2)
-}
+TapSFX1Items.forEach(function(element) {
+    element.addEventListener('click', function() {
+        PlayTapSFX1()
+    });
+});
+
+TapSFX2Items.forEach(function(element) {
+    element.addEventListener('click', function() {
+        PlayTapSFX2()
+    });
+});
 
 
 /* Other */
-function GoTOPageBlackOverlay(Page) {
+function GoTOPageBlackOverlay() {
     BlackOverlay.style.opacity = '1'; // Fading to black
+    SettingsSaves.CurrentLevel = LevelsArray[SelectedLevel];
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 
     setTimeout(function () {
         // Change the page after the transition
-        window.location.href = Page;
+        window.location.href = "index.html";
     }, 500);
 }
 
@@ -167,7 +177,6 @@ PlayButton.addEventListener("click", function () {
     }, 420);
     MainUICOn.classList.add('FadeOut')
     LevelLayer.classList.remove('Hidden');
-    PlayTapSFX1();
 }
 )
 
@@ -179,7 +188,6 @@ SettingsButton.addEventListener("click", function () {
     }, 420);
     MainUICOn.classList.add('FadeOut')
     SettingsCon.classList.remove('Hidden');
-    PlayTapSFX1();
 }
 )
 
@@ -191,7 +199,6 @@ ClassificaButton.addEventListener("click", function () {
     }, 420);
     MainUICOn.classList.add('FadeOut')
     ClassificaLayer.classList.remove('Hidden');
-    PlayTapSFX1();
 }
 )
 
@@ -205,7 +212,6 @@ ColseSettingsButton.addEventListener("click", function () {
     }, 420);
     SettingsCon.classList.add('FadeOut')
     MainUICOn.classList.remove('Hidden');
-    PlayTapSFX2();
 })
 
 SettingsMusicCheckbox.addEventListener("click", function () {
@@ -246,7 +252,6 @@ function ShowNameLayer() {
     }, 420);
     LevelLayer.classList.add('FadeOut')
     NameLayer.classList.remove('Hidden');
-    PlayTapSFX1();
 }
 
 /* Level Selection */
@@ -259,7 +264,6 @@ LevelButonCancel.addEventListener("click", function () {
     }, 420);
     LevelLayer.classList.add('FadeOut')
     MainUICOn.classList.remove('Hidden');
-    PlayTapSFX2();
 })
 
 LevelButonNormale.addEventListener("click", function () {
@@ -288,15 +292,14 @@ NameButonCancel.addEventListener("click", function () {
     }, 420);
     NameLayer.classList.add('FadeOut')
     MainUICOn.classList.remove('Hidden');
-    PlayTapSFX2();
 })
 
 NameGoButton.addEventListener("click", function () {
     if (NameInput.value != "") {
         SettingsSaves.CurrentPlayer = NameInput.value
         localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
-        GoTOPageBlackOverlay(LevelsArray[SelectedLevel])
-        PlayTapSFX1();
+        GoTOPageBlackOverlay()
+
     }
     else {
         setTimeout(function () {
@@ -311,7 +314,6 @@ NameGoButton.addEventListener("click", function () {
             NoNameLayer.classList.add('FadeIn');
         }, 120);
         NoNameLayer.classList.remove('Hidden');
-        PlayTapSFX2();
     }
 })
 
@@ -325,5 +327,4 @@ ClassificaButonCancel.addEventListener("click", function () {
     }, 420);
     ClassificaLayer.classList.add('FadeOut')
     MainUICOn.classList.remove('Hidden');
-    PlayTapSFX2();
 })

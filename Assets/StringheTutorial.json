@@ -1,0 +1,13 @@
+{
+    "1": {
+        "Sprite": 1,
+        "Image": 0,
+        "Text": "Ciao giovane! Finalmente sei qui"
+    },
+
+    "2": {
+        "Sprite": 4,
+        "Image": 2,
+        "Text": "Lascia che ti spieghi il dafarsi"
+    }
+}
