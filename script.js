@@ -62,6 +62,7 @@ let SettingsSaves = {
     "CurrentScore": 0,
     "CurrentLevel": "facile"
 }
+matrice = [[], [], [], [], []]
 
 if (localStorage.getItem('EcoRushSettings')) {
     let TempLoad = localStorage.getItem('EcoRushSettings');
@@ -71,7 +72,7 @@ if (localStorage.getItem('EcoRushSettings')) {
 
     if (SettingsSaves.CurrentLevel == "facile") {
         matrice = [[], [], [], [], []]
-    } else if (SettingsSaves.CurrentLevel == "media") {
+    } else if (SettingsSaves.CurrentLevel == "medio") {
         matrice = [[], [], [], [], [], []]
     } else if (SettingsSaves.CurrentLevel == "difficile") {
         matrice = [[], [], [], [], [], [], []]
@@ -95,7 +96,51 @@ if (localStorage.getItem('EcoRushSettings')) {
     }*/
 }
 
+/* Suoni */
+const ButtonClickSFX1 = new Audio();
+ButtonClickSFX1.src = './Assets/MusicAndSounds/UITap1.mp3'
+const ButtonClickSFX2 = new Audio();
+ButtonClickSFX2.src = './Assets/MusicAndSounds/UITap2.mp3'
+const ButtonClickSFX3 = new Audio();
+ButtonClickSFX3.src = './Assets/MusicAndSounds/UITap3.mp3'
 
+let TapSFX1Items = document.querySelectorAll('.TapSFX1');
+let TapSFX2Items = document.querySelectorAll('.TapSFX2');
+let TapSFX3Items = document.querySelectorAll('.TapSFX3');
+
+function PlayTapSFX1() {
+    ButtonClickSFX1.volume = SettingsSaves.SFXVolume;
+    ButtonClickSFX1.currentTime = 0;
+    ButtonClickSFX1.play();
+}
+function PlayTapSFX2() {
+    ButtonClickSFX2.volume = SettingsSaves.SFXVolume;
+    ButtonClickSFX2.currentTime = 0;
+    ButtonClickSFX2.play();
+}
+function PlayTapSFX3() {
+    ButtonClickSFX3.volume = SettingsSaves.SFXVolume;
+    ButtonClickSFX3.currentTime = 0;
+    ButtonClickSFX3.pitch = 0.5
+    ButtonClickSFX3.play();
+}
+
+TapSFX1Items.forEach(function (element) {
+    element.addEventListener('click', function () {
+        PlayTapSFX1()
+    });
+});
+TapSFX2Items.forEach(function (element) {
+    element.addEventListener('click', function () {
+        PlayTapSFX2()
+    });
+});
+TapSFX3Items.forEach(function (element) {
+    element.addEventListener('click', function () {
+        PlayTapSFX3()
+        console.log("S")
+    });
+});
 
 /*Caricamento Tutorial */
 let DialoghiTutorial = {
@@ -139,6 +184,8 @@ let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.pn
 
 let TutorialIndex = 1;
 
+
+
 function UpdateTutorial() {
     TutorialText.innerText = DialoghiTutorial[TutorialIndex].Text;
     TutorialImage.src = TutorialImages[DialoghiTutorial[TutorialIndex].Image];
@@ -165,7 +212,7 @@ if (!localStorage.getItem('EcoRushTutorial')) {
 
     TutorialButtonNext.addEventListener("click", function () {
         if (TutorialIndex < 5) {
-            if(TutorialIndex == 1){
+            if (TutorialIndex == 1) {
                 TutorialButtonBack.classList.remove('Hidden')
             }
             TutorialIndex++
@@ -175,10 +222,10 @@ if (!localStorage.getItem('EcoRushTutorial')) {
             EndTuorial()
         }
     })
-    
+
     TutorialButtonBack.addEventListener("click", function () {
         if (TutorialIndex > 1) {
-            if(TutorialIndex == 2){
+            if (TutorialIndex == 2) {
                 TutorialButtonBack.classList.add('Hidden')
             }
             TutorialIndex--
@@ -192,7 +239,36 @@ PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
 
 BlackOverlay.style.opacity = '0'
 
+let GameGridLayer = document.getElementById("GameGridLayer");
 
+function FadeMusicIn() {
+
+    const fadeInterval = setInterval(() => {
+        TempVolume += 0.1;
+        if (TempVolume>= 1) {
+            TempVolume = 1;
+            clearInterval(fadeInterval); // Stop the interval when volume reaches 1
+        }
+        GameMusic.volume = TempVolume;
+    }, 1500);
+};
+
+const GameMusic = new Audio();
+GameMusic.src = './Assets/MusicAndSounds/BGM2.mp3'
+let TempVolume = 0;
+
+GameGridLayer.addEventListener("click", function () {
+    console.log("Start Music")
+
+    GameMusic.volume = 0; // Start with zero volume
+    GameMusic.loop = true; // Enable looping
+    GameMusic.play()
+    console.log(SettingsSaves.MusicVolume)
+    if (SettingsSaves.MusicVolume == 1) {
+        FadeMusicIn()
+    }
+
+}, { once: true })
 
 //Aggiorna Barre di completamento
 function UpdateBars() {
@@ -454,6 +530,7 @@ function stampa_matrice(matrice) {
             // creazione del div
             let div = document.createElement("div");
             div.className = "matrice-div";
+            div.classList.add('TapSFX3')
             div.innerHTML = "<img height ='70px' width='70px'src='img/" + elementi[matrice[i][j]] + "'></img>";
 
             if (matrice[i][j] == 0) {
@@ -489,7 +566,7 @@ function stampa_matrice(matrice) {
                         if (SettingsSaves.CurrentLevel == "facile") {
                             row1 = Math.floor(index / 5);
                             col1 = index % 5;
-                        } else if (SettingsSaves.CurrentLevel == "media") {
+                        } else if (SettingsSaves.CurrentLevel == "medio") {
                             row1 = Math.floor(index / 6);
                             col1 = index % 6;
                         } else if (SettingsSaves.CurrentLevel == "difficile") {
@@ -515,7 +592,7 @@ function stampa_matrice(matrice) {
                         if (SettingsSaves.CurrentLevel == "facile") {
                             row2 = Math.floor(index / 5);
                             col2 = index % 5;
-                        } else if (SettingsSaves.CurrentLevel == "media") {
+                        } else if (SettingsSaves.CurrentLevel == "medio") {
                             row2 = Math.floor(index / 6);
                             col2 = index % 6;
                         } else if (SettingsSaves.CurrentLevel == "difficile") {
@@ -553,6 +630,13 @@ function stampa_matrice(matrice) {
 
 
             container.appendChild(div);
+            TapSFX3Items = document.querySelectorAll('.TapSFX3');
+            TapSFX3Items.forEach(function (element) {
+                element.addEventListener('click', function () {
+                    PlayTapSFX3()
+                    console.log("S")
+                });
+            });
         }
     }
 }
@@ -653,9 +737,6 @@ function cerca(riga, colonna, matrice) {
         }
 
     }
-
-
-
 
     for (let l = 0; l < matrice.length; l++) {
 
