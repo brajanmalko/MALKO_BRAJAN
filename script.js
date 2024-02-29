@@ -12,7 +12,7 @@ let cnt = 0;
 
 //Controlli per il radiattivo
 let dropsFatti = 0
-let dropTraIRad = 4
+let dropTraIRad;
 let rAttivi = true
 
 //variabili per cercare le combo
@@ -32,11 +32,6 @@ const punti_plastica = 3;
 const punti_vetro = 5;
 const punti_secco = 1;
 let contatore_perdita = 0;
-
-//variabile per la difficoltà
-let grandezza_matrice;
-
-
 
 
 //Elementi UI
@@ -63,19 +58,14 @@ let SettingsSaves = {
     "CurrentLevel": "facile"
 }
 
+
+
 if (localStorage.getItem('EcoRushSettings')) {
     let TempLoad = localStorage.getItem('EcoRushSettings');
     SettingsSaves = JSON.parse(TempLoad)
 
     console.log(SettingsSaves.CurrentLevel)
 
-    if (SettingsSaves.CurrentLevel == "facile") {
-        matrice = [[], [], [], [], []]
-    } else if (SettingsSaves.CurrentLevel == "media") {
-        matrice = [[], [], [], [], [], []]
-    } else if (SettingsSaves.CurrentLevel == "difficile") {
-        matrice = [[], [], [], [], [], [], []]
-    }
     /*
     if (SettingsSaves.MusicVolume == 1) {
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
@@ -95,7 +85,24 @@ if (localStorage.getItem('EcoRushSettings')) {
     }*/
 }
 
-
+//variabile per la difficoltà
+if (SettingsSaves.CurrentLevel == "facile") {
+    matrice = [[], [], [], [], []];
+    dropTraIRad = 0;
+} else if (SettingsSaves.CurrentLevel == "medio") {
+    matrice = [[], [], [], [], [], []];
+    dropTraIRad = 4;
+    setInterval(() => {
+        dropTraIRad += 2;
+    },50000);
+    
+} else if (SettingsSaves.CurrentLevel == "difficile") {
+    matrice = [[], [], [], [], [], [], []];
+    dropTraIRad = 7;
+    setInterval(() => {
+        dropTraIRad += 2;
+    },70000);
+}
 
 /*Caricamento Tutorial */
 let DialoghiTutorial = {
@@ -237,9 +244,8 @@ function UpdateBars() {
 function generaNumero(i, j, max) {
 
     //Rendi possibile la caduta di un rad
-    if (rAttivi && dropsFatti > dropTraIRad) {
+    if (rAttivi && dropsFatti < dropTraIRad) {
         max = 5;
-        dropsFatti = 0;
     }
     else {
         max = 4;
@@ -279,7 +285,7 @@ function genera_drop(righe, colonne) {
             matrice[i][j] = generaNumero(i, j, max)
 
             //Counter per i drop radiattivi
-            if (rAttivi) {
+            if (matrice[i][j] == 4) {
                 dropsFatti++
             }
         }
@@ -486,7 +492,7 @@ function stampa_matrice(matrice) {
                         if (SettingsSaves.CurrentLevel == "facile") {
                             row1 = Math.floor(index / 5);
                             col1 = index % 5;
-                        } else if (SettingsSaves.CurrentLevel == "media") {
+                        } else if (SettingsSaves.CurrentLevel == "medio") {
                             row1 = Math.floor(index / 6);
                             col1 = index % 6;
                         } else if (SettingsSaves.CurrentLevel == "difficile") {
@@ -512,7 +518,7 @@ function stampa_matrice(matrice) {
                         if (SettingsSaves.CurrentLevel == "facile") {
                             row2 = Math.floor(index / 5);
                             col2 = index % 5;
-                        } else if (SettingsSaves.CurrentLevel == "media") {
+                        } else if (SettingsSaves.CurrentLevel == "medio") {
                             row2 = Math.floor(index / 6);
                             col2 = index % 6;
                         } else if (SettingsSaves.CurrentLevel == "difficile") {
@@ -609,6 +615,9 @@ function verifica_consecutivi(matrice) {
 var dati_riga;
 var dati_colonna;
 
+let primo = undefined;
+let secondo = undefined;
+
 
 //funzione per cercare se sono presenti combo da tre, quattro e cinque
 
@@ -629,6 +638,16 @@ function cerca(riga, colonna, matrice) {
 
     console.log(riga);
     console.log(colonna);
+
+    if(primo == undefined){
+        console.log("VALORE PRIMO CLICK");
+        primo = true;
+    }else if(primo != undefined){
+        console.log("VALORE secondo CLICK");
+
+        primo = undefined;
+        secondo = undefined;
+    }
 
     for (let m = 0; m < matrice.length - 1; m++) {
         if (matrice[m + 1][colonna] != undefined && matrice[m + 1][colonna] === matrice[m][colonna]) {
@@ -780,7 +799,7 @@ function triplo_verticale() {
 
         console.log("Elemento riga = " + i);
 
-        if (i == 4 || i==5 || i==6) {
+        if (i >= 3) {
             matrice[i][colonna] = matrice[i - 3][colonna];
             matrice[i - 3][colonna] = generaNumero(i, colonna);
         }
@@ -790,7 +809,7 @@ function triplo_verticale() {
 
     }
 
-    matrice[0][colonna] = generaNumero(0, colonna);
+    matrice[0][colonna] = generaNumero(0, colonna, 4);
 
     stampa_matrice(matrice);
 
