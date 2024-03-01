@@ -159,29 +159,74 @@ if (SettingsSaves.CurrentLevel == "facile") {
 let DialoghiTutorial = {
     "1": {
         "Sprite": 2,
-        "Image": 0,
+        "Image": 1,
         "Text": "Ciao giovane! Finalmente sei qui"
     },
 
     "2": {
         "Sprite": 4,
-        "Image": 0,
+        "Image": 1,
         "Text": "Lascia che ti spieghi il dafarsi"
     },
     "3": {
         "Sprite": 2,
-        "Image": 0,
+        "Image": 2,
         "Text": "Il tuo compito e' aiutarmi a togliere la spazzatura dall'argine del fiume"
     },
     "4": {
-        "Sprite": 5,
-        "Image": 1,
-        "Text": "Tris, sisi, blaba"
+        "Sprite": 7,
+        "Image": 3,
+        "Text": "Per raccoglierla devi unirla in righe o colonne da tre"
     },
     "5": {
-        "Sprite": 3,
+        "Sprite": 4,
         "Image": 2,
-        "Text": "Qui finisce"
+        "Text": "Solo tre alla volta? No. Anche di più, ma succedono cose speciali"
+    },
+    "6": {
+        "Sprite": 8,
+        "Image": 4,
+        "Text": "Quattro di fila si trasformeranno nel Potere Del Riciclo®"
+    },
+    "7": {
+        "Sprite": 8,
+        "Image": 5,
+        "Text": "Maneggialo con cura, quando attivato esplode e elimina la spazzatura che ha attorno"
+    },
+    "8": {
+        "Sprite": 9,
+        "Image": 6,
+        "Text": "Se sei cosi' bravo da unirne cinque ottieni il prezioso Amore Per La Natura"
+    },
+    "9": {
+        "Sprite": 10,
+        "Image": 7,
+        "Text": "Non e' altro che il potere del riciclo piu' potente e rosa"
+    },
+    "10": {
+        "Sprite": 11,
+        "Image": 8,
+        "Text": "Ma non e' tutto rosa e amore"
+    },
+    "11": {
+        "Sprite": 12,
+        "Image": 8,
+        "Text": "In certe zone c'e' il riscio di trovare rifiuti radiattivi"
+    },
+    "12": {
+        "Sprite": 13,
+        "Image": 8,
+        "Text": "Purtroppo non possiamo farci nulla"
+    },
+    "13": {
+        "Sprite": 14,
+        "Image": 7,
+        "Text": "L'unico modo che abbiamo per liberarcene e' l'amore per la natura"
+    },
+    "14": {
+        "Sprite": 2,
+        "Image": 9,
+        "Text": "E con questo concludo. Buon lavoro!"
     }
 }
 
@@ -192,8 +237,8 @@ let TutroialNutriaImage = document.getElementById("TutroialNutriaImage");
 let TutorialButtonBack = document.getElementById("TutorialButtonBack");
 let TutorialButtonNext = document.getElementById("TutorialButtonNext");
 
-let TutorialImages = ['Assets/Tutorial/Placeholder.png', 'Assets/Tutorial/Tris.png', 'Assets/Tutorial/Riciclo.png']
-let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.png', 'Assets/NutriaSprites/3.png', 'Assets/NutriaSprites/4.png', 'Assets/NutriaSprites/5.png', 'Assets/NutriaSprites/6.png']
+let TutorialImages = ['Assets/Tutorial/Placeholder.png', 'Assets/Tutorial/WelcomeImage.png', 'Assets/Tutorial/Trash.png', 'Assets/Tutorial/Tris.png', 'Assets/Tutorial/Quaterna.png', 'Assets/Tutorial/Riciclo.png', 'Assets/Tutorial/Cinquina.png', 'Assets/Tutorial/Amore.png', 'Assets/Tutorial/Radiattivo.png', 'Assets/Tutorial/GameLogo.png']
+let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.png', 'Assets/NutriaSprites/3.png', 'Assets/NutriaSprites/4.png', 'Assets/NutriaSprites/5.png', 'Assets/NutriaSprites/6.png', 'Assets/NutriaSprites/7.png', 'Assets/NutriaSprites/8.png', 'Assets/NutriaSprites/9.png', 'Assets/NutriaSprites/10.png', 'Assets/NutriaSprites/11.png', 'Assets/NutriaSprites/12.png', 'Assets/NutriaSprites/13.png', 'Assets/NutriaSprites/14.png', 'Assets/NutriaSprites/15.png']
 
 let TutorialIndex = 1;
 
@@ -224,7 +269,7 @@ if (!localStorage.getItem('EcoRushTutorial')) {
     UpdateTutorial()
 
     TutorialButtonNext.addEventListener("click", function () {
-        if (TutorialIndex < 5) {
+        if (TutorialIndex < 14) {
             if (TutorialIndex == 1) {
                 TutorialButtonBack.classList.remove('Hidden')
             }
