@@ -145,8 +145,8 @@ if (SettingsSaves.CurrentLevel == "facile") {
     matrice = [[], [], [], [], [], []];
     dropTraIRad = 4;
     setInterval(() => {
-        dropTraIRad += 2;
-    },50000);
+        dropTraIRad += 1;
+    },80000);
     
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     matrice = [[], [], [], [], [], [], []];
@@ -154,7 +154,7 @@ if (SettingsSaves.CurrentLevel == "facile") {
     setInterval(() => {
         dropTraIRad += 2;
     },70000);
-
+}
 /*Caricamento Tutorial */
 let DialoghiTutorial = {
     "1": {
@@ -587,6 +587,14 @@ function stampa_matrice(matrice) {
 
                         console.log(div);
 
+                        if(matrice[row1][col1] == 5){
+                            potere_del_riciclo(row1, col1);
+                            prima_cella = null;
+                        }else if(matrice[row1][col1] == 6){
+                            amore_della_natura(row1, col1);
+                            prima_cella = null;
+                        }
+                        
                         // Se il primo div non è stato cliccato, memorizza il riferimento
                         prima_cella = div;
                         prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
@@ -740,7 +748,7 @@ function cerca(riga, colonna, matrice) {
     }
 
     for (let m = 0; m < matrice.length - 1; m++) {
-        if (matrice[m + 1][colonna] != undefined && matrice[m + 1][colonna] === matrice[m][colonna]) {
+        if (matrice[m + 1][colonna] != undefined && matrice[m + 1][colonna] === matrice[m][colonna] && matrice[m][colonna] < 4) {
             cons_colonna++;
             dati_colonna.cons_colonna++;
             dati_colonna.posizione.push({ riga: m, colonna });
@@ -762,7 +770,7 @@ function cerca(riga, colonna, matrice) {
 
     for (let l = 0; l < matrice.length; l++) {
 
-        if (matrice[riga][l + 1] != undefined && matrice[riga][l + 1] === matrice[riga][l]) {
+        if (matrice[riga][l + 1] != undefined && matrice[riga][l + 1] === matrice[riga][l] && matrice[riga][l] < 4) {
             cons_riga++;
             dati_riga.cons_riga++;
             dati_riga.posizione.push({ riga, colonna: l });
@@ -896,7 +904,7 @@ function triplo_verticale() {
 
     }
 
-    matrice[0][colonna] = generaNumero(0, colonna, 4);
+    matrice[0][colonna] = generaNumero(0, colonna);
 
     stampa_matrice(matrice);
 
@@ -1170,21 +1178,16 @@ function potere_del_riciclo(riga, colonna) {
         if (i == matrice.length) {
             i--;
         }
-        if (i == 4) {
-            matrice[i][colonna] = matrice[i - 3][colonna];
-            matrice[i - 3][colonna] = generaNumero(i, colonna);
-            stampa_matrice(matrice)
+        if(matrice[i][colonna] != 4){
+            if (i >= 3) {
+                matrice[i][colonna] = matrice[i - 3][colonna];
+                matrice[i - 3][colonna] = generaNumero(i, colonna);
+                stampa_matrice(matrice)
+            }else {
+                matrice[i][colonna] = generaNumero(i, colonna);
+                stampa_matrice(matrice)
+            }
         }
-        else if (i == 3) {
-            matrice[i][colonna] = matrice[i - 3][colonna];
-            matrice[i - 3][colonna] = generaNumero(i, colonna);
-            stampa_matrice(matrice)
-        }
-        else {
-            matrice[i][colonna] = generaNumero(i, colonna);
-            stampa_matrice(matrice)
-        }
-
     }
 
     matrice[0][colonna] = generaNumero(0, colonna);
