@@ -64,14 +64,6 @@ if (localStorage.getItem('EcoRushSettings')) {
     SettingsSaves = JSON.parse(TempLoad)
 
     console.log(SettingsSaves.CurrentLevel)
-
-    if (SettingsSaves.CurrentLevel == "facile") {
-        matrice = [[], [], [], [], []]
-    } else if (SettingsSaves.CurrentLevel == "medio") {
-        matrice = [[], [], [], [], [], []]
-    } else if (SettingsSaves.CurrentLevel == "difficile") {
-        matrice = [[], [], [], [], [], [], []]
-    }
     /*
     if (SettingsSaves.MusicVolume == 1) {
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
@@ -146,14 +138,14 @@ if (SettingsSaves.CurrentLevel == "facile") {
     dropTraIRad = 4;
     setInterval(() => {
         dropTraIRad += 1;
-    },80000);
+    },100000);
     
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     matrice = [[], [], [], [], [], [], []];
     dropTraIRad = 7;
     setInterval(() => {
-        dropTraIRad += 2;
-    },70000);
+        dropTraIRad += 1;
+    },100000);
 }
 /*Caricamento Tutorial */
 let DialoghiTutorial = {
@@ -632,6 +624,11 @@ function stampa_matrice(matrice) {
 
                         console.log(div);
 
+                         // Se il primo div non è stato cliccato, memorizza il riferimento
+                        prima_cella = div;
+                        prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
+
+                        //Se la prima cella clicccata corrisponde ai poteri allora parte la funzione
                         if(matrice[row1][col1] == 5){
                             potere_del_riciclo(row1, col1);
                             prima_cella = null;
@@ -639,10 +636,6 @@ function stampa_matrice(matrice) {
                             amore_della_natura(row1, col1);
                             prima_cella = null;
                         }
-                        
-                        // Se il primo div non è stato cliccato, memorizza il riferimento
-                        prima_cella = div;
-                        prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
                     } else if (prima_cella === div) {
                         // Se il primo div è cliccato di nuovo, deselezionalo
                         prima_cella.classList.remove('SelectedDivBG');
@@ -797,19 +790,23 @@ function cerca(riga, colonna, matrice) {
             cons_colonna++;
             dati_colonna.cons_colonna++;
             dati_colonna.posizione.push({ riga: m, colonna });
-
-            if (m == 3) {
+            if(matrice.length == 5 && m == 3 || matrice.length == 6 && m == 4 ||  matrice.length == 7 && m == 5){
                 dati_colonna.posizione.push({ riga: m + 1, colonna });
             }
         }
         else {
-            if (cons_colonna != 1) {
                 if (cons_colonna >= 3) {
                     dati_colonna.posizione.push({ riga: m, colonna });
+                    break;
+                }else{
+                    cons_colonna = 1;
+                    dati_colonna = {
+                        cons_colonna: 1,
+                        posizione: []
+                    };
                 }
-                break;
+                
             }
-        }
 
     }
 
@@ -821,12 +818,16 @@ function cerca(riga, colonna, matrice) {
             dati_riga.posizione.push({ riga, colonna: l });
         }
         else {
-            if (cons_riga != 1) {
                 if (cons_riga >= 3) {
                     dati_riga.posizione.push({ riga, colonna: l });
-                }
-                break;
-            }
+                    break;
+                }else{
+                    cons_riga = 1;
+                    dati_riga = {
+                        cons_riga: 1,
+                        posizione: []
+                    };
+                }     
         }
 
 
@@ -1122,21 +1123,22 @@ function quintuplo_croce_sopra() {
     let riga = dati_colonna.posizione[0].riga;
     let colonna = dati_colonna.posizione[0].colonna;
 
-    let riga_riga = dati_colonna.posizione[0].riga;
-    let colonna_riga = dati_colonna.posizione[0].colonna;
+    let riga_riga = dati_riga.posizione[0].riga;
+    let colonna_riga = dati_riga.posizione[0].colonna;
 
     if (matrice[riga][colonna] == matrice[riga_riga][colonna_riga]) {
-        dati_riga.posizione.unshift();
         matrice[riga_riga][colonna_riga] = 6;
+        dati_riga.posizione.shift();
+        
     } else {
         riga_riga = dati_riga.posizione[2].riga;
         colonna_riga = dati_riga.posizione[2].colonna;
-
-        dati_riga.posizione.pop();
         matrice[riga_riga][colonna_riga] = 6;
+        dati_riga.posizione.pop();
+        
     }
 
-    dati_colonna.posizione.unshift();
+    dati_colonna.posizione.shift();
     riga = dati_colonna.posizione[0].riga;
     colonna = dati_colonna.posizione[0].colonna;
 
