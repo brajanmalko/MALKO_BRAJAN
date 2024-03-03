@@ -46,6 +46,7 @@ let ProgressBarText3 = document.getElementById("ProgressBarText3")
 let ProgressBar4 = document.getElementById("ProgressBar4")
 let ProgressBarText4 = document.getElementById("ProgressBarText4")
 let BlackOverlay = document.getElementById("BlackOverlay");
+let SettingsCon = document.getElementById("SettingsCon");
 
 
 /*Storage*/
@@ -138,14 +139,14 @@ if (SettingsSaves.CurrentLevel == "facile") {
     dropTraIRad = 4;
     setInterval(() => {
         dropTraIRad += 1;
-    },100000);
-    
+    }, 100000);
+
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     matrice = [[], [], [], [], [], [], []];
     dropTraIRad = 7;
     setInterval(() => {
         dropTraIRad += 1;
-    },100000);
+    }, 100000);
 }
 /*Caricamento Tutorial */
 let DialoghiTutorial = {
@@ -285,6 +286,47 @@ if (!localStorage.getItem('EcoRushTutorial')) {
 }
 
 
+/*Game Over Page*/
+let StringeGameOVer = {
+    "1": "Ritenteremo un altro giorno",
+    "2": "C'era troppa spazzatura qui",
+    "3": "Tranquillo giovane, hai fatto del tuo meglio"
+};
+let RandomNumberGameOver = Math.floor(Math.random() * 3) + 1;
+let GameOverText = document.getElementById("GameOverText");
+GameOverText.innerText = StringeGameOVer[RandomNumberGameOver]
+let GameOverButtonBack = document.getElementById("GameOverButtonBack");
+let GameOverButtonReplay = document.getElementById("GameOverButtonReplay");
+let GameOverLayer = document.getElementById("GameOverLayer");
+
+GameOverButtonBack.addEventListener("click", function () {
+    BlackOverlay.style.opacity = '1';
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+    setTimeout(function () {
+        window.location.href = "HomePage.html";
+    }, 500);
+});
+
+GameOverButtonReplay.addEventListener("click", function () {
+    BlackOverlay.style.opacity = '1';
+
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+    setTimeout(function () {
+        window.location.href = "index.html";
+    }, 500);
+});
+
+function EndGame() {
+    FadeMusicOut()
+    setTimeout(function () {
+        GameOverLayer.classList.remove('FadeOut');
+        GameOverLayer.classList.add('FadeIn');
+    }, 320);
+    GameOverLayer.classList.remove('Hidden');
+
+}
+
+
 PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
 
 BlackOverlay.style.opacity = '0'
@@ -292,15 +334,28 @@ BlackOverlay.style.opacity = '0'
 let GameGridLayer = document.getElementById("GameGridLayer");
 
 function FadeMusicIn() {
-
+    let TempVolume = GameMusic.volume;
     const fadeInterval = setInterval(() => {
         TempVolume += 0.1;
-        if (TempVolume>= 1) {
+        if (TempVolume >= 1) {
             TempVolume = 1;
-            clearInterval(fadeInterval); // Stop the interval when volume reaches 1
+            clearInterval(fadeInterval);
         }
         GameMusic.volume = TempVolume;
     }, 1500);
+};
+
+function FadeMusicOut() {
+    let TempVolume = GameMusic.volume;
+    const fadeInterval = setInterval(() => {
+        TempVolume -= 0.1;
+        if (TempVolume <= 0) {
+            TempVolume = 0;
+            clearInterval(fadeInterval);
+            GameMusic.pause();
+        }
+        GameMusic.volume = TempVolume;
+    }, 500);
 };
 
 const GameMusic = new Audio();
@@ -513,11 +568,9 @@ function swap_div() {
     controllo_swap(matrice);
 }
 
-
 //funzione per far partire le combo
 
 var valore;
-
 function combo(cons_riga, cons_colonna) {
     valore = true;
     if (cons_riga == 5) {
@@ -560,9 +613,7 @@ function combo(cons_riga, cons_colonna) {
     }
 }
 
-
 let divs = container.getElementsByTagName('div');
-
 console.log(divs);
 
 //funzione per stampare i div in base ai contenuti della matrice
@@ -624,15 +675,15 @@ function stampa_matrice(matrice) {
 
                         console.log(div);
 
-                         // Se il primo div non è stato cliccato, memorizza il riferimento
+                        // Se il primo div non è stato cliccato, memorizza il riferimento
                         prima_cella = div;
                         prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
 
                         //Se la prima cella clicccata corrisponde ai poteri allora parte la funzione
-                        if(matrice[row1][col1] == 5){
+                        if (matrice[row1][col1] == 5) {
                             potere_del_riciclo(row1, col1);
                             prima_cella = null;
-                        }else if(matrice[row1][col1] == 6){
+                        } else if (matrice[row1][col1] == 6) {
                             amore_della_natura(row1, col1);
                             prima_cella = null;
                         }
@@ -697,7 +748,6 @@ function stampa_matrice(matrice) {
 }
 
 stampa_matrice(matrice);
-
 function verifica_spostamento(row1, col1, row2, col2) {
     if (row2 == row1 - 1 && col1 == col2) {
         return true;
@@ -715,7 +765,6 @@ function verifica_spostamento(row1, col1, row2, col2) {
         return false;
     }
 }
-
 
 
 //funzione per controllare se ci sono cons
@@ -747,16 +796,12 @@ function verifica_consecutivi(matrice) {
 }
 
 
-
 var dati_riga;
 var dati_colonna;
-
 let primo = undefined;
 let secondo = undefined;
 
-
 //funzione per cercare se sono presenti combo da tre, quattro e cinque
-
 function cerca(riga, colonna, matrice) {
     //variabili per la posizione degli elementi consecutivi
     dati_riga = {
@@ -775,10 +820,10 @@ function cerca(riga, colonna, matrice) {
     console.log(riga);
     console.log(colonna);
 
-    if(primo == undefined){
+    if (primo == undefined) {
         console.log("VALORE PRIMO CLICK");
         primo = true;
-    }else if(primo != undefined){
+    } else if (primo != undefined) {
         console.log("VALORE secondo CLICK");
 
         primo = undefined;
@@ -790,23 +835,23 @@ function cerca(riga, colonna, matrice) {
             cons_colonna++;
             dati_colonna.cons_colonna++;
             dati_colonna.posizione.push({ riga: m, colonna });
-            if(matrice.length == 5 && m == 3 || matrice.length == 6 && m == 4 ||  matrice.length == 7 && m == 5){
+            if (matrice.length == 5 && m == 3 || matrice.length == 6 && m == 4 || matrice.length == 7 && m == 5) {
                 dati_colonna.posizione.push({ riga: m + 1, colonna });
             }
         }
         else {
-                if (cons_colonna >= 3) {
-                    dati_colonna.posizione.push({ riga: m, colonna });
-                    break;
-                }else{
-                    cons_colonna = 1;
-                    dati_colonna = {
-                        cons_colonna: 1,
-                        posizione: []
-                    };
-                }
-                
+            if (cons_colonna >= 3) {
+                dati_colonna.posizione.push({ riga: m, colonna });
+                break;
+            } else {
+                cons_colonna = 1;
+                dati_colonna = {
+                    cons_colonna: 1,
+                    posizione: []
+                };
             }
+
+        }
 
     }
 
@@ -818,16 +863,16 @@ function cerca(riga, colonna, matrice) {
             dati_riga.posizione.push({ riga, colonna: l });
         }
         else {
-                if (cons_riga >= 3) {
-                    dati_riga.posizione.push({ riga, colonna: l });
-                    break;
-                }else{
-                    cons_riga = 1;
-                    dati_riga = {
-                        cons_riga: 1,
-                        posizione: []
-                    };
-                }     
+            if (cons_riga >= 3) {
+                dati_riga.posizione.push({ riga, colonna: l });
+                break;
+            } else {
+                cons_riga = 1;
+                dati_riga = {
+                    cons_riga: 1,
+                    posizione: []
+                };
+            }
         }
 
 
@@ -839,7 +884,6 @@ function cerca(riga, colonna, matrice) {
 }
 
 //funzione per cercare le combo in altre combo
-
 var combo_speciale = false;
 
 function verifica_combo_speciale(tipo) {
@@ -880,11 +924,9 @@ function verifica_combo_speciale(tipo) {
             cnt++;
         });
     }
-
     if (dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3) {
         combo_speciale = false;
     }
-
 }
 
 //funzione per verificare se ci sono combo nella matrice dopo gli swap
@@ -921,8 +963,8 @@ function scambio_perdita_swap() {
 
     stampa_matrice(matrice);
 
-    if (contatore_perdita >= 3) {
-        alert("HAI PERSO");
+    if (contatore_perdita >= 4) {
+        EndGame();
     }
 }
 
@@ -973,7 +1015,7 @@ function triplo_orizzontale(matrice) {
         for (i = element.riga; i > 0; i--) {
 
             matrice[i][element.colonna] = matrice[i - 1][element.colonna];
-                stampa_matrice(matrice);
+            stampa_matrice(matrice);
         }
         matrice[0][element.colonna] = generaNumero(0, element.colonna);
 
@@ -1129,13 +1171,13 @@ function quintuplo_croce_sopra() {
     if (matrice[riga][colonna] == matrice[riga_riga][colonna_riga]) {
         matrice[riga_riga][colonna_riga] = 6;
         dati_riga.posizione.shift();
-        
+
     } else {
         riga_riga = dati_riga.posizione[2].riga;
         colonna_riga = dati_riga.posizione[2].colonna;
         matrice[riga_riga][colonna_riga] = 6;
         dati_riga.posizione.pop();
-        
+
     }
 
     dati_colonna.posizione.shift();
@@ -1225,12 +1267,12 @@ function potere_del_riciclo(riga, colonna) {
         if (i == matrice.length) {
             i--;
         }
-        if(matrice[i][colonna] != 4){
+        if (matrice[i][colonna] != 4) {
             if (i >= 3) {
                 matrice[i][colonna] = matrice[i - 3][colonna];
                 matrice[i - 3][colonna] = generaNumero(i, colonna);
                 stampa_matrice(matrice)
-            }else {
+            } else {
                 matrice[i][colonna] = generaNumero(i, colonna);
                 stampa_matrice(matrice)
             }
@@ -1240,29 +1282,29 @@ function potere_del_riciclo(riga, colonna) {
     matrice[0][colonna] = generaNumero(0, colonna);
 
     let n = riga;
-    if(matrice[n][colonna - 1] != 4){
+    if (matrice[n][colonna - 1] != 4) {
         for (n = riga; n > 0; n--) {
-            
-                if (matrice[n][colonna - 1] != undefined) {
-                    matrice[n][colonna - 1] = matrice[n - 1][colonna - 1];
-        
-                    matrice[0][colonna - 1] = generaNumero(0, colonna - 1);
-                    stampa_matrice(matrice);
-                }
+
+            if (matrice[n][colonna - 1] != undefined) {
+                matrice[n][colonna - 1] = matrice[n - 1][colonna - 1];
+
+                matrice[0][colonna - 1] = generaNumero(0, colonna - 1);
+                stampa_matrice(matrice);
+            }
         }
     }
 
-    let m = riga ;
-    if(matrice[m][colonna + 1] != 4){
+    let m = riga;
+    if (matrice[m][colonna + 1] != 4) {
         for (m = riga; m > 0; m--) {
-            
-                if (matrice[m][colonna + 1] != undefined) {
-                    matrice[m][colonna + 1] = matrice[m - 1][colonna + 1];
 
-                    matrice[0][colonna + 1] = generaNumero(0, colonna + 1);
-                    stampa_matrice(matrice);
-                }
-        }   
+            if (matrice[m][colonna + 1] != undefined) {
+                matrice[m][colonna + 1] = matrice[m - 1][colonna + 1];
+
+                matrice[0][colonna + 1] = generaNumero(0, colonna + 1);
+                stampa_matrice(matrice);
+            }
+        }
     }
 
 
@@ -1428,7 +1470,9 @@ function assegna_punti(riga, colonna, combo) {
     }
 
     ScoreText.innerText = "Punteggio: " + punti_totale;
-    SettingsSaves.Classifica[SettingsSaves.CurrentPlayer] = punti_totale;
+    if (SettingsSaves.Classifica[SettingsSaves.CurrentPlayer] < punti_totale) {
+        SettingsSaves.Classifica[SettingsSaves.CurrentPlayer] = punti_totale;
+    }
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 }
 
@@ -1446,3 +1490,53 @@ function animazione_vert() {
         matrice[element.riga][element.colonna] = 7;
     });
 }
+
+/* Settings Screen */
+SettingsButton.addEventListener("click", function () {
+    setTimeout(function () {
+        GameGridLayer.classList.add('Hidden');
+        SettingsCon.classList.remove('FadeOut');
+        SettingsCon.classList.add('FadeIn');
+    }, 420);
+    GameGridLayer.classList.add('FadeOut')
+    SettingsCon.classList.remove('Hidden');
+}
+)
+
+ColseSettingsButton.addEventListener("click", function () {
+    setTimeout(function () {
+        SettingsCon.classList.add('Hidden');
+        GameGridLayer.classList.remove('FadeOut');
+        GameGridLayer.classList.add('FadeIn');
+    }, 420);
+    SettingsCon.classList.add('FadeOut')
+    GameGridLayer.classList.remove('Hidden');
+})
+
+SettingsMusicCheckbox.addEventListener("click", function () {
+    if (SettingsSaves.MusicVolume == 1) {
+        MainMenuMusic.volume = 0
+        SettingsSaves.MusicVolume = 0
+        SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    else {
+        MainMenuMusic.volume = 1
+        SettingsSaves.MusicVolume = 1
+        SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
+    }
+
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+})
+
+SettingsSFXCheckbox.addEventListener("click", function () {
+    if (SettingsSaves.SFXVolume == 0.2) {
+        SettingsSaves.SFXVolume = 0
+        SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    else {
+        SettingsSaves.SFXVolume = 0.2
+        SettingsSFXCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+})
+

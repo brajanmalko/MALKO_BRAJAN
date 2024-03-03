@@ -184,9 +184,9 @@ body {
     margin: 5px;
 }
 
+
+
 /* UI */
-
-
 .GameAndSideStatsCon{
     display: flex;
     justify-content: center;
@@ -214,7 +214,6 @@ body {
     text-align: center;
 }
 
-
 .GameAndSideStatsConSide{
     display: flex;
     flex-direction: row;
@@ -223,7 +222,6 @@ body {
     flex-wrap: nowrap;
     width: 100%;
 }
-
 
 @media screen and (min-width: 840px) {
     .matrice-div {
@@ -264,11 +262,56 @@ body {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
         text-align: center;
     }
 }
 
+
+/* GameOVer Layer */
+.GameOverLayer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    background-image: linear-gradient(to bottom, #0e0f04ad, #0f1103ad, #101401ad, #101601ad, #101800ad);
+}
+
+.GameOverCon{
+    width: 70%;
+    height: 60%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.GameverlNutriaImage{
+    height: 100%;
+}
+
+.GameOverTextConatiner{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.GameOverButtonContainer{
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
 
 
 /* Colors */
@@ -422,6 +465,111 @@ body {
     font-family: 'stopbullying', serif;
     border-radius: 30px;
     text-align: center;
+}
+
+
+/* Settings Layer */
+.SettingsLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.SettingsBackground {
+    width: 90%;
+    height: 60%;
+    background-color: #9cdc4d;
+    border: 8px #405b1e solid;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+@media (orientation : landscape) {
+    .SettingsBackground {
+        width: 70%;
+        height: 70%;
+        background-color: #9cdc4d;
+        border: 8px #405b1e solid;
+        border-radius: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+}
+
+.SettingsHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.SettingsContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SettingsConRow {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.SettingsCheckbox {
+    width: 8%;
+}
+
+@media (orientation : portrait) {
+    .SettingsCheckbox {
+        width: 12%;
+    }
+}
+
+.SettingsConRowLanguage {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LangaugeIconsCon {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 60%;
+}
+
+.SettingsLanguageIcon {
+    width: 15%;
+}
+
+.LanguageSelected {
+    border: 4px solid #468322;
+    border-radius: 50%;
+}
+
+.SettingsConRowFooter {
+    text-align: center;
+    width: 70%;
+    margin-top: 10%;
 }
 
 /*Button Colors*/

@@ -70,7 +70,6 @@ if (localStorage.getItem('EcoRushSettings')) {
 
 
 /* Classifica help */
-
 let ImmaginiClassifica = ["Classifica1.png", "Classifica2.png", "Classifica3.png", "Classifica4.png", "Classifica5.png"]
 
 let ClassificaSorted = Object.fromEntries(
@@ -105,7 +104,6 @@ if (Object.keys(SettingsSaves.Classifica ).length != 0) {
 
 
 /* Tap Sound */
-
 const ButtonClickSFX1 = new Audio();
 ButtonClickSFX1.src = './Assets/MusicAndSounds/UITap1.mp3'
 
@@ -139,18 +137,15 @@ TapSFX2Items.forEach(function(element) {
 
 /* Other */
 function GoTOPageBlackOverlay() {
-    BlackOverlay.style.opacity = '1'; // Fading to black
+    BlackOverlay.style.opacity = '1';
     SettingsSaves.CurrentLevel = LevelsArray[SelectedLevel];
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
-
     setTimeout(function () {
-        // Change the page after the transition
         window.location.href = "index.html";
     }, 500);
 }
 
 /* Splash Screen */
-
 SplashCon.addEventListener("click", function () {
     if (ShwoingSplash == true) {
         let MainMenuMusic = document.getElementById("MainMenuMusic");
