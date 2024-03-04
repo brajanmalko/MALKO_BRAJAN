@@ -184,7 +184,9 @@ body {
     margin: 5px;
 }
 
-
+.UiButtonsConatiner{
+    margin-top: 10px;
+}
 
 /* UI */
 .GameAndSideStatsCon{
@@ -201,7 +203,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .GameStatsCon1{
@@ -311,6 +313,32 @@ body {
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
+}
+
+/*Hover Effects*/
+.HoverEffect2 {
+    background-image: linear-gradient(rgb(0 0 0/0%) 0 0);
+}
+
+.HoverEffect1:hover {
+    transform: scale(1.03);
+}
+
+.HoverEffect2:hover {
+    background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+}
+
+.HoverEffect1:active {
+    transform: scale(0.9);
+}
+
+.HoverEffect2:active {
+    background-image: linear-gradient(rgb(0 0 0/30%) 0 0);
+    transform: scale(0.95);
+}
+
+.HoverEffectSuddle1:hover {
+    transform: scale(1.02);
 }
 
 
@@ -479,7 +507,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+    transition: all 0.3s ease-in;
 }
 
 .SettingsBackground {

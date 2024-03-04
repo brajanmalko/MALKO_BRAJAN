@@ -47,6 +47,12 @@ let ProgressBar4 = document.getElementById("ProgressBar4")
 let ProgressBarText4 = document.getElementById("ProgressBarText4")
 let BlackOverlay = document.getElementById("BlackOverlay");
 let SettingsCon = document.getElementById("SettingsCon");
+let SettingsMusicCheckbox = document.getElementById("SettingsMusicCheckbox");
+let SettingsSFXCheckbox = document.getElementById("SettingsSFXCheckbox");
+let ColseSettingsButton = document.getElementById("ColseSettingsButton");
+let QuitButton = document.getElementById("QuitButton");
+let MusicaAttivaPerFade = true;
+let PanelOpened = false;
 
 
 /*Storage*/
@@ -65,12 +71,14 @@ if (localStorage.getItem('EcoRushSettings')) {
     SettingsSaves = JSON.parse(TempLoad)
 
     console.log(SettingsSaves.CurrentLevel)
-    /*
+
     if (SettingsSaves.MusicVolume == 1) {
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
+        MusicaAttivaPerFade = true;
     }
     else {
         SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
+        MusicaAttivaPerFade = false;
     }
 
     if (SettingsSaves.SFXVolume == 0.2) {
@@ -79,9 +87,6 @@ if (localStorage.getItem('EcoRushSettings')) {
     else {
         SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
     }
-    if (SettingsSaves.CurrentPlayer != undefined && SettingsSaves.CurrentPlayer != 0 && SettingsSaves.CurrentPlayer != "") {
-        NameInput.value = SettingsSaves.CurrentPlayer
-    }*/
 }
 
 /* Suoni */
@@ -138,14 +143,18 @@ if (SettingsSaves.CurrentLevel == "facile") {
     matrice = [[], [], [], [], [], []];
     dropTraIRad = 4;
     setInterval(() => {
-        dropTraIRad += 1;
+        if (!PanelOpened) {
+            dropTraIRad += 1;
+        }
     }, 100000);
 
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     matrice = [[], [], [], [], [], [], []];
     dropTraIRad = 7;
     setInterval(() => {
-        dropTraIRad += 1;
+        if (!PanelOpened) {
+            dropTraIRad += 1;
+        }
     }, 100000);
 }
 /*Caricamento Tutorial */
@@ -325,18 +334,18 @@ function EndGame() {
     GameOverLayer.classList.remove('Hidden');
 
 }
-
-
 PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
-
 BlackOverlay.style.opacity = '0'
-
 let GameGridLayer = document.getElementById("GameGridLayer");
 
 function FadeMusicIn() {
     let TempVolume = GameMusic.volume;
+
     const fadeInterval = setInterval(() => {
-        TempVolume += 0.1;
+        if (MusicaAttivaPerFade) {
+            TempVolume += 0.1; TempVolume = 1;
+        }
+        else { TempVolume = 0; }
         if (TempVolume >= 1) {
             TempVolume = 1;
             clearInterval(fadeInterval);
@@ -344,7 +353,6 @@ function FadeMusicIn() {
         GameMusic.volume = TempVolume;
     }, 1500);
 };
-
 function FadeMusicOut() {
     let TempVolume = GameMusic.volume;
     const fadeInterval = setInterval(() => {
@@ -370,7 +378,7 @@ GameGridLayer.addEventListener("click", function () {
     GameMusic.play()
     console.log(SettingsSaves.MusicVolume)
     if (SettingsSaves.MusicVolume == 1) {
-        FadeMusicIn()
+        if (MusicaAttivaPerFade) { FadeMusicIn() }
     }
 
 }, { once: true })
@@ -596,7 +604,7 @@ function combo(cons_riga, cons_colonna) {
             return
         } else {
             console.log('combo 3 riga');
-                triplo_orizzontale(matrice)
+            triplo_orizzontale(matrice)
         }
     }
     else if (cons_colonna == 3) {
@@ -606,7 +614,7 @@ function combo(cons_riga, cons_colonna) {
             return;
         } else {
             console.log('combo 3 colonna');
-                triplo_verticale(matrice);
+            triplo_verticale(matrice);
         }
     } else {
         valore = false;
@@ -1334,7 +1342,7 @@ function amore_della_natura(riga, colonna) {
     controlla_e_assegna(riga - 1, colonna + 1, combo);
     controlla_e_assegna(riga - 1, colonna - 1, combo);
     controlla_e_assegna(riga + 1, colonna - 1, combo);
-    controlla_e_assegna(riga + 1, colonna + 1, combo); 
+    controlla_e_assegna(riga + 1, colonna + 1, combo);
 
     for (i = riga + 1; i > 0; i--) {
 
@@ -1468,14 +1476,14 @@ function assegna_punti(riga, colonna, combo) {
 
 //funzione per animazione prima di effettuare la combo
 function animazione_orizz(callback) {
-        dati_riga.posizione.forEach(function (element) {
-            console.log("animazione");
-            matrice[element.riga][element.colonna] = 7;
-        });
+    dati_riga.posizione.forEach(function (element) {
+        console.log("animazione");
+        matrice[element.riga][element.colonna] = 7;
+    });
 
-        stampa_matrice(matrice);
+    stampa_matrice(matrice);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         console.log("Operazione completata");
         callback();
     }, 2000);
@@ -1489,7 +1497,7 @@ function animazione_vert(callback) {
 
     stampa_matrice(matrice);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         console.log("Operazione completata");
         callback();
     }, 2000);
@@ -1501,9 +1509,11 @@ SettingsButton.addEventListener("click", function () {
         GameGridLayer.classList.add('Hidden');
         SettingsCon.classList.remove('FadeOut');
         SettingsCon.classList.add('FadeIn');
-    }, 420);
+    }, 320);
+    GameGridLayer.classList.remove('FadeIn')
     GameGridLayer.classList.add('FadeOut')
     SettingsCon.classList.remove('Hidden');
+    PanelOpened = true;
 }
 )
 
@@ -1512,19 +1522,21 @@ ColseSettingsButton.addEventListener("click", function () {
         SettingsCon.classList.add('Hidden');
         GameGridLayer.classList.remove('FadeOut');
         GameGridLayer.classList.add('FadeIn');
-    }, 420);
+        PanelOpened = false;
+    }, 320);
+    SettingsCon.classList.remove('FadeIn')
     SettingsCon.classList.add('FadeOut')
     GameGridLayer.classList.remove('Hidden');
 })
 
 SettingsMusicCheckbox.addEventListener("click", function () {
     if (SettingsSaves.MusicVolume == 1) {
-        MainMenuMusic.volume = 0
+        GameMusic.volume = 0
         SettingsSaves.MusicVolume = 0
         SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
     }
     else {
-        MainMenuMusic.volume = 1
+        GameMusic.volume = 1
         SettingsSaves.MusicVolume = 1
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
     }
@@ -1544,3 +1556,10 @@ SettingsSFXCheckbox.addEventListener("click", function () {
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 })
 
+QuitButton.addEventListener("click", function () {
+    BlackOverlay.style.opacity = '1';
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+    setTimeout(function () {
+        window.location.href = "HomePage.html";
+    }, 500);
+});
