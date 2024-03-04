@@ -241,10 +241,7 @@ let TutorialButtonNext = document.getElementById("TutorialButtonNext");
 
 let TutorialImages = ['Assets/Tutorial/Placeholder.png', 'Assets/Tutorial/WelcomeImage.png', 'Assets/Tutorial/Trash.png', 'Assets/Tutorial/Tris.png', 'Assets/Tutorial/Quaterna.png', 'Assets/Tutorial/Riciclo.png', 'Assets/Tutorial/Cinquina.png', 'Assets/Tutorial/Amore.png', 'Assets/Tutorial/Radiattivo.png', 'Assets/Tutorial/GameLogo.png']
 let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.png', 'Assets/NutriaSprites/3.png', 'Assets/NutriaSprites/4.png', 'Assets/NutriaSprites/5.png', 'Assets/NutriaSprites/6.png', 'Assets/NutriaSprites/7.png', 'Assets/NutriaSprites/8.png', 'Assets/NutriaSprites/9.png', 'Assets/NutriaSprites/10.png', 'Assets/NutriaSprites/11.png', 'Assets/NutriaSprites/12.png', 'Assets/NutriaSprites/13.png', 'Assets/NutriaSprites/14.png', 'Assets/NutriaSprites/15.png']
-
 let TutorialIndex = 1;
-
-
 
 function UpdateTutorial() {
     TutorialText.innerText = DialoghiTutorial[TutorialIndex].Text;
@@ -295,35 +292,49 @@ if (!localStorage.getItem('EcoRushTutorial')) {
 }
 
 
-/*Game Over Page*/
-let StringeGameOVer = {
+/*Game Over and Won Page*/
+let StringeGameOver = {
     "1": "Ritenteremo un altro giorno",
     "2": "C'era troppa spazzatura qui",
     "3": "Tranquillo giovane, hai fatto del tuo meglio"
 };
+let StringeGameWon = {
+    "1": "Bravo giovane!",
+    "2": "Tutto pulito!",
+    "3": "Ora noi nutrie torneremo a balneare qui"
+};
 let RandomNumberGameOver = Math.floor(Math.random() * 3) + 1;
 let GameOverText = document.getElementById("GameOverText");
-GameOverText.innerText = StringeGameOVer[RandomNumberGameOver]
+GameOverText.innerText = StringeGameOver[RandomNumberGameOver]
 let GameOverButtonBack = document.getElementById("GameOverButtonBack");
 let GameOverButtonReplay = document.getElementById("GameOverButtonReplay");
 let GameOverLayer = document.getElementById("GameOverLayer");
+let RandomNumberGameWon = Math.floor(Math.random() * 3) + 1;
+let GameWonText = document.getElementById("GameWonText");
+GameOverText.innerText = StringeGameWon[RandomNumberGameWon]
+let GameWonButtonBack = document.getElementById("GameWonButtonBack");
+let GameWonButtonReplay = document.getElementById("GameWonButtonReplay");
+let GameWonLayer = document.getElementById("GameWonLayer");
 
-GameOverButtonBack.addEventListener("click", function () {
+function GoBack(){
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
         window.location.href = "HomePage.html";
     }, 500);
-});
-
-GameOverButtonReplay.addEventListener("click", function () {
+}
+function RePlay(){
     BlackOverlay.style.opacity = '1';
-
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
         window.location.href = "index.html";
     }, 500);
-});
+}
+
+GameOverButtonBack.addEventListener("click", GoBack);
+GameOverButtonReplay.addEventListener("click", RePlay);
+GameWonButtonBack.addEventListener("click", GoBack);
+GameWonButtonReplay.addEventListener("click", RePlay);
 
 function EndGame() {
     FadeMusicOut()
@@ -332,8 +343,16 @@ function EndGame() {
         GameOverLayer.classList.add('FadeIn');
     }, 320);
     GameOverLayer.classList.remove('Hidden');
-
 }
+function WonGame() {
+    FadeMusicOut()
+    setTimeout(function () {
+        GameWonLayer.classList.remove('FadeOut');
+        GameWonLayer.classList.add('FadeIn');
+    }, 320);
+    GameWonLayer.classList.remove('Hidden');
+}
+
 PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
 BlackOverlay.style.opacity = '0'
 let GameGridLayer = document.getElementById("GameGridLayer");
@@ -391,6 +410,9 @@ function UpdateBars() {
     }
     if (numero_carta >= 50) {
         ProgressBarText1.innerText = "Done"
+        ProgressBarText1.classList.add("GreenText");
+        ProgressBarText1.classList.add("TextBorderBlack");
+        ProgressBarText1.classList.remove("BlackText");
     }
     ProgressBar1.style.width = numero_carta * 2 + "%"
 
@@ -400,6 +422,9 @@ function UpdateBars() {
     }
     if (numero_plastica >= 50) {
         ProgressBarText2.innerText = "Done"
+        ProgressBarText2.classList.add("GreenText");
+        ProgressBarText2.classList.add("TextBorderBlack");
+        ProgressBarText2.classList.remove("BlackText");
     }
     ProgressBar2.style.width = numero_plastica * 2 + "%"
 
@@ -409,6 +434,9 @@ function UpdateBars() {
     }
     if (numero_vetro >= 50) {
         ProgressBarText3.innerText = "Done"
+        ProgressBarText3.classList.add("GreenText");
+        ProgressBarText3.classList.add("TextBorderBlack");
+        ProgressBarText3.classList.remove("BlackText");
     }
     ProgressBar3.style.width = numero_vetro * 2 + "%"
 
@@ -418,8 +446,15 @@ function UpdateBars() {
     }
     if (numero_secco >= 50) {
         ProgressBarText4.innerText = "Done"
+        ProgressBarText4.classList.add("GreenText");
+        ProgressBarText4.classList.add("TextBorderBlack");
+        ProgressBarText4.classList.remove("BlackText");
     }
     ProgressBar4.style.width = numero_secco * 2 + "%"
+
+    if(numero_carta >= 50 && numero_plastica >= 50 && numero_vetro >= 50 && numero_secco >= 50){
+        WonGame()
+    }
 }
 
 //funzione per generare il contenuto dei div della matrice
