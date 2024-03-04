@@ -1,4 +1,4 @@
-let elementi = ["c.png", "p.png", "v.png", "s.png", "r.png", "pdr.png", "a.png", "animazione1.gif", "animazione.gif"];
+let elementi = ["c.png", "p.png", "v.png", "s.png", "r.png", "pdr.png", "a.png", "Explosion1.gif", "Explosion2.gif"];
 
 var matrice;
 
@@ -596,7 +596,7 @@ function combo(cons_riga, cons_colonna) {
             return
         } else {
             console.log('combo 3 riga');
-            triplo_orizzontale(matrice);
+                triplo_orizzontale(matrice)
         }
     }
     else if (cons_colonna == 3) {
@@ -606,7 +606,7 @@ function combo(cons_riga, cons_colonna) {
             return;
         } else {
             console.log('combo 3 colonna');
-            triplo_verticale(matrice);
+                triplo_verticale(matrice);
         }
     } else {
         valore = false;
@@ -1154,6 +1154,8 @@ function quintuplo_orizzontale() {
     console.log("matrice dopo il triplo" + matrice);
 
     stampa_matrice(matrice);
+
+    controllo_swap(matrice);
 }
 
 //funzione per far partire la combo ad L se trovata
@@ -1212,6 +1214,8 @@ function quintuplo_croce_sopra() {
     matrice[0][colonna] = generaNumero(0, colonna);
 
     stampa_matrice(matrice);
+
+    controllo_swap(matrice);
 }
 
 function quintuplo_croce_sotto() {
@@ -1241,23 +1245,25 @@ function quintuplo_croce_sotto() {
     matrice[0][colonna] = generaNumero(0, colonna);
 
     stampa_matrice(matrice);
+
+    controllo_swap(matrice);
 }
+
+// Controlla se l'elemento esiste nella matrice e se sì, assegna i punti
+function controlla_e_assegna(riga, colonna, combo) {
+    if (riga >= 0 && riga < matrice.length && colonna >= 0 && colonna < matrice[0].length && matrice[riga][colonna] !== undefined) {
+        assegna_punti(riga, colonna, combo);
+    }
+}
+
 //funzione per attivare il potere del riciclo se cliccato
 function potere_del_riciclo(riga, colonna) {
     let combo = 1
 
-    if (matrice[riga - 1][colonna] != undefined) {
-        assegna_punti(riga - 1, colonna, combo);
-    }
-    else if (matrice[riga + 1][colonna] != undefined) {
-        assegna_punti(riga + 1, colonna, combo);
-    }
-    else if (matrice[riga][colonna - 1] != undefined) {
-        assegna_punti(riga, colonna - 1, combo);
-    }
-    else if (matrice[riga][colonna + 1] != undefined) {
-        assegna_punti(riga, colonna + 1, combo);
-    }
+    controlla_e_assegna(riga - 1, colonna, combo); // Sopra
+    controlla_e_assegna(riga + 1, colonna, combo); // Sotto
+    controlla_e_assegna(riga, colonna - 1, combo); // Sinistra
+    controlla_e_assegna(riga, colonna + 1, combo); // Destra
 
 
 
@@ -1320,31 +1326,15 @@ function potere_del_riciclo(riga, colonna) {
 function amore_della_natura(riga, colonna) {
 
     let combo = 1
-    if (matrice[riga - 1][colonna] != undefined) {
-        assegna_punti(riga - 1, colonna, combo);
-    }
-    else if (matrice[riga + 1][colonna] != undefined) {
-        assegna_punti(riga + 1, colonna, combo);
-    }
-    else if (matrice[riga][colonna - 1] != undefined) {
-        assegna_punti(riga, colonna - 1, combo);
-    }
-    else if (matrice[riga][colonna + 1] != undefined) {
-        assegna_punti(riga, colonna + 1, combo);
-    }
+    controlla_e_assegna(riga - 1, colonna, combo);
+    controlla_e_assegna(riga + 1, colonna, combo);
+    controlla_e_assegna(riga, colonna - 1, combo);
+    controlla_e_assegna(riga, colonna + 1, combo);
 
-    else if (matrice[riga - 1][colonna + 1] != undefined) {
-        assegna_punti(riga - 1, colonna + 1, combo);
-    }
-    else if (matrice[riga - 1][colonna - 1] != undefined) {
-        assegna_punti(riga - 1, colonna - 1, combo);
-    }
-    else if (matrice[riga + 1][colonna - 1] != undefined) {
-        assegna_punti(riga + 1, colonna - 1, combo);
-    }
-    else if (matrice[riga + 1][colonna + 1] != undefined) {
-        assegna_punti(riga + 1, colonna + 1, combo);
-    }
+    controlla_e_assegna(riga - 1, colonna + 1, combo);
+    controlla_e_assegna(riga - 1, colonna - 1, combo);
+    controlla_e_assegna(riga + 1, colonna - 1, combo);
+    controlla_e_assegna(riga + 1, colonna + 1, combo); 
 
     for (i = riga + 1; i > 0; i--) {
 
@@ -1477,18 +1467,32 @@ function assegna_punti(riga, colonna, combo) {
 }
 
 //funzione per animazione prima di effettuare la combo
-function animazione_orizz() {
-    dati_riga.posizione.forEach(function (element) {
-        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
-        matrice[element.riga][element.colonna] = 7;
-    });
+function animazione_orizz(callback) {
+        dati_riga.posizione.forEach(function (element) {
+            console.log("animazione");
+            matrice[element.riga][element.colonna] = 7;
+        });
+
+        stampa_matrice(matrice);
+
+    setTimeout(()=>{
+        console.log("Operazione completata");
+        callback();
+    }, 2000);
 }
 
-function animazione_vert() {
+function animazione_vert(callback) {
     dati_colonna.posizione.forEach(function (element) {
-        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
+        console.log("animazione");
         matrice[element.riga][element.colonna] = 7;
     });
+
+    stampa_matrice(matrice);
+
+    setTimeout(()=>{
+        console.log("Operazione completata");
+        callback();
+    }, 2000);
 }
 
 /* Settings Screen */
