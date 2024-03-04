@@ -908,8 +908,8 @@ function verifica_combo_speciale(tipo) {
         dati_colonna.posizione.forEach(function (element) {
             cerca(element.riga, element.colonna, matrice);
             if (dati_riga.posizione.length == 3) {
-                colonna_i = dati_riga.posizione[0].riga;
-                colonna_f = dati_riga.posizione[2].riga;
+                colonna_i = dati_riga.posizione[0].colonna;
+                colonna_f = dati_riga.posizione[2].colonna;
 
                 if (matrice[element.riga][colonna_f] == matrice[element.riga][element.colonna] || matrice[element.riga][colonna_i] == matrice[element.riga][element.colonna]) {
                     if (cnt == 0) {
