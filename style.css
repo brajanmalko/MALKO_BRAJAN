@@ -52,6 +52,24 @@ body {
     transition: opacity 0.5s ease;
 }
 
+
+/* Animations */
+@keyframes Shaking1 {
+    0%, 100% { transform: translateX(0); }
+    5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95%{ transform: translateX(-2px) rotate(-0.3deg);}
+    10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% { transform: translateX(2px) rotate(0.3deg) ;}
+  }
+
+  @keyframes Shaking2 {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-1px) rotate(-0.2deg);}
+    20%, 40%, 60%, 80%{ transform: translateX(1px) rotate(0.2deg) ;}
+  }
+  
+  .Shake1 {
+    animation: Shaking2 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    transform-origin: center;
+  }
 /* Tutorial Layer */ 
 .TutrialLayer {
     position: fixed;
