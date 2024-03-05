@@ -53,6 +53,7 @@ let ColseSettingsButton = document.getElementById("ColseSettingsButton");
 let QuitButton = document.getElementById("QuitButton");
 let MusicaAttivaPerFade = true;
 let PanelOpened = false;
+let ScreenShakeCheckbox = document.getElementById("ScreenShakeCheckbox");
 
 
 /*Storage*/
@@ -62,8 +63,11 @@ let SettingsSaves = {
     "Classifica": {},
     "CurrentPlayer": "",
     "CurrentScore": 0,
-    "CurrentLevel": "facile"
+    "CurrentLevel": "facile",
+    "ScreenShake": true,
+    "VisualEffects": true
 }
+
 matrice = [[], [], [], [], []]
 
 if (localStorage.getItem('EcoRushSettings')) {
@@ -86,6 +90,13 @@ if (localStorage.getItem('EcoRushSettings')) {
     }
     else {
         SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
+    }
+
+    if (SettingsSaves.ScreenShake) {
+        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else {
+        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
     }
 }
 
@@ -1568,7 +1579,8 @@ function assegna_punti(riga, colonna, combo) {
         }
 
         UpdateBars()
-        ShakeScreen()
+        if(SettingsSaves.ScreenShake){ShakeScreen()}
+        
     }
 
     ScoreText.innerText = "Punteggio: " + punti_totale;
@@ -1667,3 +1679,15 @@ QuitButton.addEventListener("click", function () {
         window.location.href = "HomePage.html";
     }, 500);
 });
+
+ScreenShakeCheckbox.addEventListener("click", function () {
+    if (SettingsSaves.ScreenShake) {
+        SettingsSaves.ScreenShake = false
+        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    else {
+        SettingsSaves.ScreenShake = true
+        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+})

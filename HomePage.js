@@ -22,6 +22,7 @@ let LevelButonDifficile = document.getElementById("LevelButonDifficile");
 
 let SettingsMusicCheckbox = document.getElementById("SettingsMusicCheckbox");
 let SettingsSFXCheckbox = document.getElementById("SettingsSFXCheckbox");
+let ScreenShakeCheckbox = document.getElementById("ScreenShakeCheckbox");
 let ColseSettingsButton = document.getElementById("ColseSettingsButton");
 let ClassificaRowsCon = document.getElementById("ClassificaRowsCon");
 let BlackOverlay = document.getElementById("BlackOverlay");
@@ -43,7 +44,9 @@ let SettingsSaves = {
     "Classifica": {},
     "CurrentPlayer": "",
     "CurrentScore": 0,
-    "CurrentLevel": "facile"
+    "CurrentLevel": "facile",
+    "ScreenShake": true,
+    "VisualEffects": true
 }
 
 if (localStorage.getItem('EcoRushSettings')) {
@@ -62,10 +65,17 @@ if (localStorage.getItem('EcoRushSettings')) {
     else {
         SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
     }
+
+    if (SettingsSaves.ScreenShake) {
+        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else {
+        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    
     if (SettingsSaves.CurrentPlayer != undefined && SettingsSaves.CurrentPlayer != 0 && SettingsSaves.CurrentPlayer != "") {
         NameInput.value = SettingsSaves.CurrentPlayer
     }
-
 }
 
 
@@ -232,6 +242,18 @@ SettingsSFXCheckbox.addEventListener("click", function () {
     else {
         SettingsSaves.SFXVolume = 0.2
         SettingsSFXCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+})
+
+ScreenShakeCheckbox.addEventListener("click", function () {
+    if (SettingsSaves.ScreenShake) {
+        SettingsSaves.ScreenShake = false
+        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    else {
+        SettingsSaves.ScreenShake = true
+        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
     }
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 })
