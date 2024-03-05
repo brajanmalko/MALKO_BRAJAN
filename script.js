@@ -309,9 +309,10 @@ GameOverText.innerText = StringeGameOver[RandomNumberGameOver]
 let GameOverButtonBack = document.getElementById("GameOverButtonBack");
 let GameOverButtonReplay = document.getElementById("GameOverButtonReplay");
 let GameOverLayer = document.getElementById("GameOverLayer");
+
 let RandomNumberGameWon = Math.floor(Math.random() * 3) + 1;
 let GameWonText = document.getElementById("GameWonText");
-GameOverText.innerText = StringeGameWon[RandomNumberGameWon]
+GameWonText.innerText = StringeGameWon[RandomNumberGameWon]
 let GameWonButtonBack = document.getElementById("GameWonButtonBack");
 let GameWonButtonReplay = document.getElementById("GameWonButtonReplay");
 let GameWonLayer = document.getElementById("GameWonLayer");
@@ -331,10 +332,19 @@ function RePlay(){
     }, 500);
 }
 
+let ContinueGame = false;
 GameOverButtonBack.addEventListener("click", GoBack);
 GameOverButtonReplay.addEventListener("click", RePlay);
 GameWonButtonBack.addEventListener("click", GoBack);
-GameWonButtonReplay.addEventListener("click", RePlay);
+GameWonButtonReplay.addEventListener("click", function(){
+    setTimeout(function () {
+        GameWonLayer.classList.add('Hidden');
+        PanelOpened = false;
+    }, 320);
+    GameWonLayer.classList.remove('FadeIn')
+    GameWonLayer.classList.add('FadeOut')
+    ContinueGame = true;
+});
 
 function EndGame() {
     FadeMusicOut()
@@ -351,6 +361,7 @@ function WonGame() {
         GameWonLayer.classList.add('FadeIn');
     }, 320);
     GameWonLayer.classList.remove('Hidden');
+    PanelOpened = true;
 }
 
 PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
@@ -452,7 +463,7 @@ function UpdateBars() {
     }
     ProgressBar4.style.width = numero_secco * 2 + "%"
 
-    if(numero_carta >= 50 && numero_plastica >= 50 && numero_vetro >= 50 && numero_secco >= 50){
+    if(!ContinueGame && numero_carta >= 50 && numero_plastica >= 50 && numero_vetro >= 50 && numero_secco >= 50){
         WonGame()
     }
 }
