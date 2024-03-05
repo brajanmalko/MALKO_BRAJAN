@@ -796,7 +796,8 @@ function stampa_matrice(matrice) {
                             potere_del_riciclo(row1, col1);
                             prima_cella.classList.remove('SelectedDivBG');
                             prima_cella = null;
-                        } else if (matrice[row1][col1] == 6) {
+                        }
+                        if (matrice[row1][col1] == 6) {
                             amore_della_natura(row1, col1);
                             prima_cella.classList.remove('SelectedDivBG');
                             prima_cella = null;
@@ -1028,10 +1029,10 @@ function verifica_combo_speciale(tipo) {
                 if (matrice[element.riga][colonna_f] == matrice[element.riga][element.colonna] || matrice[element.riga][colonna_i] == matrice[element.riga][element.colonna]) {
                     if (cnt == 0) {
                         combo_speciale = true;
-                        quintuplo_croce_sopra();
+                        quintuplo_croce_sotto();
                     } else if (cnt == 2) {
                         combo_speciale = true;
-                        quintuplo_croce_sotto();
+                        quintuplo_croce_sopra();
                     }
                 }
             }
