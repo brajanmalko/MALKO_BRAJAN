@@ -135,6 +135,65 @@ TapSFX3Items.forEach(function (element) {
     });
 });
 
+let SoundPlaying = false;
+const CarboardSound = new Audio();
+CarboardSound.src = './Assets/MusicAndSounds/CarboardSFX.mp3'
+const PlasticSound = new Audio();
+PlasticSound.src = './Assets/MusicAndSounds/PlasticSFX.mp3'
+const GlassSound = new Audio();
+GlassSound.src = './Assets/MusicAndSounds/GlassSFX.mp3'
+const TrashSound = new Audio();
+TrashSound.src = './Assets/MusicAndSounds/TrashSFX.mp3'
+
+function CarboardSFX() {
+    SoundPlaying = true;
+    CarboardSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        CarboardSound.volume = 1;
+    }
+    CarboardSound.currentTime = 0;
+    CarboardSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 800)
+}
+function PlasticSFX() {
+    SoundPlaying = true;
+    PlasticSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        PlasticSound.volume = 0.7;
+    }
+    PlasticSound.currentTime = 0;
+    PlasticSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 800)
+}
+function GlassSFX() {
+    SoundPlaying = true;
+    GlassSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        GlassSound.volume = 0.6;
+    }
+    GlassSound.currentTime = 0;
+    GlassSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 900)
+}
+function TrashSFX() {
+    SoundPlaying = true;
+    TrashSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        GlassSound.volume = 1;
+    }
+    TrashSound.currentTime = 0;
+    TrashSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 800)
+}
+
 //variabile per la difficoltà
 if (SettingsSaves.CurrentLevel == "facile") {
     matrice = [[], [], [], [], []];
@@ -317,14 +376,14 @@ let GameWonButtonBack = document.getElementById("GameWonButtonBack");
 let GameWonButtonReplay = document.getElementById("GameWonButtonReplay");
 let GameWonLayer = document.getElementById("GameWonLayer");
 
-function GoBack(){
+function GoBack() {
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
         window.location.href = "HomePage.html";
     }, 500);
 }
-function RePlay(){
+function RePlay() {
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
@@ -336,7 +395,7 @@ let ContinueGame = false;
 GameOverButtonBack.addEventListener("click", GoBack);
 GameOverButtonReplay.addEventListener("click", RePlay);
 GameWonButtonBack.addEventListener("click", GoBack);
-GameWonButtonReplay.addEventListener("click", function(){
+GameWonButtonReplay.addEventListener("click", function () {
     setTimeout(function () {
         GameWonLayer.classList.add('Hidden');
         PanelOpened = false;
@@ -420,7 +479,7 @@ function UpdateBars() {
         ProgressBarText1.innerText = ""
     }
     if (numero_carta >= 50) {
-        ProgressBarText1.innerText = "Done"
+        ProgressBarText1.innerText = "Completato"
         ProgressBarText1.classList.add("GreenText");
         ProgressBarText1.classList.add("TextBorderBlack");
         ProgressBarText1.classList.remove("BlackText");
@@ -432,7 +491,7 @@ function UpdateBars() {
         ProgressBarText2.innerText = ""
     }
     if (numero_plastica >= 50) {
-        ProgressBarText2.innerText = "Done"
+        ProgressBarText2.innerText = "Completato"
         ProgressBarText2.classList.add("GreenText");
         ProgressBarText2.classList.add("TextBorderBlack");
         ProgressBarText2.classList.remove("BlackText");
@@ -444,7 +503,7 @@ function UpdateBars() {
         ProgressBarText3.innerText = ""
     }
     if (numero_vetro >= 50) {
-        ProgressBarText3.innerText = "Done"
+        ProgressBarText3.innerText = "Completato"
         ProgressBarText3.classList.add("GreenText");
         ProgressBarText3.classList.add("TextBorderBlack");
         ProgressBarText3.classList.remove("BlackText");
@@ -456,14 +515,14 @@ function UpdateBars() {
         ProgressBarText4.innerText = ""
     }
     if (numero_secco >= 50) {
-        ProgressBarText4.innerText = "Done"
+        ProgressBarText4.innerText = "Completato"
         ProgressBarText4.classList.add("GreenText");
         ProgressBarText4.classList.add("TextBorderBlack");
         ProgressBarText4.classList.remove("BlackText");
     }
     ProgressBar4.style.width = numero_secco * 2 + "%"
 
-    if(!ContinueGame && numero_carta >= 50 && numero_plastica >= 50 && numero_vetro >= 50 && numero_secco >= 50){
+    if (!ContinueGame && numero_carta >= 50 && numero_plastica >= 50 && numero_vetro >= 50 && numero_secco >= 50) {
         WonGame()
     }
 }
@@ -1457,6 +1516,8 @@ function amore_della_natura(riga, colonna) {
 function assegna_punti(riga, colonna, combo) {
     if (matrice[riga][colonna] != undefined) {
         if (matrice[riga][colonna] == 0) {
+            if (!SoundPlaying) { CarboardSFX() }
+
             punti_totale += punti_carta * combo;
             if (numero_carta < 50) {
                 numero_carta += combo;
@@ -1466,6 +1527,8 @@ function assegna_punti(riga, colonna, combo) {
             }
         }
         else if (matrice[riga][colonna] == 1) {
+            if (!SoundPlaying) { PlasticSFX() }
+
             punti_totale += punti_plastica * combo;
             if (numero_plastica < 50) {
                 numero_plastica += combo;
@@ -1475,6 +1538,8 @@ function assegna_punti(riga, colonna, combo) {
             }
         }
         else if (matrice[riga][colonna] == 2) {
+            if (!SoundPlaying) { GlassSFX() }
+
             punti_totale += punti_vetro * combo;
             if (numero_vetro < 50) {
                 numero_vetro += combo;
@@ -1484,6 +1549,8 @@ function assegna_punti(riga, colonna, combo) {
             }
         }
         else if (matrice[riga][colonna] == 3) {
+            if (!SoundPlaying) { TrashSFX() }
+
             punti_totale += punti_secco * combo;
             if (numero_secco < 50) {
                 numero_secco += combo;
