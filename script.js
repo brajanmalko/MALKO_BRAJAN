@@ -161,7 +161,7 @@ function PlasticSFX() {
     SoundPlaying = true;
     PlasticSound.volume = SettingsSaves.SFXVolume;
     if (SettingsSaves.SFXVolume == 0.2) {
-        PlasticSound.volume = 0.7;
+        PlasticSound.volume = 0.8;
     }
     PlasticSound.currentTime = 0;
     PlasticSound.play();
@@ -192,6 +192,13 @@ function TrashSFX() {
     setTimeout(function () {
         SoundPlaying = false;
     }, 800)
+}
+
+function ShakeScreen(){
+    GameGridLayer.classList.add("Shake1");
+    setTimeout(function(){
+        GameGridLayer.classList.remove("Shake1");
+    }, 400)
 }
 
 //variabile per la difficoltà
@@ -1561,6 +1568,7 @@ function assegna_punti(riga, colonna, combo) {
         }
 
         UpdateBars()
+        ShakeScreen()
     }
 
     ScoreText.innerText = "Punteggio: " + punti_totale;
