@@ -146,7 +146,7 @@ if (SettingsSaves.CurrentLevel == "facile") {
         if (!PanelOpened) {
             dropTraIRad += 1;
         }
-    }, 100000);
+    }, 120000);
 
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     matrice = [[], [], [], [], [], [], []];
@@ -155,7 +155,7 @@ if (SettingsSaves.CurrentLevel == "facile") {
         if (!PanelOpened) {
             dropTraIRad += 1;
         }
-    }, 100000);
+    }, 120000);
 }
 /*Caricamento Tutorial */
 let DialoghiTutorial = {
@@ -556,30 +556,11 @@ function swap_div() {
         if (matrice[row2][col2] == 5 || matrice[row1][col1] == 5) {
             setTimeout(() => {
                 scambio_perdita();
-
             }, 500);
-
-            setTimeout(() => {
-                if (matrice[row2][col2] == 5) {
-                    potere_del_riciclo(row2, col2);
-                } else {
-                    potere_del_riciclo(row1, col1);
-                }
-            }, 1000);
         } else if (matrice[row2][col2] == 6 || matrice[row1][col1] == 6) {
             setTimeout(() => {
                 scambio_perdita();
-
             }, 500);
-
-            setTimeout(() => {
-                if (matrice[row2][col2] == 6) {
-                    amore_della_natura(row2, col2);
-                } else {
-                    amore_della_natura(row1, col1);
-                }
-
-            }, 1000);
         } else if (matrice[row2][col2] == 4 || matrice[row1][col1] == 4) {
             scambio_perdita_swap();
         } else {
@@ -736,9 +717,11 @@ function stampa_matrice(matrice) {
                         //Se la prima cella clicccata corrisponde ai poteri allora parte la funzione
                         if (matrice[row1][col1] == 5) {
                             potere_del_riciclo(row1, col1);
+                            prima_cella.classList.remove('SelectedDivBG');
                             prima_cella = null;
                         } else if (matrice[row1][col1] == 6) {
                             amore_della_natura(row1, col1);
+                            prima_cella.classList.remove('SelectedDivBG');
                             prima_cella = null;
                         }
                     } else if (prima_cella === div) {
@@ -1017,7 +1000,7 @@ function scambio_perdita_swap() {
 
     stampa_matrice(matrice);
 
-    if (contatore_perdita >= 4) {
+    if (contatore_perdita >= 3) {
         EndGame();
     }
 }
@@ -1287,7 +1270,7 @@ function quintuplo_croce_sotto() {
 
         console.log("Elemento riga = " + i);
 
-        if (i == 4 || i == 2 || i == 3) {
+        if (i >= 3) {
             matrice[i][colonna] = matrice[i - 2][colonna];
             matrice[i - 2][colonna] = generaNumero(i, colonna);
         } else {
