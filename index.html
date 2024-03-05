@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="GameOverLayer Hidden FadeOut" id="  ">
+    <div class="GameOverLayer Hidden FadeOut" id="GameOverLayer">
         <div class="GameOverCon">
             <img src="Assets\NutriaSprites\15.png" alt="GameOverImage" class="GameverlNutriaImage"
                 id="GameOverNutriaImage">
@@ -61,7 +61,24 @@
         </div>
     </div>
 
-    <div class="GameGridLayer" id="GameGridLayer">
+    <div class="GameWonLayer Hidden FadeOut" id="GameWonLayer">
+        <div class="GameOverCon">
+            <img src="Assets\NutriaSprites\16.png" alt="GameWonImage" class="GameverlNutriaImage"
+                id="GameWonNutriaImage">
+            <div class="GameOverTextConatiner">
+                <h1 class="ScalableH1 TextBorderWhite GameOverText">Hai vinto</h1>
+                <h2 class="ScalableH2 TextBorderWhite GameOverText" id="GameWonText">Testo di incoraggiamento</h2>
+                <div class="GameOverButtonContainer">
+                    <input type="button" value="Indietro" id="GameWonButtonBack"
+                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX2 TutroialButton">
+                    <input type="button" value="Ritenta" id="GameWonButtonReplay"
+                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1 TutroialButton">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="GameGridLayer FadeIn" id="GameGridLayer">
         <div class="GameAndSideStatsCon">
             <div class="GameAndSideStatsConSide">
                 <div class="GameStatsCon1">
@@ -144,6 +161,8 @@
                 </div>-->
                 <div class="SettingsConRowFooter">
                     <h4 class="ScalableH4">Brajan Malko - ✦ - Gianluca Grammatica</h4>
+                    <input type="button" value="Esci" id="QuitButton"
+                        class="Button BorderedRedButton BlackText HoverEffect1 CursorPointer TapSFX2">
                 </div>
             </div>
         </div>

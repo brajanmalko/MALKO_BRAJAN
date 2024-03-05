@@ -47,6 +47,12 @@ let ProgressBar4 = document.getElementById("ProgressBar4")
 let ProgressBarText4 = document.getElementById("ProgressBarText4")
 let BlackOverlay = document.getElementById("BlackOverlay");
 let SettingsCon = document.getElementById("SettingsCon");
+let SettingsMusicCheckbox = document.getElementById("SettingsMusicCheckbox");
+let SettingsSFXCheckbox = document.getElementById("SettingsSFXCheckbox");
+let ColseSettingsButton = document.getElementById("ColseSettingsButton");
+let QuitButton = document.getElementById("QuitButton");
+let MusicaAttivaPerFade = true;
+let PanelOpened = false;
 
 
 /*Storage*/
@@ -65,12 +71,14 @@ if (localStorage.getItem('EcoRushSettings')) {
     SettingsSaves = JSON.parse(TempLoad)
 
     console.log(SettingsSaves.CurrentLevel)
-    /*
+
     if (SettingsSaves.MusicVolume == 1) {
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
+        MusicaAttivaPerFade = true;
     }
     else {
         SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
+        MusicaAttivaPerFade = false;
     }
 
     if (SettingsSaves.SFXVolume == 0.2) {
@@ -79,9 +87,6 @@ if (localStorage.getItem('EcoRushSettings')) {
     else {
         SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
     }
-    if (SettingsSaves.CurrentPlayer != undefined && SettingsSaves.CurrentPlayer != 0 && SettingsSaves.CurrentPlayer != "") {
-        NameInput.value = SettingsSaves.CurrentPlayer
-    }*/
 }
 
 /* Suoni */
@@ -138,14 +143,18 @@ if (SettingsSaves.CurrentLevel == "facile") {
     matrice = [[], [], [], [], [], []];
     dropTraIRad = 4;
     setInterval(() => {
-        dropTraIRad += 1;
+        if (!PanelOpened) {
+            dropTraIRad += 1;
+        }
     }, 100000);
 
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     matrice = [[], [], [], [], [], [], []];
     dropTraIRad = 7;
     setInterval(() => {
-        dropTraIRad += 1;
+        if (!PanelOpened) {
+            dropTraIRad += 1;
+        }
     }, 100000);
 }
 /*Caricamento Tutorial */
@@ -232,10 +241,7 @@ let TutorialButtonNext = document.getElementById("TutorialButtonNext");
 
 let TutorialImages = ['Assets/Tutorial/Placeholder.png', 'Assets/Tutorial/WelcomeImage.png', 'Assets/Tutorial/Trash.png', 'Assets/Tutorial/Tris.png', 'Assets/Tutorial/Quaterna.png', 'Assets/Tutorial/Riciclo.png', 'Assets/Tutorial/Cinquina.png', 'Assets/Tutorial/Amore.png', 'Assets/Tutorial/Radiattivo.png', 'Assets/Tutorial/GameLogo.png']
 let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.png', 'Assets/NutriaSprites/3.png', 'Assets/NutriaSprites/4.png', 'Assets/NutriaSprites/5.png', 'Assets/NutriaSprites/6.png', 'Assets/NutriaSprites/7.png', 'Assets/NutriaSprites/8.png', 'Assets/NutriaSprites/9.png', 'Assets/NutriaSprites/10.png', 'Assets/NutriaSprites/11.png', 'Assets/NutriaSprites/12.png', 'Assets/NutriaSprites/13.png', 'Assets/NutriaSprites/14.png', 'Assets/NutriaSprites/15.png']
-
 let TutorialIndex = 1;
-
-
 
 function UpdateTutorial() {
     TutorialText.innerText = DialoghiTutorial[TutorialIndex].Text;
@@ -286,35 +292,49 @@ if (!localStorage.getItem('EcoRushTutorial')) {
 }
 
 
-/*Game Over Page*/
-let StringeGameOVer = {
+/*Game Over and Won Page*/
+let StringeGameOver = {
     "1": "Ritenteremo un altro giorno",
     "2": "C'era troppa spazzatura qui",
     "3": "Tranquillo giovane, hai fatto del tuo meglio"
 };
+let StringeGameWon = {
+    "1": "Bravo giovane!",
+    "2": "Tutto pulito!",
+    "3": "Ora noi nutrie torneremo a balneare qui"
+};
 let RandomNumberGameOver = Math.floor(Math.random() * 3) + 1;
 let GameOverText = document.getElementById("GameOverText");
-GameOverText.innerText = StringeGameOVer[RandomNumberGameOver]
+GameOverText.innerText = StringeGameOver[RandomNumberGameOver]
 let GameOverButtonBack = document.getElementById("GameOverButtonBack");
 let GameOverButtonReplay = document.getElementById("GameOverButtonReplay");
 let GameOverLayer = document.getElementById("GameOverLayer");
+let RandomNumberGameWon = Math.floor(Math.random() * 3) + 1;
+let GameWonText = document.getElementById("GameWonText");
+GameOverText.innerText = StringeGameWon[RandomNumberGameWon]
+let GameWonButtonBack = document.getElementById("GameWonButtonBack");
+let GameWonButtonReplay = document.getElementById("GameWonButtonReplay");
+let GameWonLayer = document.getElementById("GameWonLayer");
 
-GameOverButtonBack.addEventListener("click", function () {
+function GoBack(){
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
         window.location.href = "HomePage.html";
     }, 500);
-});
-
-GameOverButtonReplay.addEventListener("click", function () {
+}
+function RePlay(){
     BlackOverlay.style.opacity = '1';
-
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
         window.location.href = "index.html";
     }, 500);
-});
+}
+
+GameOverButtonBack.addEventListener("click", GoBack);
+GameOverButtonReplay.addEventListener("click", RePlay);
+GameWonButtonBack.addEventListener("click", GoBack);
+GameWonButtonReplay.addEventListener("click", RePlay);
 
 function EndGame() {
     FadeMusicOut()
@@ -323,20 +343,28 @@ function EndGame() {
         GameOverLayer.classList.add('FadeIn');
     }, 320);
     GameOverLayer.classList.remove('Hidden');
-
+}
+function WonGame() {
+    FadeMusicOut()
+    setTimeout(function () {
+        GameWonLayer.classList.remove('FadeOut');
+        GameWonLayer.classList.add('FadeIn');
+    }, 320);
+    GameWonLayer.classList.remove('Hidden');
 }
 
-
 PlayerNameText.innerText = SettingsSaves.CurrentPlayer;
-
 BlackOverlay.style.opacity = '0'
-
 let GameGridLayer = document.getElementById("GameGridLayer");
 
 function FadeMusicIn() {
     let TempVolume = GameMusic.volume;
+
     const fadeInterval = setInterval(() => {
-        TempVolume += 0.1;
+        if (MusicaAttivaPerFade) {
+            TempVolume += 0.1; TempVolume = 1;
+        }
+        else { TempVolume = 0; }
         if (TempVolume >= 1) {
             TempVolume = 1;
             clearInterval(fadeInterval);
@@ -344,7 +372,6 @@ function FadeMusicIn() {
         GameMusic.volume = TempVolume;
     }, 1500);
 };
-
 function FadeMusicOut() {
     let TempVolume = GameMusic.volume;
     const fadeInterval = setInterval(() => {
@@ -370,7 +397,7 @@ GameGridLayer.addEventListener("click", function () {
     GameMusic.play()
     console.log(SettingsSaves.MusicVolume)
     if (SettingsSaves.MusicVolume == 1) {
-        FadeMusicIn()
+        if (MusicaAttivaPerFade) { FadeMusicIn() }
     }
 
 }, { once: true })
@@ -383,6 +410,9 @@ function UpdateBars() {
     }
     if (numero_carta >= 50) {
         ProgressBarText1.innerText = "Done"
+        ProgressBarText1.classList.add("GreenText");
+        ProgressBarText1.classList.add("TextBorderBlack");
+        ProgressBarText1.classList.remove("BlackText");
     }
     ProgressBar1.style.width = numero_carta * 2 + "%"
 
@@ -392,6 +422,9 @@ function UpdateBars() {
     }
     if (numero_plastica >= 50) {
         ProgressBarText2.innerText = "Done"
+        ProgressBarText2.classList.add("GreenText");
+        ProgressBarText2.classList.add("TextBorderBlack");
+        ProgressBarText2.classList.remove("BlackText");
     }
     ProgressBar2.style.width = numero_plastica * 2 + "%"
 
@@ -401,6 +434,9 @@ function UpdateBars() {
     }
     if (numero_vetro >= 50) {
         ProgressBarText3.innerText = "Done"
+        ProgressBarText3.classList.add("GreenText");
+        ProgressBarText3.classList.add("TextBorderBlack");
+        ProgressBarText3.classList.remove("BlackText");
     }
     ProgressBar3.style.width = numero_vetro * 2 + "%"
 
@@ -410,8 +446,15 @@ function UpdateBars() {
     }
     if (numero_secco >= 50) {
         ProgressBarText4.innerText = "Done"
+        ProgressBarText4.classList.add("GreenText");
+        ProgressBarText4.classList.add("TextBorderBlack");
+        ProgressBarText4.classList.remove("BlackText");
     }
     ProgressBar4.style.width = numero_secco * 2 + "%"
+
+    if(numero_carta >= 50 && numero_plastica >= 50 && numero_vetro >= 50 && numero_secco >= 50){
+        WonGame()
+    }
 }
 
 //funzione per generare il contenuto dei div della matrice
@@ -596,7 +639,7 @@ function combo(cons_riga, cons_colonna) {
             return
         } else {
             console.log('combo 3 riga');
-                triplo_orizzontale(matrice)
+            triplo_orizzontale(matrice)
         }
     }
     else if (cons_colonna == 3) {
@@ -606,7 +649,7 @@ function combo(cons_riga, cons_colonna) {
             return;
         } else {
             console.log('combo 3 colonna');
-                triplo_verticale(matrice);
+            triplo_verticale(matrice);
         }
     } else {
         valore = false;
@@ -1334,7 +1377,7 @@ function amore_della_natura(riga, colonna) {
     controlla_e_assegna(riga - 1, colonna + 1, combo);
     controlla_e_assegna(riga - 1, colonna - 1, combo);
     controlla_e_assegna(riga + 1, colonna - 1, combo);
-    controlla_e_assegna(riga + 1, colonna + 1, combo); 
+    controlla_e_assegna(riga + 1, colonna + 1, combo);
 
     for (i = riga + 1; i > 0; i--) {
 
@@ -1468,14 +1511,14 @@ function assegna_punti(riga, colonna, combo) {
 
 //funzione per animazione prima di effettuare la combo
 function animazione_orizz(callback) {
-        dati_riga.posizione.forEach(function (element) {
-            console.log("animazione");
-            matrice[element.riga][element.colonna] = 7;
-        });
+    dati_riga.posizione.forEach(function (element) {
+        console.log("animazione");
+        matrice[element.riga][element.colonna] = 7;
+    });
 
-        stampa_matrice(matrice);
+    stampa_matrice(matrice);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         console.log("Operazione completata");
         callback();
     }, 2000);
@@ -1489,7 +1532,7 @@ function animazione_vert(callback) {
 
     stampa_matrice(matrice);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         console.log("Operazione completata");
         callback();
     }, 2000);
@@ -1501,9 +1544,11 @@ SettingsButton.addEventListener("click", function () {
         GameGridLayer.classList.add('Hidden');
         SettingsCon.classList.remove('FadeOut');
         SettingsCon.classList.add('FadeIn');
-    }, 420);
+    }, 320);
+    GameGridLayer.classList.remove('FadeIn')
     GameGridLayer.classList.add('FadeOut')
     SettingsCon.classList.remove('Hidden');
+    PanelOpened = true;
 }
 )
 
@@ -1512,19 +1557,21 @@ ColseSettingsButton.addEventListener("click", function () {
         SettingsCon.classList.add('Hidden');
         GameGridLayer.classList.remove('FadeOut');
         GameGridLayer.classList.add('FadeIn');
-    }, 420);
+        PanelOpened = false;
+    }, 320);
+    SettingsCon.classList.remove('FadeIn')
     SettingsCon.classList.add('FadeOut')
     GameGridLayer.classList.remove('Hidden');
 })
 
 SettingsMusicCheckbox.addEventListener("click", function () {
     if (SettingsSaves.MusicVolume == 1) {
-        MainMenuMusic.volume = 0
+        GameMusic.volume = 0
         SettingsSaves.MusicVolume = 0
         SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
     }
     else {
-        MainMenuMusic.volume = 1
+        GameMusic.volume = 1
         SettingsSaves.MusicVolume = 1
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
     }
@@ -1544,3 +1591,10 @@ SettingsSFXCheckbox.addEventListener("click", function () {
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 })
 
+QuitButton.addEventListener("click", function () {
+    BlackOverlay.style.opacity = '1';
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+    setTimeout(function () {
+        window.location.href = "HomePage.html";
+    }, 500);
+});
