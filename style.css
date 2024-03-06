@@ -82,7 +82,8 @@ body {
     align-items: center;
     justify-content: space-between;
     z-index: 2;
-    background-image: linear-gradient(to bottom, #0e0f04ad, #0f1103ad, #101401ad, #101601ad, #101800ad);
+    background-image: linear-gradient(to right top, #cdedc2ad, #c2ebb4ad, #b7e8a6ad, #ace698ad, #a1e38aad);
+    background-color: #00000034;
 }
 
 .TuoralDialoguesCon{
@@ -111,12 +112,12 @@ body {
 }
 
 .TutorialImage{
-    height: 50%;
+    height: 45%;
     margin-top: 5%;
 }
 
 .TutroialNutriaImage{
-    width: 20%;
+    width: 25%;
 }
 
 .TutroialButton{
@@ -726,6 +727,30 @@ body {
         3px 3px 0 #405b1e,
         3px -3px 0 #405b1e,
         -3px -3px 0 #405b1e;
+}
+
+.TextStyleRiciclo{
+    color: #a6e659;
+    text-shadow: -2px 2px 0 #405b1e,
+        2px 2px 0 #405b1e,
+        2px -2px 0 #405b1e,
+        -2px -2px 0 #405b1e;
+}
+
+.TextStyleAmore{
+    color: #F5C6C7;
+    text-shadow: -2px 2px 0 #9c6b6c,
+        2px 2px 0 #9c6b6c,
+        2px -2px 0 #9c6b6c,
+        -2px -2px 0 #9c6b6c;
+}
+
+.TextStyleRadioativo{
+    color: #e65959;
+    text-shadow: -2px 2px 0 #a42f2f,
+        2px 2px 0 #a42f2f,
+        2px -2px 0 #a42f2f,
+        -2px -2px 0 #a42f2f;
 }
 
 /*Other*/

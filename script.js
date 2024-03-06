@@ -243,18 +243,18 @@ let DialoghiTutorial = {
     "1": {
         "Sprite": 2,
         "Image": 1,
-        "Text": "Ciao giovane! Finalmente sei qui"
+        "Text": `Ciao ${SettingsSaves.CurrentPlayer}! Eccoti qui`
     },
 
     "2": {
         "Sprite": 4,
         "Image": 1,
-        "Text": "Lascia che ti spieghi il dafarsi"
+        "Text": "Lascia che ti spieghi che devi fare"
     },
     "3": {
         "Sprite": 2,
         "Image": 2,
-        "Text": "Il tuo compito e' aiutarmi a togliere la spazzatura dall'argine del fiume"
+        "Text": "Il tuo compito e' aiutarmi a raccogliere la spazzatura dall'argine del fiume"
     },
     "4": {
         "Sprite": 7,
@@ -264,27 +264,27 @@ let DialoghiTutorial = {
     "5": {
         "Sprite": 4,
         "Image": 2,
-        "Text": "Solo tre alla volta? No. Anche di più, ma succedono cose speciali"
+        "Text": "Solo tre alla volta?<br>No. Anche di piu', ma succedono cose speciali"
     },
     "6": {
         "Sprite": 8,
         "Image": 4,
-        "Text": "Quattro di fila si trasformeranno nel Potere Del Riciclo®"
+        "Text": `Quattro di fila si trasformeranno nel <spin class="TextStyleRiciclo">Potere Del Riciclo</spin>`
     },
     "7": {
         "Sprite": 8,
         "Image": 5,
-        "Text": "Maneggialo con cura, quando attivato esplode e elimina la spazzatura che ha attorno"
+        "Text": "Maneggialo con cura: quando attivato esplode ed elimina la spazzatura che ha intorno"
     },
     "8": {
         "Sprite": 9,
         "Image": 6,
-        "Text": "Se sei cosi' bravo da unirne cinque ottieni il prezioso Amore Per La Natura"
+        "Text": `Se riesci a unirne cinque ottieni il prezioso <spin class="TextStyleAmore">Amore Per La Natura</spin>`
     },
     "9": {
         "Sprite": 10,
         "Image": 7,
-        "Text": "Non e' altro che il potere del riciclo piu' potente e rosa"
+        "Text": `E' molto piu' potente del <spin class="TextStyleRiciclo">Potere Del Riciclo</spin><br>ed e' anche <spin class="TextStyleAmore">rosa</spin>`
     },
     "10": {
         "Sprite": 11,
@@ -294,22 +294,22 @@ let DialoghiTutorial = {
     "11": {
         "Sprite": 12,
         "Image": 8,
-        "Text": "In certe zone c'e' il riscio di trovare rifiuti radiattivi"
+        "Text": `In certe zone c'e' il rischio di trovare <spin class="TextStyleRadioativo">rifiuti radioattivi</spin>`
     },
     "12": {
         "Sprite": 13,
         "Image": 8,
-        "Text": "Purtroppo non possiamo farci nulla"
+        "Text": "Non possiamo muoverlo o raccoglierlo"
     },
     "13": {
         "Sprite": 14,
         "Image": 7,
-        "Text": "L'unico modo che abbiamo per liberarcene e' l'amore per la natura"
+        "Text": `L'unico modo che abbiamo per liberarcene e' l'<spin class="TextStyleAmore">Amore Per La Natura</spin>`
     },
     "14": {
         "Sprite": 2,
         "Image": 9,
-        "Text": "E con questo concludo. Buon lavoro!"
+        "Text": "Basta con le spiegazioni. Buon divertimento!"
     }
 }
 
@@ -325,7 +325,7 @@ let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.pn
 let TutorialIndex = 1;
 
 function UpdateTutorial() {
-    TutorialText.innerText = DialoghiTutorial[TutorialIndex].Text;
+    TutorialText.innerHTML = `<h2 class="ScalableH2 TextBorderWhite TutrialText" id="TutorialText">${DialoghiTutorial[TutorialIndex].Text}</h2>`
     TutorialImage.src = TutorialImages[DialoghiTutorial[TutorialIndex].Image];
     TutroialNutriaImage.src = SpriteNutria[DialoghiTutorial[TutorialIndex].Sprite];
 }
