@@ -20,6 +20,11 @@ body {
     background-size: cover;
 }
 
+.HideAllOverflow {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 .BlackFade {
     background-color: #10120f9a;
     position: fixed;
@@ -52,6 +57,22 @@ body {
     transition: opacity 0.5s ease;
 }
 
+/*Scrollbar*/
+.CustomScrollbar::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 10px;
+}
+
+.CustomScrollbar::-webkit-scrollbar-track {
+    border: 1px solid #a2d982;
+    background-color: #a2d982;
+    box-shadow: inset 0 0 6px #a2d982;
+}
+
+.CustomScrollbar::-webkit-scrollbar-thumb {
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(.5, #396f1a), color-stop(1, #468322));
+    border-radius: 10px;
+}
 
 /* Animations */
 @keyframes Shaking1 {
@@ -116,7 +137,7 @@ body {
 }
 
 @keyframes ZoomInSpawn {
-    0%{
+    0% {
         scale: 0;
     }
 
@@ -124,12 +145,13 @@ body {
         scale: 1.15;
     }
 
-    100%{
+    100% {
         scale: 1;
     }
 }
+
 @keyframes ZoomOtDespawn {
-    100%{
+    100% {
         scale: 0;
         opacity: 0%;
     }
@@ -138,17 +160,18 @@ body {
         scale: 1.15;
     }
 
-    0%{
+    0% {
         scale: 1;
         opacity: 100%;
     }
 }
 
-.ScaleInSpawn1{
+.ScaleInSpawn1 {
     animation: ZoomInSpawn 0.4s ease-in;
     transform-origin: center;
 }
-.ScaleOutDespawn1{
+
+.ScaleOutDespawn1 {
     animation: ZoomOtDespawn 0.2s ease-out;
     transform-origin: center;
 }
@@ -240,15 +263,18 @@ body {
 }
 
 .GameGridLayer {
-    position: fixed;
+    position: unset;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: normal;
+
+    overflow-x: auto;
+    overflow-y: auto;
+    max-width: 100%;
+    max-height: 100vh
 }
 
 .GridContainer {
@@ -257,7 +283,7 @@ body {
     padding: 20px;
     margin: 3px;
     border-radius: 20px;
-    margin-left: 20px;
+    margin-left: 0;
 }
 
 .container {
@@ -293,7 +319,7 @@ body {
 /* UI */
 .GameAndSideStatsCon {
     display: flex;
-    justify-content: center;
+    justify-content: normal;
     align-items: center;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -320,14 +346,34 @@ body {
 
 .GameAndSideStatsConSide {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     align-content: space-around;
-    flex-wrap: nowrap;
-    width: 100%;
+    flex-wrap: wrap;
+    margin-right: 0;
+    margin-bottom: 10px;
 }
 
-@media screen and (min-width: 840px) {
+@media screen and (min-width: 1100px) {
+
+    .GridContainer {
+        background-color: #faebd7;
+        border: 5px solid #66553e;
+        padding: 20px;
+        margin: 3px;
+        border-radius: 20px;
+        margin-left: 20px;
+    }
+
+    .GameAndSideStatsConSide {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: space-around;
+        flex-wrap: wrap;
+        margin-right: 20px;
+    }
+
     .matrice-div {
         width: 100px;
         height: 100px;
@@ -355,7 +401,6 @@ body {
         align-items: center;
         align-content: space-around;
         flex-wrap: wrap;
-        width: 20%;
         margin-right: 20px;
         width: 20%;
     }
@@ -369,7 +414,10 @@ body {
         justify-content: space-around;
         text-align: center;
     }
+
+
 }
+
 
 
 /* GameOVer Layer */
@@ -613,14 +661,74 @@ body {
     background-image: linear-gradient(to bottom, #0e0f04ad, #0f1103ad, #101401ad, #101601ad, #101800ad);
 }
 
+.ErrorTextLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in;
+    background-image: linear-gradient(to bottom, #300909ad, #300909ad, #300909ad, #300909ad, #300909ad);
+}
+
 .ComboText {
-    font-size: 50px; /* Adjust font size as needed */
+    font-size: 50px;
+    /* Adjust font size as needed */
     opacity: 0;
     animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     animation-delay: 0.5s;
 }
 
-.ComboText4{
+.ErrorText {
+    font-size: 50px;
+    /* Adjust font size as needed */
+    color: #ed6c6c;
+    text-shadow: -2px 2px 0 #a82d2d,
+        2px 2px 0 #a82d2d,
+        2px -2px 0 #a82d2d,
+        -2px -2px 0 #a82d2d;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    10%,
+    90% {
+        transform: translateX(-10px);
+    }
+
+    20%,
+    80% {
+        transform: translateX(10px);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translateX(-10px);
+    }
+
+    40%,
+    60% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.ErrorShake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.ComboText4 {
     color: #c0ed6c;
     text-shadow: -2px 2px 0 #76a026,
         2px 2px 0 #76a026,
@@ -628,7 +736,7 @@ body {
         -2px -2px 0 #76a026;
 }
 
-.ComboText5{
+.ComboText5 {
     color: #e994b7;
     text-shadow: -2px 2px 0 #d05387,
         2px 2px 0 #d05387,
@@ -639,15 +747,20 @@ body {
 
 @keyframes popIn {
     0% {
-        transform: scale(0.5) rotate(0deg); /* Initial scale and rotation */
+        transform: scale(0.5) rotate(0deg);
+        /* Initial scale and rotation */
         opacity: 0;
     }
+
     70% {
-        transform: scale(1.2) rotate(5deg); /* Scale up and rotate slightly */
+        transform: scale(1.2) rotate(5deg);
+        /* Scale up and rotate slightly */
         opacity: 1;
     }
+
     100% {
-        transform: scale(1) rotate(0deg); /* Return to normal scale and rotation */
+        transform: scale(1) rotate(0deg);
+        /* Return to normal scale and rotation */
         opacity: 1;
     }
 }
@@ -674,6 +787,7 @@ body {
         opacity: 1;
         transform: translate(0, 0) rotate(0deg);
     }
+
     100% {
         opacity: 0;
         transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(720deg);
@@ -930,6 +1044,6 @@ body {
 
 .TransformAnimation {
     transform: translate(var(--x), var(--y));
-    transition: transform 0.25s ease; /* Smooth transition effect */
-  }
-  
+    transition: transform 0.25s ease;
+    /* Smooth transition effect */
+}

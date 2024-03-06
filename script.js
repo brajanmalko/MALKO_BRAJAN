@@ -240,10 +240,13 @@ function RicicloSFX() {
     }, 800)
 }
 
+let body = document.getElementById("body")
 function ShakeScreen() {
+    body.classList.add("HideAllOverflow")
     GameGridLayer.classList.add("Shake1");
     setTimeout(function () {
         GameGridLayer.classList.remove("Shake1");
+        body.classList.remove("HideAllOverflow")
     }, 400)
 }
 
@@ -1225,6 +1228,31 @@ function scambio_perdita() {
     stampa_matrice(matrice);
 }
 
+let ErrorLayer = document.getElementById("ErrorLayer")
+function ShowErrore() {
+    PanelOpened = true;
+    setTimeout(function () {
+        ErrorLayer.classList.remove('FadeOut');
+        ErrorLayer.classList.add('FadeIn');
+        setTimeout(function () {
+            setTimeout(function () {
+                ErrorLayer.classList.add('Hidden');
+                PanelOpened = false;
+            }, 150);
+            ErrorLayer.classList.remove('FadeIn')
+            ErrorLayer.classList.add('FadeOut')
+        }, 1000)
+    }, 150);
+    ErrorLayer.classList.remove('Hidden');
+
+    body.classList.add("HideAllOverflow")
+    GameGridLayer.classList.add("ErrorShake");
+    setTimeout(function () {
+        GameGridLayer.classList.remove("ErrorShake");
+        body.classList.remove("HideAllOverflow")
+    }, 400)
+}
+
 //funzione per scambio con contatore per
 function scambio_perdita_swap() {
     let temp = matrice[row2][col2]
@@ -1234,6 +1262,7 @@ function scambio_perdita_swap() {
     console.log(matrice);
 
     contatore_perdita++;
+    ShowErrore()
 
     stampa_matrice(matrice);
 
@@ -1718,6 +1747,7 @@ function amore_della_natura(riga, colonna) {
 }
 
 function assegna_punti(riga, colonna, combo) {
+    contatore_perdita = 0
     if (matrice[riga][colonna] != undefined) {
         if (matrice[riga][colonna] == 0) {
             if (!SoundPlaying) { CarboardSFX() }
