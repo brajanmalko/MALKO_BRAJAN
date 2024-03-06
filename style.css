@@ -55,22 +55,103 @@ body {
 
 /* Animations */
 @keyframes Shaking1 {
-    0%, 100% { transform: translateX(0); }
-    5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95%{ transform: translateX(-2px) rotate(-0.3deg);}
-    10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% { transform: translateX(2px) rotate(0.3deg) ;}
-  }
 
-  @keyframes Shaking2 {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-1px) rotate(-0.2deg);}
-    20%, 40%, 60%, 80%{ transform: translateX(1px) rotate(0.2deg) ;}
-  }
-  
-  .Shake1 {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    5%,
+    15%,
+    25%,
+    35%,
+    45%,
+    55%,
+    65%,
+    75%,
+    85%,
+    95% {
+        transform: translateX(-2px) rotate(-0.3deg);
+    }
+
+    10%,
+    20%,
+    30%,
+    40%,
+    50%,
+    60%,
+    70%,
+    80%,
+    90% {
+        transform: translateX(2px) rotate(0.3deg);
+    }
+}
+
+@keyframes Shaking2 {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-1px) rotate(-0.2deg);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(1px) rotate(0.2deg);
+    }
+}
+
+.Shake1 {
     animation: Shaking2 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
     transform-origin: center;
-  }
-/* Tutorial Layer */ 
+}
+
+@keyframes ZoomInSpawn {
+    0%{
+        scale: 0;
+    }
+
+    70% {
+        scale: 1.15;
+    }
+
+    100%{
+        scale: 1;
+    }
+}
+@keyframes ZoomOtDespawn {
+    100%{
+        scale: 0;
+    }
+
+    20% {
+        scale: 1.15;
+    }
+
+    0%{
+        scale: 1;
+    }
+}
+
+.ScaleInSpawn1{
+    animation: ZoomInSpawn 0.4s ease-in;
+    transform-origin: center;
+}
+.ScaleOutDespawn1{
+    animation: ZoomOtDespawn 0.4s ease-out;
+    transform-origin: center;
+}
+
+/* Tutorial Layer */
 .TutrialLayer {
     position: fixed;
     top: 0;
@@ -86,14 +167,14 @@ body {
     background-color: #00000034;
 }
 
-.TuoralDialoguesCon{
+.TuoralDialoguesCon {
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-direction: row;
 }
 
-.TutorialTextConatiner{
+.TutorialTextConatiner {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -102,7 +183,7 @@ body {
     width: 65%;
 }
 
-.TutorialButtonContainer{
+.TutorialButtonContainer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -111,37 +192,37 @@ body {
     width: 90%;
 }
 
-.TutorialImage{
+.TutorialImage {
     height: 45%;
     margin-top: 5%;
 }
 
-.TutroialNutriaImage{
+.TutroialNutriaImage {
     width: 25%;
 }
 
-.TutroialButton{
-        padding: 10px 50px;
-        font-family: 'stopbullying', serif;
-        border: 5px black solid;
-        border-radius: 30px;
+.TutroialButton {
+    padding: 10px 50px;
+    font-family: 'stopbullying', serif;
+    border: 5px black solid;
+    border-radius: 30px;
 }
 
 @media screen and (max-width: 600px) {
-    .TuoralDialoguesCon{
+    .TuoralDialoguesCon {
         display: flex;
         align-items: center;
         flex-direction: column-reverse;
         justify-content: center;
     }
 
-    .TutorialImage{
+    .TutorialImage {
         width: 100%;
         margin-bottom: 20%;
         height: auto;
     }
-    
-    .TutroialNutriaImage{
+
+    .TutroialNutriaImage {
         width: 40%;
         margin-top: 20px;
     }
@@ -203,12 +284,12 @@ body {
     margin: 5px;
 }
 
-.UiButtonsConatiner{
+.UiButtonsConatiner {
     margin-top: 10px;
 }
 
 /* UI */
-.GameAndSideStatsCon{
+.GameAndSideStatsCon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -218,14 +299,14 @@ body {
     height: 100%;
 }
 
-.ProgressBarsCon{
+.ProgressBarsCon {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.GameStatsCon1{
+.GameStatsCon1 {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -235,7 +316,7 @@ body {
     text-align: center;
 }
 
-.GameAndSideStatsConSide{
+.GameAndSideStatsConSide {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -257,7 +338,7 @@ body {
         margin: 5px;
     }
 
-    .GameAndSideStatsCon{
+    .GameAndSideStatsCon {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -266,7 +347,7 @@ body {
         width: 100%;
     }
 
-    .GameAndSideStatsConSide{
+    .GameAndSideStatsConSide {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -277,7 +358,7 @@ body {
         width: 20%;
     }
 
-    .GameStatsCon1{
+    .GameStatsCon1 {
         width: 90%;
         display: flex;
         flex-direction: row;
@@ -290,7 +371,7 @@ body {
 
 
 /* GameOVer Layer */
-.GameOverLayer{
+.GameOverLayer {
     position: fixed;
     top: 0;
     left: 0;
@@ -304,7 +385,7 @@ body {
     background-image: linear-gradient(to bottom, #0e0f04ad, #0f1103ad, #101401ad, #101601ad, #101800ad);
 }
 
-.GameOverCon{
+.GameOverCon {
     width: 70%;
     height: 60%;
     display: flex;
@@ -314,18 +395,18 @@ body {
     text-align: center;
 }
 
-.GameverlNutriaImage{
+.GameverlNutriaImage {
     height: 100%;
 }
 
-.GameOverTextConatiner{
+.GameOverTextConatiner {
     width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.GameOverButtonContainer{
+.GameOverButtonContainer {
     width: 90%;
     display: flex;
     justify-content: space-evenly;
@@ -729,7 +810,7 @@ body {
         -3px -3px 0 #405b1e;
 }
 
-.TextStyleRiciclo{
+.TextStyleRiciclo {
     color: #a6e659;
     text-shadow: -2px 2px 0 #405b1e,
         2px 2px 0 #405b1e,
@@ -737,7 +818,7 @@ body {
         -2px -2px 0 #405b1e;
 }
 
-.TextStyleAmore{
+.TextStyleAmore {
     color: #F5C6C7;
     text-shadow: -2px 2px 0 #9c6b6c,
         2px 2px 0 #9c6b6c,
@@ -745,7 +826,7 @@ body {
         -2px -2px 0 #9c6b6c;
 }
 
-.TextStyleRadioativo{
+.TextStyleRadioativo {
     color: #e65959;
     text-shadow: -2px 2px 0 #a42f2f,
         2px 2px 0 #a42f2f,

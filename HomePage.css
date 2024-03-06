@@ -636,10 +636,10 @@ body::-webkit-scrollbar-thumb {
 
 /*Buttons*/
 .Button {
-    padding: 10px 50px;
+    padding: 15px 60px;
     font-family: 'stopbullying', serif;
     border: 5px black solid;
-    border-radius: 30px;
+    border-radius: 40px;
 }
 
 .MenuButton {

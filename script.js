@@ -159,6 +159,10 @@ const GlassSound = new Audio();
 GlassSound.src = './Assets/MusicAndSounds/GlassSFX.mp3'
 const TrashSound = new Audio();
 TrashSound.src = './Assets/MusicAndSounds/TrashSFX.mp3'
+const LoveSound = new Audio();
+LoveSound.src = './Assets/MusicAndSounds/LoveSFX.mp3'
+const RicicloSound = new Audio();
+RicicloSound.src = './Assets/MusicAndSounds/RicicloSFX.mp3'
 
 function CarboardSFX() {
     SoundPlaying = true;
@@ -200,10 +204,34 @@ function TrashSFX() {
     SoundPlaying = true;
     TrashSound.volume = SettingsSaves.SFXVolume;
     if (SettingsSaves.SFXVolume == 0.2) {
-        GlassSound.volume = 1;
+        TrashSound.volume = 1;
     }
     TrashSound.currentTime = 0;
     TrashSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 800)
+}
+function LoveSFX() {
+    SoundPlaying = true;
+    LoveSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        LoveSound.volume = 0.2;
+    }
+    LoveSound.currentTime = 0;
+    LoveSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 800)
+}
+function RicicloSFX() {
+    SoundPlaying = true;
+    RicicloSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        RicicloSound.volume = 1;
+    }
+    RicicloSound.currentTime = 0;
+    RicicloSound.play();
     setTimeout(function () {
         SoundPlaying = false;
     }, 800)
@@ -602,14 +630,19 @@ function genera_drop(righe, colonne) {
     console.log(matrice);
 }
 
+let FisrtSpawn = true;
+let DropsBeforeSpawnAnim = 25;
+let DropsBeforeSpawnCounter = 0;
 if (SettingsSaves.CurrentLevel == "facile") {
     genera_drop(5, 5);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr";
 } else if (SettingsSaves.CurrentLevel == "medio") {
     genera_drop(6, 6);
+    DropsBeforeSpawnAnim = 36
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr";
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     genera_drop(7, 7);
+    DropsBeforeSpawnAnim = 49
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr 1fr";
 }
 
@@ -732,6 +765,7 @@ function combo(cons_riga, cons_colonna) {
 let divs = container.getElementsByTagName('div');
 console.log(divs);
 
+
 //funzione per stampare i div in base ai contenuti della matrice
 function stampa_matrice(matrice) {
 
@@ -744,6 +778,14 @@ function stampa_matrice(matrice) {
             let div = document.createElement("div");
             div.className = "matrice-div";
             div.classList.add('TapSFX3')
+            if(FisrtSpawn){
+                div.classList.add('ScaleInSpawn1');
+                DropsBeforeSpawnCounter++
+                if(DropsBeforeSpawnCounter == DropsBeforeSpawnAnim){
+                    FisrtSpawn = false;
+                }
+            }
+
             div.innerHTML = "<img height ='70px' width='70px'src='img/" + elementi[matrice[i][j]] + "'></img>";
 
             if (matrice[i][j] == 0) {
@@ -1378,6 +1420,7 @@ function controlla_e_assegna(riga, colonna, combo) {
 //funzione per attivare il potere del riciclo se cliccato
 function potere_del_riciclo(riga, colonna) {
     let combo = 1
+    RicicloSFX()
 
     controlla_e_assegna(riga - 1, colonna, combo); // Sopra
     controlla_e_assegna(riga + 1, colonna, combo); // Sotto
@@ -1443,7 +1486,7 @@ function potere_del_riciclo(riga, colonna) {
 
 //funzione per attivare l'amore della natura se cliccato
 function amore_della_natura(riga, colonna) {
-
+    LoveSFX()
     let combo = 1
     controlla_e_assegna(riga - 1, colonna, combo);
     controlla_e_assegna(riga + 1, colonna, combo);
