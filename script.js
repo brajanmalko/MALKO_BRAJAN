@@ -682,11 +682,13 @@ function swap_div() {
                 combo(cons_riga, cons_colonna);
                 console.log("secondo cliccato rig" + cons_riga + "secondo cliccato col" + cons_colonna)
 
-                if (valore == false) {
+                if (valore == false && combos == false) {
                     setTimeout(() => {
                         scambio_perdita_swap();
 
                     }, 500);
+                }else{
+                    combos = false;  
                 }
             }
 
@@ -736,25 +738,27 @@ function combo(cons_riga, cons_colonna) {
     }
     else if (cons_riga == 3) {
         let tipo = true;
-        combo_speciale = false;
+        
         verifica_combo_speciale(tipo);
-        if (combo_speciale == true) {
-            return
-        } else if(combo_speciale == false){
+        if (combos == true) {
+            return    
+        } else if(combos == false){
             console.log('combo 3 riga');
             triplo_orizzontale(matrice)
         }
+        
     }
     else if (cons_colonna == 3) {
         let tipo = false;
-        combo_speciale = false;
+        
         verifica_combo_speciale(tipo);
-        if (combo_speciale == true) {
+        if (combos == true) {
             return
-        } else if(combo_speciale == false){
+        } else if(combos == false){
             console.log('combo 3 colonna');
             triplo_verticale(matrice);
         }
+        combos = false;
     } else {
         valore = false;
     }
@@ -1072,7 +1076,7 @@ function cerca(riga, colonna, matrice) {
 }
 
 //funzione per cercare le combo in altre combo
-
+var combos = false;
 
 function verifica_combo_speciale(tipo) {
     
@@ -1080,59 +1084,26 @@ function verifica_combo_speciale(tipo) {
         dati_riga.posizione.forEach(function (element) {
             cerca(element.riga, element.colonna, matrice);
 
-            if (dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3) {
-                combo_speciale = false;
-            }else{
-                combo_speciale = true;
-            }
-
             if (dati_colonna.posizione.length === 3) {
                 riga_i = dati_colonna.posizione[0].riga;
                 riga_f = dati_colonna.posizione[2].riga;
 
                 if (riga_f == element.riga) {
-                    combo_speciale = true;
+                    combos = true;
                     console.log("croce sopra da riga : " + riga_f + element.colonna);
                     quintuplo_croce_sopra();
+                    return combos;
                 } else if (riga_i == element.riga) {
-                    combo_speciale = true;
+                    combos = true;
                     console.log("croce sotto da riga");
                     quintuplo_croce_sotto();
+                    return combos;
                 }
             }
-        });
-    } else {
-        let cnt = 0;
-        dati_colonna.posizione.forEach(function (element) {
-            cerca(element.riga, element.colonna, matrice);
-
-            if (dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3) {
-                combo_speciale = false;
-            }else{
-                combo_speciale = true;
-            }
-
-            if (dati_riga.posizione.length == 3) {
-                colonna_i = dati_riga.posizione[0].colonna;
-                colonna_f = dati_riga.posizione[2].colonna;
-
-                if (matrice[element.riga][colonna_f] == matrice[element.riga][element.colonna] || matrice[element.riga][colonna_i] == matrice[element.riga][element.colonna]) {
-                    if (cnt == 0) {
-                        combo_speciale = true;
-                        console.log("croce sotto da colonna");
-                        quintuplo_croce_sotto();
-                    } else if (cnt == 2) {
-                        combo_speciale = true;
-                        console.log("croce sopra da colonna");
-                        quintuplo_croce_sopra();
-                    }
-                }
-            }
-            cnt++;
         });
     }
 }
-var combo_speciale = false;
+
 //funzione per verificare se ci sono combo nella matrice dopo gli swap
 
 function controllo_swap(matrice) {
