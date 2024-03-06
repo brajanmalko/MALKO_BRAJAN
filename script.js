@@ -237,9 +237,9 @@ function RicicloSFX() {
     }, 800)
 }
 
-function ShakeScreen(){
+function ShakeScreen() {
     GameGridLayer.classList.add("Shake1");
-    setTimeout(function(){
+    setTimeout(function () {
         GameGridLayer.classList.remove("Shake1");
     }, 400)
 }
@@ -765,14 +765,13 @@ function combo(cons_riga, cons_colonna) {
 let divs = container.getElementsByTagName('div');
 console.log(divs);
 
-function AnimazioneSvap(div1, div2){
+function AnimazioneSvap(div1, div2) {
 
     let Div1Data = div1.getBoundingClientRect();
     let Div2Data = div2.getBoundingClientRect();
 
     let Div1X = Div1Data.left - Div2Data.left
     let Div1Y = Div1Data.top - Div2Data.top
-
 
     div1.style.setProperty('--x', `${-Div1X}px`);
     div1.style.setProperty('--y', `${-Div1Y}px`);
@@ -781,10 +780,10 @@ function AnimazioneSvap(div1, div2){
     div2.style.setProperty('--y', `${Div1Y}px`);
     div2.classList.add("TransformAnimation")
 
-    setTimeout(function(){
+    setTimeout(function () {
         div1.classList.remove("TransformAnimation")
         div2.classList.remove("TransformAnimation")
-    },400)
+    }, 400)
     //div1.style.transform = `translate(' -${Div1X}px, -${Div1Y} px)`
 }
 
@@ -800,10 +799,10 @@ function stampa_matrice(matrice) {
             let div = document.createElement("div");
             div.className = "matrice-div";
             div.classList.add('TapSFX3')
-            if(FisrtSpawn){
+            if (FisrtSpawn) {
                 div.classList.add('ScaleInSpawn1');
                 DropsBeforeSpawnCounter++
-                if(DropsBeforeSpawnCounter == DropsBeforeSpawnAnim){
+                if (DropsBeforeSpawnCounter == DropsBeforeSpawnAnim) {
                     FisrtSpawn = false;
                 }
             }
@@ -896,10 +895,15 @@ function stampa_matrice(matrice) {
                         // Se il secondo div è cliccato, memorizza il riferimento e scambia
                         seconda_cella = div;
                         seconda_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il secondo div cliccato
-                        AnimazioneSvap(prima_cella, seconda_cella)
-                        setTimeout(function(){if (verifica_spostamento(row1, col1, row2, col2)) {
-                            swap_div();
-                        } else {
+
+                        if (verifica_spostamento(row1, col1, row2, col2)) {
+                            AnimazioneSvap(prima_cella, seconda_cella)
+
+                            setTimeout(function () {
+                                swap_div();
+                            }, 300)
+                        }
+                        else {
                             CanPlay = false
                             setTimeout(() => {
                                 if (prima_cella.classList.contains('SelectedDivBG')) {
@@ -914,8 +918,7 @@ function stampa_matrice(matrice) {
                                 seconda_cella = null;
                                 CanPlay = true
                             }, 500);
-                        }},300)
-                        
+                        }
                     }
                 }
             });
@@ -1651,8 +1654,8 @@ function assegna_punti(riga, colonna, combo) {
         }
 
         UpdateBars()
-        if(SettingsSaves.ScreenShake){ShakeScreen()}
-        
+        if (SettingsSaves.ScreenShake) { ShakeScreen() }
+
     }
 
     ScoreText.innerText = "Punteggio: " + punti_totale;
