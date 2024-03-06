@@ -53,6 +53,7 @@ let ColseSettingsButton = document.getElementById("ColseSettingsButton");
 let QuitButton = document.getElementById("QuitButton");
 let MusicaAttivaPerFade = true;
 let PanelOpened = false;
+let ScreenShakeCheckbox = document.getElementById("ScreenShakeCheckbox");
 
 
 /*Storage*/
@@ -62,8 +63,11 @@ let SettingsSaves = {
     "Classifica": {},
     "CurrentPlayer": "",
     "CurrentScore": 0,
-    "CurrentLevel": "facile"
+    "CurrentLevel": "facile",
+    "ScreenShake": true,
+    "VisualEffects": true
 }
+
 matrice = [[], [], [], [], []]
 
 if (localStorage.getItem('EcoRushSettings')) {
@@ -87,6 +91,17 @@ if (localStorage.getItem('EcoRushSettings')) {
     else {
         SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
     }
+
+    if (SettingsSaves.ScreenShake) {
+        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else {
+        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+    }
+}
+
+if (SettingsSaves.Classifica[SettingsSaves.CurrentPlayer] == undefined) {
+    SettingsSaves.Classifica[SettingsSaves.CurrentPlayer] = 0;
 }
 
 /* Suoni */
@@ -144,6 +159,10 @@ const GlassSound = new Audio();
 GlassSound.src = './Assets/MusicAndSounds/GlassSFX.mp3'
 const TrashSound = new Audio();
 TrashSound.src = './Assets/MusicAndSounds/TrashSFX.mp3'
+const LoveSound = new Audio();
+LoveSound.src = './Assets/MusicAndSounds/LoveSFX.mp3'
+const RicicloSound = new Audio();
+RicicloSound.src = './Assets/MusicAndSounds/RicicloSFX.mp3'
 
 function CarboardSFX() {
     SoundPlaying = true;
@@ -185,7 +204,7 @@ function TrashSFX() {
     SoundPlaying = true;
     TrashSound.volume = SettingsSaves.SFXVolume;
     if (SettingsSaves.SFXVolume == 0.2) {
-        GlassSound.volume = 1;
+        TrashSound.volume = 1;
     }
     TrashSound.currentTime = 0;
     TrashSound.play();
@@ -193,10 +212,34 @@ function TrashSFX() {
         SoundPlaying = false;
     }, 800)
 }
+function LoveSFX() {
+    SoundPlaying = true;
+    LoveSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        LoveSound.volume = 0.2;
+    }
+    LoveSound.currentTime = 0;
+    LoveSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 800)
+}
+function RicicloSFX() {
+    SoundPlaying = true;
+    RicicloSound.volume = SettingsSaves.SFXVolume;
+    if (SettingsSaves.SFXVolume == 0.2) {
+        RicicloSound.volume = 1;
+    }
+    RicicloSound.currentTime = 0;
+    RicicloSound.play();
+    setTimeout(function () {
+        SoundPlaying = false;
+    }, 800)
+}
 
-function ShakeScreen(){
+function ShakeScreen() {
     GameGridLayer.classList.add("Shake1");
-    setTimeout(function(){
+    setTimeout(function () {
         GameGridLayer.classList.remove("Shake1");
     }, 400)
 }
@@ -228,18 +271,18 @@ let DialoghiTutorial = {
     "1": {
         "Sprite": 2,
         "Image": 1,
-        "Text": "Ciao giovane! Finalmente sei qui"
+        "Text": `Ciao ${SettingsSaves.CurrentPlayer}! Eccoti qui`
     },
 
     "2": {
         "Sprite": 4,
         "Image": 1,
-        "Text": "Lascia che ti spieghi il dafarsi"
+        "Text": "Lascia che ti spieghi che devi fare"
     },
     "3": {
         "Sprite": 2,
         "Image": 2,
-        "Text": "Il tuo compito e' aiutarmi a togliere la spazzatura dall'argine del fiume"
+        "Text": "Il tuo compito e' aiutarmi a raccogliere la spazzatura dall'argine del fiume"
     },
     "4": {
         "Sprite": 7,
@@ -249,27 +292,27 @@ let DialoghiTutorial = {
     "5": {
         "Sprite": 4,
         "Image": 2,
-        "Text": "Solo tre alla volta? No. Anche di più, ma succedono cose speciali"
+        "Text": "Solo tre alla volta?<br>No. Anche di piu', ma succedono cose speciali"
     },
     "6": {
         "Sprite": 8,
         "Image": 4,
-        "Text": "Quattro di fila si trasformeranno nel Potere Del Riciclo®"
+        "Text": `Quattro di fila si trasformeranno nel <spin class="TextStyleRiciclo">Potere Del Riciclo</spin>`
     },
     "7": {
         "Sprite": 8,
         "Image": 5,
-        "Text": "Maneggialo con cura, quando attivato esplode e elimina la spazzatura che ha attorno"
+        "Text": "Maneggialo con cura: quando attivato esplode ed elimina la spazzatura che ha intorno"
     },
     "8": {
         "Sprite": 9,
         "Image": 6,
-        "Text": "Se sei cosi' bravo da unirne cinque ottieni il prezioso Amore Per La Natura"
+        "Text": `Se riesci a unirne cinque ottieni il prezioso <spin class="TextStyleAmore">Amore Per La Natura</spin>`
     },
     "9": {
         "Sprite": 10,
         "Image": 7,
-        "Text": "Non e' altro che il potere del riciclo piu' potente e rosa"
+        "Text": `E' molto piu' potente del <spin class="TextStyleRiciclo">Potere Del Riciclo</spin><br>ed e' anche <spin class="TextStyleAmore">rosa</spin>`
     },
     "10": {
         "Sprite": 11,
@@ -279,22 +322,22 @@ let DialoghiTutorial = {
     "11": {
         "Sprite": 12,
         "Image": 8,
-        "Text": "In certe zone c'e' il riscio di trovare rifiuti radiattivi"
+        "Text": `In certe zone c'e' il rischio di trovare <spin class="TextStyleRadioativo">rifiuti radioattivi</spin>`
     },
     "12": {
         "Sprite": 13,
         "Image": 8,
-        "Text": "Purtroppo non possiamo farci nulla"
+        "Text": "Non possiamo muoverlo o raccoglierlo"
     },
     "13": {
         "Sprite": 14,
         "Image": 7,
-        "Text": "L'unico modo che abbiamo per liberarcene e' l'amore per la natura"
+        "Text": `L'unico modo che abbiamo per liberarcene e' l'<spin class="TextStyleAmore">Amore Per La Natura</spin>`
     },
     "14": {
         "Sprite": 2,
         "Image": 9,
-        "Text": "E con questo concludo. Buon lavoro!"
+        "Text": "Basta con le spiegazioni. Buon divertimento!"
     }
 }
 
@@ -310,7 +353,7 @@ let SpriteNutria = ['', 'Assets/NutriaSprites/1.png', 'Assets/NutriaSprites/2.pn
 let TutorialIndex = 1;
 
 function UpdateTutorial() {
-    TutorialText.innerText = DialoghiTutorial[TutorialIndex].Text;
+    TutorialText.innerHTML = `<h2 class="ScalableH2 TextBorderWhite TutrialText" id="TutorialText">${DialoghiTutorial[TutorialIndex].Text}</h2>`
     TutorialImage.src = TutorialImages[DialoghiTutorial[TutorialIndex].Image];
     TutroialNutriaImage.src = SpriteNutria[DialoghiTutorial[TutorialIndex].Sprite];
 }
@@ -587,14 +630,19 @@ function genera_drop(righe, colonne) {
     console.log(matrice);
 }
 
+let FisrtSpawn = true;
+let DropsBeforeSpawnAnim = 25;
+let DropsBeforeSpawnCounter = 0;
 if (SettingsSaves.CurrentLevel == "facile") {
     genera_drop(5, 5);
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr";
 } else if (SettingsSaves.CurrentLevel == "medio") {
     genera_drop(6, 6);
+    DropsBeforeSpawnAnim = 36
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr";
 } else if (SettingsSaves.CurrentLevel == "difficile") {
     genera_drop(7, 7);
+    DropsBeforeSpawnAnim = 49
     container.style.gridTemplateColumns = "1fr 1fr 1fr 1fr 1fr 1fr 1fr";
 }
 
@@ -715,6 +763,28 @@ function combo(cons_riga, cons_colonna) {
 let divs = container.getElementsByTagName('div');
 console.log(divs);
 
+function AnimazioneSvap(div1, div2) {
+
+    let Div1Data = div1.getBoundingClientRect();
+    let Div2Data = div2.getBoundingClientRect();
+
+    let Div1X = Div1Data.left - Div2Data.left
+    let Div1Y = Div1Data.top - Div2Data.top
+
+    div1.style.setProperty('--x', `${-Div1X}px`);
+    div1.style.setProperty('--y', `${-Div1Y}px`);
+    div1.classList.add("TransformAnimation")
+    div2.style.setProperty('--x', `${Div1X}px`);
+    div2.style.setProperty('--y', `${Div1Y}px`);
+    div2.classList.add("TransformAnimation")
+
+    setTimeout(function () {
+        div1.classList.remove("TransformAnimation")
+        div2.classList.remove("TransformAnimation")
+    }, 400)
+    //div1.style.transform = `translate(' -${Div1X}px, -${Div1Y} px)`
+}
+
 //funzione per stampare i div in base ai contenuti della matrice
 function stampa_matrice(matrice) {
 
@@ -727,6 +797,14 @@ function stampa_matrice(matrice) {
             let div = document.createElement("div");
             div.className = "matrice-div";
             div.classList.add('TapSFX3')
+            if (FisrtSpawn) {
+                div.classList.add('ScaleInSpawn1');
+                DropsBeforeSpawnCounter++
+                if (DropsBeforeSpawnCounter == DropsBeforeSpawnAnim) {
+                    FisrtSpawn = false;
+                }
+            }
+
             div.innerHTML = "<img height ='70px' width='70px'src='img/" + elementi[matrice[i][j]] + "'></img>";
 
             if (matrice[i][j] == 0) {
@@ -772,11 +850,12 @@ function stampa_matrice(matrice) {
 
                         console.log("prima riga" + row1 + "prima colonna" + col1);
 
-                        console.log(div);
+                        //console.log(div);
 
                         // Se il primo div non è stato cliccato, memorizza il riferimento
                         prima_cella = div;
                         prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
+
 
                         //Se la prima cella clicccata corrisponde ai poteri allora parte la funzione
                         if (matrice[row1][col1] == 5) {
@@ -811,14 +890,20 @@ function stampa_matrice(matrice) {
                         }
                         console.log("seconda riga" + row2 + "seconda colonna" + col2);
 
-                        console.log(div);
+                        //console.log(div);
 
                         // Se il secondo div è cliccato, memorizza il riferimento e scambia
                         seconda_cella = div;
                         seconda_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il secondo div cliccato
+
                         if (verifica_spostamento(row1, col1, row2, col2)) {
-                            swap_div();
-                        } else {
+                            AnimazioneSvap(prima_cella, seconda_cella)
+
+                            setTimeout(function () {
+                                swap_div();
+                            }, 300)
+                        }
+                        else {
                             CanPlay = false
                             setTimeout(() => {
                                 if (prima_cella.classList.contains('SelectedDivBG')) {
@@ -844,7 +929,6 @@ function stampa_matrice(matrice) {
             TapSFX3Items.forEach(function (element) {
                 element.addEventListener('click', function () {
                     PlayTapSFX3()
-                    console.log("S")
                 });
             });
         }
@@ -1403,6 +1487,7 @@ function controlla_e_assegna(riga, colonna, combo) {
 //funzione per attivare il potere del riciclo se cliccato
 function potere_del_riciclo(riga, colonna) {
     let combo = 1
+    RicicloSFX()
 
     controlla_e_assegna(riga - 1, colonna, combo); // Sopra
     controlla_e_assegna(riga + 1, colonna, combo); // Sotto
@@ -1468,7 +1553,7 @@ function potere_del_riciclo(riga, colonna) {
 
 //funzione per attivare l'amore della natura se cliccato
 function amore_della_natura(riga, colonna) {
-
+    LoveSFX()
     let combo = 1
     controlla_e_assegna(riga - 1, colonna, combo);
     controlla_e_assegna(riga + 1, colonna, combo);
@@ -1604,7 +1689,8 @@ function assegna_punti(riga, colonna, combo) {
         }
 
         UpdateBars()
-        ShakeScreen()
+        if (SettingsSaves.ScreenShake) { ShakeScreen() }
+
     }
 
     ScoreText.innerText = "Punteggio: " + punti_totale;
@@ -1703,3 +1789,15 @@ QuitButton.addEventListener("click", function () {
         window.location.href = "HomePage.html";
     }, 500);
 });
+
+ScreenShakeCheckbox.addEventListener("click", function () {
+    if (SettingsSaves.ScreenShake) {
+        SettingsSaves.ScreenShake = false
+        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    else {
+        SettingsSaves.ScreenShake = true
+        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+})
