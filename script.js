@@ -831,12 +831,13 @@ function stampa_matrice(matrice) {
 
                         console.log("prima riga" + row1 + "prima colonna" + col1);
 
-                        console.log(div);
+                        //console.log(div);
 
                         // Se il primo div non è stato cliccato, memorizza il riferimento
                         prima_cella = div;
                         prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
 
+                        
                         //Se la prima cella clicccata corrisponde ai poteri allora parte la funzione
                         if (matrice[row1][col1] == 5) {
                             potere_del_riciclo(row1, col1);
