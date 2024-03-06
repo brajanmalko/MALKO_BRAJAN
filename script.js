@@ -765,6 +765,28 @@ function combo(cons_riga, cons_colonna) {
 let divs = container.getElementsByTagName('div');
 console.log(divs);
 
+function AnimazioneSvap(div1, div2){
+
+    let Div1Data = div1.getBoundingClientRect();
+    let Div2Data = div2.getBoundingClientRect();
+
+    let Div1X = Div1Data.left - Div2Data.left
+    let Div1Y = Div1Data.top - Div2Data.top
+
+
+    div1.style.setProperty('--x', `${-Div1X}px`);
+    div1.style.setProperty('--y', `${-Div1Y}px`);
+    div1.classList.add("TransformAnimation")
+    div2.style.setProperty('--x', `${Div1X}px`);
+    div2.style.setProperty('--y', `${Div1Y}px`);
+    div2.classList.add("TransformAnimation")
+
+    setTimeout(function(){
+        div1.classList.remove("TransformAnimation")
+        div2.classList.remove("TransformAnimation")
+    },400)
+    //div1.style.transform = `translate(' -${Div1X}px, -${Div1Y} px)`
+}
 
 //funzione per stampare i div in base ai contenuti della matrice
 function stampa_matrice(matrice) {
@@ -837,7 +859,7 @@ function stampa_matrice(matrice) {
                         prima_cella = div;
                         prima_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il primo div cliccato
 
-                        
+
                         //Se la prima cella clicccata corrisponde ai poteri allora parte la funzione
                         if (matrice[row1][col1] == 5) {
                             potere_del_riciclo(row1, col1);
@@ -869,12 +891,13 @@ function stampa_matrice(matrice) {
                         }
                         console.log("seconda riga" + row2 + "seconda colonna" + col2);
 
-                        console.log(div);
+                        //console.log(div);
 
                         // Se il secondo div è cliccato, memorizza il riferimento e scambia
                         seconda_cella = div;
                         seconda_cella.classList.add('SelectedDivBG'); // Opzionale: evidenzia il secondo div cliccato
-                        if (verifica_spostamento(row1, col1, row2, col2)) {
+                        AnimazioneSvap(prima_cella, seconda_cella)
+                        setTimeout(function(){if (verifica_spostamento(row1, col1, row2, col2)) {
                             swap_div();
                         } else {
                             CanPlay = false
@@ -891,7 +914,8 @@ function stampa_matrice(matrice) {
                                 seconda_cella = null;
                                 CanPlay = true
                             }, 500);
-                        }
+                        }},300)
+                        
                     }
                 }
             });
@@ -902,7 +926,6 @@ function stampa_matrice(matrice) {
             TapSFX3Items.forEach(function (element) {
                 element.addEventListener('click', function () {
                     PlayTapSFX3()
-                    console.log("S")
                 });
             });
         }

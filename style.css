@@ -842,3 +842,8 @@ body {
 .CursorPointer {
     cursor: pointer;
 }
+
+.TransformAnimation {
+    transform: translate(var(--x), var(--y));
+    transition: transform 0.25s ease; /* Smooth transition effect */
+  }
