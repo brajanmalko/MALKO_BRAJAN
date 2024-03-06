@@ -131,6 +131,7 @@ body {
 @keyframes ZoomOtDespawn {
     100%{
         scale: 0;
+        opacity: 0%;
     }
 
     20% {
@@ -139,6 +140,7 @@ body {
 
     0%{
         scale: 1;
+        opacity: 100%;
     }
 }
 
@@ -147,7 +149,7 @@ body {
     transform-origin: center;
 }
 .ScaleOutDespawn1{
-    animation: ZoomOtDespawn 0.4s ease-out;
+    animation: ZoomOtDespawn 0.2s ease-out;
     transform-origin: center;
 }
 
@@ -596,6 +598,89 @@ body {
 }
 
 
+/*Pop in*/
+.ComboTextLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in;
+    background-image: linear-gradient(to bottom, #0e0f04ad, #0f1103ad, #101401ad, #101601ad, #101800ad);
+}
+
+.ComboText {
+    font-size: 50px; /* Adjust font size as needed */
+    opacity: 0;
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    animation-delay: 0.5s;
+}
+
+.ComboText4{
+    color: #c0ed6c;
+    text-shadow: -2px 2px 0 #76a026,
+        2px 2px 0 #76a026,
+        2px -2px 0 #76a026,
+        -2px -2px 0 #76a026;
+}
+
+.ComboText5{
+    color: #e994b7;
+    text-shadow: -2px 2px 0 #d05387,
+        2px 2px 0 #d05387,
+        2px -2px 0 #d05387,
+        -2px -2px 0 #d05387;
+}
+
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5) rotate(0deg); /* Initial scale and rotation */
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.2) rotate(5deg); /* Scale up and rotate slightly */
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(0deg); /* Return to normal scale and rotation */
+        opacity: 1;
+    }
+}
+
+.confetti-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.confetti {
+    width: 10px;
+    height: 10px;
+    background-color: #ffcc00;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: confettiAnimation 0.9s ease-out;
+}
+
+@keyframes confettiAnimation {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(720deg);
+    }
+}
+
+
 /* Settings Layer */
 .SettingsLayer {
     position: fixed;
@@ -847,3 +932,4 @@ body {
     transform: translate(var(--x), var(--y));
     transition: transform 0.25s ease; /* Smooth transition effect */
   }
+  
