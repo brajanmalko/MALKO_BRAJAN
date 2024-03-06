@@ -219,9 +219,9 @@ if (SettingsSaves.CurrentLevel == "facile") {
     dropTraIRad = 7;
     setInterval(() => {
         if (!PanelOpened) {
-            dropTraIRad += 1;
+            dropTraIRad += 2;
         }
-    }, 120000);
+    }, 100000);
 }
 /*Caricamento Tutorial */
 let DialoghiTutorial = {
@@ -620,13 +620,9 @@ function swap_div() {
         console.log(matrice);
 
         if (matrice[row2][col2] == 5 || matrice[row1][col1] == 5) {
-            setTimeout(() => {
-                scambio_perdita();
-            }, 500);
+            
         } else if (matrice[row2][col2] == 6 || matrice[row1][col1] == 6) {
-            setTimeout(() => {
-                scambio_perdita();
-            }, 500);
+            
         } else if (matrice[row2][col2] == 4 || matrice[row1][col1] == 4) {
             scambio_perdita_swap();
         } else {
@@ -692,20 +688,22 @@ function combo(cons_riga, cons_colonna) {
     }
     else if (cons_riga == 3) {
         let tipo = true;
+        combo_speciale = false;
         verifica_combo_speciale(tipo);
         if (combo_speciale == true) {
             return
-        } else {
+        } else if(combo_speciale == false){
             console.log('combo 3 riga');
             triplo_orizzontale(matrice)
         }
     }
     else if (cons_colonna == 3) {
         let tipo = false;
+        combo_speciale = false;
         verifica_combo_speciale(tipo);
         if (combo_speciale == true) {
-            return;
-        } else {
+            return
+        } else if(combo_speciale == false){
             console.log('combo 3 colonna');
             triplo_verticale(matrice);
         }
@@ -785,11 +783,13 @@ function stampa_matrice(matrice) {
                             potere_del_riciclo(row1, col1);
                             prima_cella.classList.remove('SelectedDivBG');
                             prima_cella = null;
+                            seconda_cella = null;
                         }
-                        if (matrice[row1][col1] == 6) {
+                        else if (matrice[row1][col1] == 6) {
                             amore_della_natura(row1, col1);
                             prima_cella.classList.remove('SelectedDivBG');
                             prima_cella = null;
+                            seconda_cella = null;
                         }
                     } else if (prima_cella === div) {
                         // Se il primo div è cliccato di nuovo, deselezionalo
@@ -988,21 +988,31 @@ function cerca(riga, colonna, matrice) {
 }
 
 //funzione per cercare le combo in altre combo
-var combo_speciale = false;
+
 
 function verifica_combo_speciale(tipo) {
+    
     if (tipo == true) {
         dati_riga.posizione.forEach(function (element) {
             cerca(element.riga, element.colonna, matrice);
+
+            if (dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3) {
+                combo_speciale = false;
+            }else{
+                combo_speciale = true;
+            }
+
             if (dati_colonna.posizione.length === 3) {
                 riga_i = dati_colonna.posizione[0].riga;
                 riga_f = dati_colonna.posizione[2].riga;
 
-                if (matrice[riga_f][element.colonna] == matrice[element.riga][element.colonna]) {
+                if (riga_f == element.riga) {
                     combo_speciale = true;
+                    console.log("croce sopra da riga : " + riga_f + element.colonna);
                     quintuplo_croce_sopra();
-                } else if (matrice[riga_i][element.colonna] == matrice[element.riga][element.colonna]) {
+                } else if (riga_i == element.riga) {
                     combo_speciale = true;
+                    console.log("croce sotto da riga");
                     quintuplo_croce_sotto();
                 }
             }
@@ -1011,6 +1021,13 @@ function verifica_combo_speciale(tipo) {
         let cnt = 0;
         dati_colonna.posizione.forEach(function (element) {
             cerca(element.riga, element.colonna, matrice);
+
+            if (dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3) {
+                combo_speciale = false;
+            }else{
+                combo_speciale = true;
+            }
+
             if (dati_riga.posizione.length == 3) {
                 colonna_i = dati_riga.posizione[0].colonna;
                 colonna_f = dati_riga.posizione[2].colonna;
@@ -1018,9 +1035,11 @@ function verifica_combo_speciale(tipo) {
                 if (matrice[element.riga][colonna_f] == matrice[element.riga][element.colonna] || matrice[element.riga][colonna_i] == matrice[element.riga][element.colonna]) {
                     if (cnt == 0) {
                         combo_speciale = true;
+                        console.log("croce sotto da colonna");
                         quintuplo_croce_sotto();
                     } else if (cnt == 2) {
                         combo_speciale = true;
+                        console.log("croce sopra da colonna");
                         quintuplo_croce_sopra();
                     }
                 }
@@ -1028,11 +1047,8 @@ function verifica_combo_speciale(tipo) {
             cnt++;
         });
     }
-    if (dati_colonna.posizione.length != 3 || dati_riga.posizione.length != 3) {
-        combo_speciale = false;
-    }
 }
-
+var combo_speciale = false;
 //funzione per verificare se ci sono combo nella matrice dopo gli swap
 
 function controllo_swap(matrice) {
@@ -1324,29 +1340,53 @@ function quintuplo_croce_sopra() {
 
 function quintuplo_croce_sotto() {
     console.log("COMBO CROCE sotto");
-    triplo_orizzontale(matrice);
+
+    let riga = dati_riga.posizione[0].riga;
+    let colonna = dati_riga.posizione[0].colonna;
+
+    let combo = 3;
+    assegna_punti(riga, colonna, combo);
+
+    dati_riga.posizione.forEach(function (element) {
+        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
+        for (i = element.riga; i > 0; i--) {
+
+            matrice[i][element.colonna] = matrice[i - 1][element.colonna];
+            stampa_matrice(matrice);
+        }
+        matrice[0][element.colonna] = generaNumero(0, element.colonna);
+
+    });
+    console.log(matrice);
+    console.log("matrice dopo il triplo" + matrice);
+
+    stampa_matrice(matrice);
+
     dati_colonna.posizione.reverse();
     dati_colonna.posizione.pop();
-    let riga = dati_colonna.posizione[0].riga;
-    let colonna = dati_colonna.posizione[0].colonna;
+
+    let riga_colonna = dati_colonna.posizione[0].riga;
+    let colonna_colonna = dati_colonna.posizione[0].colonna;
 
 
 
     console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
-    for (i = riga; i > 0; i--) {
+    for (i = riga_colonna; i > 0; i--) {
 
         console.log("Elemento riga = " + i);
 
         if (i >= 3) {
-            matrice[i][colonna] = matrice[i - 2][colonna];
-            matrice[i - 2][colonna] = generaNumero(i, colonna);
+            matrice[i][colonna_colonna] = matrice[i - 2][colonna_colonna];
+            matrice[i - 2][colonna_colonna] = generaNumero(i, colonna_colonna);
         } else {
-            matrice[i][colonna] = generaNumero(i, colonna);
+            matrice[i][colonna_colonna] = generaNumero(i, colonna_colonna);
         }
 
     }
 
-    matrice[0][colonna] = generaNumero(0, colonna);
+    matrice[0][colonna_colonna] = generaNumero(0, colonna_colonna);
+
+    matrice[riga_colonna -2][colonna_colonna] = 6;
 
     stampa_matrice(matrice);
 
@@ -1446,15 +1486,10 @@ function amore_della_natura(riga, colonna) {
         if (i == matrice.length) {
             i--;
         }
-        if (i == 4) {
+        if (i >= 3) {
             matrice[i][colonna] = matrice[i - 3][colonna];
             matrice[i - 3][colonna] = generaNumero(i, colonna);
-        }
-        else if (i == 3) {
-            matrice[i][colonna] = matrice[i - 3][colonna];
-            matrice[i - 3][colonna] = generaNumero(i, colonna);
-        }
-        else {
+        }else {
             matrice[i][colonna] = generaNumero(i, colonna);
         }
 
