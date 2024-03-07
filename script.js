@@ -515,7 +515,7 @@ function RePlay() {
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
-        window.location.href = "index.html";
+        window.location.href = "game.html";
     }, 500);
 }
 
