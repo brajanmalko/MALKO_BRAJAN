@@ -832,7 +832,6 @@ function combo(cons_riga, cons_colonna) {
             console.log('combo 3 colonna');
             triplo_verticale(matrice);
         }
-        combos = false;
     } else {
         valore = false;
     }
