@@ -188,7 +188,8 @@ body {
     align-items: center;
     justify-content: space-between;
     z-index: 2;
-    background-image: linear-gradient(to right top, #cdedc2ad, #c2ebb4ad, #b7e8a6ad, #ace698ad, #a1e38aad);
+    background-image: linear-gradient(to bottom, #132707ad, #132707ad, #132707ad, #132707ad, #132707ad);
+    /*background-image: linear-gradient(to right top, #cdedc2ad, #c2ebb4ad, #b7e8a6ad, #ace698ad, #a1e38aad);*/
     background-color: #00000034;
 }
 
@@ -253,7 +254,7 @@ body {
     }
 
     .TutrialLayer {
-        justify-content: flex-end;
+        justify-content: center;
     }
 }
 
@@ -465,6 +466,55 @@ body {
     flex-direction: row;
 }
 
+.TutorialButtonContainer input{
+    margin: 0 0;
+}
+
+@media screen and (max-width: 600px) {
+    .GameOverCon {
+        width: 90%;
+        height: 60%;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .GameverlNutriaImage {
+        height: 70%;
+    }
+
+    .GameOverTextConatiner {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .GameOverButtonContainer {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+
+    .TutorialButtonContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column-reverse;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .TutorialButtonContainer input{
+        margin: 3px 0;
+    }
+}
+
 /*Hover Effects*/
 .HoverEffect2 {
     background-image: linear-gradient(rgb(0 0 0/0%) 0 0);
@@ -505,13 +555,13 @@ body {
     }
 }
 
-.HoverAnimation:hover{
+.HoverAnimation:hover {
 
     animation: PulseAnimation 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
     transform-origin: center;
 }
 
-.HoverAnimation{
+.HoverAnimation {
     animation-name: none;
     animation-duration: 0s;
     animation-iteration-count: infinite;
