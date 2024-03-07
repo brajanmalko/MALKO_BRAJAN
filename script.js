@@ -77,7 +77,7 @@ if (localStorage.getItem('EcoRushSettings')) {
     let TempLoad = localStorage.getItem('EcoRushSettings');
     SettingsSaves = JSON.parse(TempLoad)
 
-    console.log(SettingsSaves.CurrentLevel)
+    //console.log(SettingsSaves.CurrentLevel)
 
     if (SettingsSaves.MusicVolume == 1) {
         SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
@@ -149,7 +149,7 @@ TapSFX2Items.forEach(function (element) {
 TapSFX3Items.forEach(function (element) {
     element.addEventListener('click', function () {
         PlayTapSFX3()
-        console.log("S")
+        //console.log("S")
     });
 });
 
@@ -284,7 +284,7 @@ function ComboTextApper(numero) {
 
 
     const confettiContainer = document.querySelector('.confetti-container');
-    const confettiCount = 200; // Increase the number of particles
+    const confettiCount = 130; // Increase the number of particles
 
     for (let i = 0; i < confettiCount; i++) {
         const confetti = document.createElement('div');
@@ -588,12 +588,12 @@ GameMusic.src = './Assets/MusicAndSounds/BGM2.mp3'
 let TempVolume = 0;
 
 GameGridLayer.addEventListener("click", function () {
-    console.log("Start Music")
+    //console.log("Start Music")
 
     GameMusic.volume = 0; // Start with zero volume
     GameMusic.loop = true; // Enable looping
     GameMusic.play()
-    console.log(SettingsSaves.MusicVolume)
+    //console.log(SettingsSaves.MusicVolume)
     if (SettingsSaves.MusicVolume == 1) {
         if (MusicaAttivaPerFade) { FadeMusicIn() }
     }
@@ -705,7 +705,7 @@ function genera_drop(righe, colonne) {
             }
         }
     }
-    console.log(matrice);
+    //console.log(matrice);
 }
 
 let FisrtSpawn = true;
@@ -731,10 +731,10 @@ let seconda_cella = null;
 function swap_div() {
     if (prima_cella && seconda_cella) {
         // Effettua lo scambio solo se entrambi i div sono stati cliccati
-        console.log(prima_cella.textContent);
-        console.log(seconda_cella.textContent);
-        console.log(matrice[row2][col2]);
-        console.log(matrice[row1][col1]);
+        //console.log(prima_cella.textContent);
+        //console.log(seconda_cella.textContent);
+        //console.log(matrice[row2][col2]);
+        //console.log(matrice[row1][col1]);
 
 
         let temp = matrice[row2][col2];
@@ -743,7 +743,7 @@ function swap_div() {
 
         stampa_matrice(matrice);
 
-        console.log(matrice);
+        //console.log(matrice);
 
         if (matrice[row2][col2] == 5 || matrice[row1][col1] == 5) {
 
@@ -754,11 +754,11 @@ function swap_div() {
         } else {
             cerca(row2, col2, matrice);
             combo(cons_riga, cons_colonna);
-            console.log("Primo cliccato rig" + cons_riga + "Primo cliccato col" + cons_colonna)
+            //console.log("Primo cliccato rig" + cons_riga + "Primo cliccato col" + cons_colonna)
             if (valore == false) {
                 cerca(row1, col1, matrice);
                 combo(cons_riga, cons_colonna);
-                console.log("secondo cliccato rig" + cons_riga + "secondo cliccato col" + cons_colonna)
+                //console.log("secondo cliccato rig" + cons_riga + "secondo cliccato col" + cons_colonna)
 
                 if (valore == false && combos == false) {
                     setTimeout(() => {
@@ -772,7 +772,7 @@ function swap_div() {
 
 
 
-            console.log("Combo riga = " + cons_riga + "Combo colonna = " + cons_colonna)
+            //console.log("Combo riga = " + cons_riga + "Combo colonna = " + cons_colonna)
         }
         CanPlay = false
 
@@ -798,19 +798,19 @@ var valore;
 function combo(cons_riga, cons_colonna) {
     valore = true;
     if (cons_riga == 5) {
-        console.log('combo 5 riga');
+        //console.log('combo 5 riga');
         quintuplo_orizzontale(matrice);
     }
     else if (cons_colonna == 5) {
-        console.log('combo 5 colonna');
+        //console.log('combo 5 colonna');
         quintuplo_verticale(matrice);
     }
     else if (cons_riga == 4) {
-        console.log('combo 4 riga');
+        //console.log('combo 4 riga');
         quaduplo_orizzontale(matrice);
     }
     else if (cons_colonna == 4) {
-        console.log('combo 4 colonna');
+        //console.log('combo 4 colonna');
         quaduplo_verticale(matrice);
     }
     else if (cons_riga == 3) {
@@ -820,7 +820,7 @@ function combo(cons_riga, cons_colonna) {
         if (combos == true) {
             return
         } else if (combos == false) {
-            console.log('combo 3 riga');
+            //console.log('combo 3 riga');
             triplo_orizzontale(matrice)
         }
 
@@ -832,7 +832,7 @@ function combo(cons_riga, cons_colonna) {
         if (combos == true) {
             return
         } else if (combos == false) {
-            console.log('combo 3 colonna');
+            //console.log('combo 3 colonna');
             triplo_verticale(matrice);
         }
     } else {
@@ -841,7 +841,7 @@ function combo(cons_riga, cons_colonna) {
 }
 
 let divs = container.getElementsByTagName('div');
-console.log(divs);
+//console.log(divs);
 
 function AnimazioneSvap(div1, div2) {
 
@@ -868,7 +868,7 @@ function AnimazioneSvap(div1, div2) {
 //funzione per stampare i div in base ai contenuti della matrice
 function stampa_matrice(matrice) {
 
-    console.log("Matrice nella" + matrice);
+    //console.log("Matrice nella" + matrice);
     let container = document.getElementById("container");
     container.innerHTML = "";
     for (let i = 0; i < matrice.length; i++) {
@@ -929,9 +929,9 @@ function stampa_matrice(matrice) {
                             col1 = index % 7;
                         }
 
-                        console.log("prima riga" + row1 + "prima colonna" + col1);
+                        //console.log("prima riga" + row1 + "prima colonna" + col1);
 
-                        //console.log(div);
+                        ////console.log(div);
 
                         // Se il primo div non è stato cliccato, memorizza il riferimento
                         prima_cella = div;
@@ -969,9 +969,9 @@ function stampa_matrice(matrice) {
                             row2 = Math.floor(index / 7);
                             col2 = index % 7;
                         }
-                        console.log("seconda riga" + row2 + "seconda colonna" + col2);
+                        //console.log("seconda riga" + row2 + "seconda colonna" + col2);
 
-                        //console.log(div);
+                        ////console.log(div);
 
                         // Se il secondo div è cliccato, memorizza il riferimento e scambia
                         seconda_cella = div;
@@ -1095,14 +1095,14 @@ function cerca(riga, colonna, matrice) {
     cons_colonna = 1;
     cons_riga = 1;
 
-    //console.log(riga);
-    //console.log(colonna);
+    ////console.log(riga);
+    ////console.log(colonna);
 
     if (primo == undefined) {
-        //console.log("VALORE PRIMO CLICK");
+        ////console.log("VALORE PRIMO CLICK");
         primo = true;
     } else if (primo != undefined) {
-        //console.log("VALORE secondo CLICK");
+        ////console.log("VALORE secondo CLICK");
         primo = undefined;
         secondo = undefined;
     }
@@ -1149,9 +1149,9 @@ function cerca(riga, colonna, matrice) {
             }
         }
     }
-    console.log("abcia2", dati_colonna, dati_riga);
+    //console.log("abcia2", dati_colonna, dati_riga);
 }
-console.log("qwq")
+//console.log("qwq")
 
 //funzione per cercare le combo in altre combo
 var combos = false;
@@ -1168,12 +1168,12 @@ function verifica_combo_speciale(tipo) {
 
                 if (riga_f == element.riga) {
                     combos = true;
-                    console.log("croce sopra da riga : " + riga_f + element.colonna);
+                    //console.log("croce sopra da riga : " + riga_f + element.colonna);
                     quintuplo_croce_sopra();
                     return combos;
                 } else if (riga_i == element.riga) {
                     combos = true;
-                    console.log("croce sotto da riga");
+                    //console.log("croce sotto da riga");
                     quintuplo_croce_sotto();
                     return combos;
                 }
@@ -1199,7 +1199,7 @@ function scambio_perdita() {
     matrice[row2][col2] = matrice[row1][col1];
     matrice[row1][col1] = temp;
 
-    console.log(matrice);
+    //console.log(matrice);
 
     stampa_matrice(matrice);
 }
@@ -1235,7 +1235,7 @@ function scambio_perdita_swap() {
     matrice[row2][col2] = matrice[row1][col1];
     matrice[row1][col1] = temp;
 
-    console.log(matrice);
+    //console.log(matrice);
 
     contatore_perdita++;
     ShowErrore()
@@ -1256,10 +1256,10 @@ function triplo_verticale() {
     let combo = 3;
     assegna_punti(riga, colonna, combo);
 
-    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    //console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
     for (i = riga; i > 0; i--) {
 
-        console.log("Elemento riga = " + i);
+        //console.log("Elemento riga = " + i);
 
         if (i >= 3) {
             matrice[i][colonna] = matrice[i - 3][colonna];
@@ -1290,7 +1290,7 @@ function triplo_orizzontale(matrice) {
     assegna_punti(riga, colonna, combo);
 
     dati_riga.posizione.forEach(function (element) {
-        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
+        //console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
         for (i = element.riga; i > 0; i--) {
 
             matrice[i][element.colonna] = matrice[i - 1][element.colonna];
@@ -1299,8 +1299,8 @@ function triplo_orizzontale(matrice) {
         matrice[0][element.colonna] = generaNumero(0, element.colonna);
 
     });
-    console.log(matrice);
-    console.log("matrice dopo il triplo" + matrice);
+    //console.log(matrice);
+    //console.log("matrice dopo il triplo" + matrice);
 
     stampa_matrice(matrice);
 
@@ -1322,10 +1322,10 @@ function quaduplo_verticale() {
     let combo = 4;
     assegna_punti(riga, colonna, combo);
 
-    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    //console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
     for (i = riga; i > 0; i--) {
 
-        console.log("Elemento riga = " + i);
+        //console.log("Elemento riga = " + i);
 
         if (i == 4 || i == 5 || i == 6) {
             matrice[i][colonna] = matrice[i - 4][colonna];
@@ -1364,15 +1364,15 @@ function quaduplo_orizzontale() {
     ultimo = dati_riga.posizione.pop();
     riga = dati_riga.posizione[0].riga;
     dati_riga.posizione.forEach(function (element) {
-        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
+        //console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
         for (i = element.riga; i > 0; i--) {
             matrice[i][element.colonna] = matrice[i - 1][element.colonna];
         }
     });
 
     matrice[riga][ultimo.colonna] = 5;
-    console.log(matrice);
-    console.log("matrice dopo il triplo" + matrice);
+    //console.log(matrice);
+    //console.log("matrice dopo il triplo" + matrice);
 
     stampa_matrice(matrice);
 
@@ -1395,10 +1395,10 @@ function quintuplo_verticale() {
     let combo = 5;
     assegna_punti(riga, colonna, combo);
 
-    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    //console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
     for (i = riga; i > 0; i--) {
 
-        console.log("Elemento riga = " + i);
+        //console.log("Elemento riga = " + i);
 
         matrice[i][colonna] = generaNumero(i, colonna);
 
@@ -1437,15 +1437,15 @@ function quintuplo_orizzontale() {
     ultimo = dati_riga.posizione.pop();
     riga = dati_riga.posizione[0].riga;
     dati_riga.posizione.forEach(function (element) {
-        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
+        //console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
         for (i = element.riga; i > 0; i--) {
             matrice[i][element.colonna] = matrice[i - 1][element.colonna];
         }
     });
 
     matrice[riga][ultimo.colonna] = 6;
-    console.log(matrice);
-    console.log("matrice dopo il triplo" + matrice);
+    //console.log(matrice);
+    //console.log("matrice dopo il triplo" + matrice);
 
     stampa_matrice(matrice);
 
@@ -1459,7 +1459,7 @@ function quintuplo_croce_sopra() {
     if (!PlayingCombo) {
         ComboTextApper(5)
     }
-    console.log("COMBO CROCE sopra");
+    //console.log("COMBO CROCE sopra");
 
     dati_colonna.posizione.reverse();
     let riga = dati_colonna.posizione[0].riga;
@@ -1485,7 +1485,7 @@ function quintuplo_croce_sopra() {
     colonna = dati_colonna.posizione[0].colonna;
 
     dati_riga.posizione.forEach(function (element) {
-        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
+        //console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
         for (i = element.riga; i > 0; i--) {
             matrice[i][element.colonna] = matrice[i - 1][element.colonna];
         }
@@ -1495,10 +1495,10 @@ function quintuplo_croce_sopra() {
 
 
 
-    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    //console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
     for (i = riga; i > 0; i--) {
 
-        console.log("Elemento riga = " + i);
+        //console.log("Elemento riga = " + i);
 
         if (i >= 2) {
             matrice[i][colonna] = matrice[i - 2][colonna];
@@ -1521,7 +1521,7 @@ function quintuplo_croce_sotto() {
     if (!PlayingCombo) {
         ComboTextApper(5)
     }
-    console.log("COMBO CROCE sotto");
+    //console.log("COMBO CROCE sotto");
 
     let riga = dati_riga.posizione[0].riga;
     let colonna = dati_riga.posizione[0].colonna;
@@ -1530,7 +1530,7 @@ function quintuplo_croce_sotto() {
     assegna_punti(riga, colonna, combo);
 
     dati_riga.posizione.forEach(function (element) {
-        console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
+        //console.log("Valore riga: " + element.riga + ", Valore colonna: " + element.colonna);
         for (i = element.riga; i > 0; i--) {
 
             matrice[i][element.colonna] = matrice[i - 1][element.colonna];
@@ -1539,8 +1539,8 @@ function quintuplo_croce_sotto() {
         matrice[0][element.colonna] = generaNumero(0, element.colonna);
 
     });
-    console.log(matrice);
-    console.log("matrice dopo il triplo" + matrice);
+    //console.log(matrice);
+    //console.log("matrice dopo il triplo" + matrice);
 
     stampa_matrice(matrice);
 
@@ -1553,10 +1553,10 @@ function quintuplo_croce_sotto() {
 
     dati_colonna.posizione.shift();
 
-    console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
+    //console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
     for (i = riga_colonna; i > 0; i--) {
 
-        console.log("Elemento riga = " + i);
+        //console.log("Elemento riga = " + i);
 
         if (i >= 3) {
             matrice[i][colonna_colonna] = matrice[i - 2][colonna_colonna];
@@ -1597,7 +1597,7 @@ function potere_del_riciclo(riga, colonna) {
 
     for (i = riga + 1; i > 0; i--) {
 
-        console.log("Elemento riga = " + i);
+        //console.log("Elemento riga = " + i);
         if (i == matrice.length) {
             i--;
         }
@@ -1643,7 +1643,7 @@ function potere_del_riciclo(riga, colonna) {
 
 
 
-    console.log(matrice);
+    //console.log(matrice);
 
     stampa_matrice(matrice);
 
@@ -1666,7 +1666,7 @@ function amore_della_natura(riga, colonna) {
 
     for (i = riga + 1; i > 0; i--) {
 
-        console.log("Elemento riga = " + i);
+        //console.log("Elemento riga = " + i);
         if (i == matrice.length) {
             i--;
         }
@@ -1683,7 +1683,7 @@ function amore_della_natura(riga, colonna) {
 
     for (let n = riga + 1; n > 0; n--) {
 
-        console.log("Elemento riga = " + n);
+        //console.log("Elemento riga = " + n);
 
         if (n == matrice.length) {
             n--;
@@ -1710,7 +1710,7 @@ function amore_della_natura(riga, colonna) {
 
     for (let m = riga + 1; m > 0; m--) {
 
-        console.log("Elemento riga = " + m);
+        //console.log("Elemento riga = " + m);
 
         if (m == matrice.length) {
             m--;
@@ -1803,28 +1803,28 @@ function assegna_punti(riga, colonna, combo) {
 //funzione per animazione prima di effettuare la combo
 function animazione_orizz(callback) {
     dati_riga.posizione.forEach(function (element) {
-        console.log("animazione");
+        //console.log("animazione");
         matrice[element.riga][element.colonna] = 7;
     });
 
     stampa_matrice(matrice);
 
     setTimeout(() => {
-        console.log("Operazione completata");
+        //console.log("Operazione completata");
         callback();
     }, 2000);
 }
 
 function animazione_vert(callback) {
     dati_colonna.posizione.forEach(function (element) {
-        console.log("animazione");
+        //console.log("animazione");
         matrice[element.riga][element.colonna] = 7;
     });
 
     stampa_matrice(matrice);
 
     setTimeout(() => {
-        console.log("Operazione completata");
+        //console.log("Operazione completata");
         callback();
     }, 2000);
 }
