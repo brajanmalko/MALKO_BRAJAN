@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="HomePage.css">
 
     <!-- Meta -->
     <title>Eco Rush</title>
@@ -22,112 +22,33 @@
     <meta name="keywords" content="Eco Rush, Vicenza">
 </head>
 
-<body id="body" class="CustomScrollbar">
+<body>
     <div class="BlackFade"></div>
     <div class="BlackOverlay" id="BlackOverlay"></div>
 
-    <div class="TutrialLayer Hidden FadeOut" id="TutrialLayer">
-        <img src="Assets\Tutorial\Riciclo.png" alt="TutorialImage" class="TutorialImage" id="TutorialImage">
-        <div class="TuoralDialoguesCon">
-            <img src="Assets\NutriaSprites\1.png" alt="TutorialImage" class="TutroialNutriaImage"
-                id="TutroialNutriaImage">
-            <div class="TutorialTextConatiner">
-                <h2 class="ScalableH2 TextBorderWhite TutrialText" id="TutorialText">Ciao giovane! Finalmente sei qui</h2>
-                <div class="TutorialButtonContainer">
-                    <input type="button" value="Indietro" id="TutorialButtonBack"
-                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX2 TutroialButton Hidden">
-                    <input type="button" value="Avanti" id="TutorialButtonNext"
-                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1 TutroialButton">
-                </div>
-            </div>
+    <audio autoplay loop id="MainMenuMusic">
+        <source src="Assets/MusicAndSounds/BGM1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+
+    <div class="SplashLayer" id="SplashCon">
+        <div class="SplashLayerCon">
+            <div class="SplashLogoCon"><img src="Assets\Logo.png" alt="Eco Rush" class="LogoImg PulseAnimation"></div>
+            <h1 class="GreenText TextBorderGreenBig ScalableH1">Tocca per continuare</h1>
+            <div class="GreenFade"></div>
         </div>
     </div>
 
-    <div class="GameOverLayer Hidden FadeOut" id="GameOverLayer">
-        <div class="GameOverCon">
-            <img src="Assets\NutriaSprites\15.png" alt="GameOverImage" class="GameverlNutriaImage"
-                id="GameOverNutriaImage">
-            <div class="GameOverTextConatiner">
-                <h1 class="ScalableH1 TextBorderWhite GameOverText">Hai perso</h1>
-                <h2 class="ScalableH2 TextBorderWhite GameOverText" id="GameOverText">Testo di incoraggiamento</h2>
-                <div class="GameOverButtonContainer">
-                    <input type="button" value="Indietro" id="GameOverButtonBack"
-                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX2 TutroialButton">
-                    <input type="button" value="Ritenta" id="GameOverButtonReplay"
-                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1 TutroialButton">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="GameOverLayer Hidden FadeOut" id="GameWonLayer">
-        <div class="GameOverCon">
-            <img src="Assets\NutriaSprites\16.png" alt="GameWonImage" class="GameverlNutriaImage"
-                id="GameWonNutriaImage">
-            <div class="GameOverTextConatiner">
-                <h1 class="ScalableH1 TextBorderWhite GameOverText">Hai vinto</h1>
-                <h2 class="ScalableH2 TextBorderWhite GameOverText" id="GameWonText">Testo di incoraggiamento</h2>
-                <div class="GameOverButtonContainer">
-                    <input type="button" value="Indietro" id="GameWonButtonBack"
-                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX2 TutroialButton">
-                    <input type="button" value="Continua" id="GameWonButtonReplay"
-                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1 TutroialButton">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="GameGridLayer FadeIn CustomScrollbar" id="GameGridLayer">
-        <div class="GameAndSideStatsCon">
-            <div class="GameAndSideStatsConSide">
-                <div class="GameStatsCon1">
-                    <h2 class="ScalableH2 TextBorderWhite" id="PlayerNameText">Name</h2>
-                    <h2 class="ScalableH2 TextBorderWhite" id="ScoreText">Punteggio: 0</h2>
-                </div>
-                <div class="ProgressBarsCon">
-                    <div class="ImageProgressBarContainer">
-                        <img src="img/c.png" alt="Paper" class="ProgressBarImage">
-                        <div class="ProgressBarContainer">
-                            <div class="ProgressBar YellowBackground" id="ProgressBar1">
-                                <p class="ProgressBarText BlackText " id="ProgressBarText1"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ImageProgressBarContainer">
-                        <img src="img/p.png" alt="Paper" class="ProgressBarImage">
-                        <div class="ProgressBarContainer">
-                            <div class="ProgressBar BlueBackground" id="ProgressBar2">
-                                <p class="ProgressBarText BlackText " id="ProgressBarText2"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="ImageProgressBarContainer">
-                        <img src="img/v.png" alt="Paper" class="ProgressBarImage">
-                        <div class="ProgressBarContainer">
-                            <div class="ProgressBar DarkGreenBackground" id="ProgressBar3">
-                                <p class="ProgressBarText BlackText " id="ProgressBarText3"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ImageProgressBarContainer">
-                        <img src="img/s.png" alt="Paper" class="ProgressBarImage">
-                        <div class="ProgressBarContainer">
-                            <div class="ProgressBar VioletBackground" id="ProgressBar4">
-                                <p class="ProgressBarText BlackText" id="ProgressBarText4"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="UiButtonsConatiner">
-                        <input type="button" value="Impostazioni" id="SettingsButton"
-                        class="BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1 TutroialButton">
-                    </div>
-                </div>
-            </div>
-            <div class="GridContainer">
-                <div id="container" class="container">
-                </div>
-            </div>
+    <div class="UILayer Hidden FadeOut" id="MainUICOn">
+        <div class="LogoCon"><img src="Assets\Logo.png" alt="Eco Rush" class="LogoImg"></div>
+        <div class="MenuButtonsContainer">
+            <input type="button" value="Gioca" id="PlayButton"
+                class="MenuButton BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
+            <input type="button" value="Impostazioni" id="SettingsButton"
+                class="MenuButton2 BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
+            <input type="button" value="Classifica" id="ClassificaButton"
+                class="MenuButton2 BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1">
         </div>
     </div>
 
@@ -156,27 +77,64 @@
                 </div>
                 <div class="SettingsConRowFooter">
                     <h4 class="ScalableH4">Brajan Malko - ✦ - Gianluca Grammatica</h4>
-                    <input type="button" value="Esci" id="QuitButton"
-                        class="Button BorderedRedButton BlackText HoverEffect1 CursorPointer TapSFX2">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="ComboTextLayer Hidden FadeOut" id="ComboTextLayer">
-        <h1 class="ComboText" id="ComboText">Combo x4</h1>
-
-        <div class="confetti-container"></div>
-
+    <div class="SelectLevelLayer Hidden FadeOut" id="LevelLayer">
+        <div class="LayerBackground">
+            <div class="SettingsHeader">
+                <h2 class="ScalableH2">Seleziona Livello</h2>
+                <input type="button" value="X" class="CloseXButton TapSFX2 HoverEffect1 CursorPointer"
+                    id="LevelButonCancel">
+            </div>
+            <input type="button" value="Normale"
+                class="Button BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonNormale">
+            <input type="button" value="Medio"
+                class="Button BorderedYellowButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonMedio">
+            <input type="button" value="Difficile"
+                class="Button BorderedRedButton BlackText HoverEffect1 CursorPointer TapSFX1" id="LevelButonDifficile">
+        </div>
     </div>
 
-    <div class="ErrorTextLayer Hidden FadeOut" id="ErrorLayer">
-        <h1 class="ErrorText">Errore!</h1>
-
+    <div class="NameLayer Hidden FadeOut" id="NameLayer">
+        <div class="LayerBackgroundSmall">
+            <div class="TitleHeader">
+                <h2 class="ScalableH2">Inserisci il tuo nome</h2>
+            </div>
+            <input type="text" placeholder="Nome"
+                class="TextInput BorderedWitheButton BlackText HoverEffect1 CursorPointer" id="NameInput">
+            <div class="NmaeLayerButtons">
+                <input type="button" value="Annulla"
+                    class="Button BorderedYellowButton BlackText HoverEffect1 CursorPointer TapSFX2"
+                    id="NameButonCancel">
+                <input type="button" value="Continua"
+                    class="Button BorderedGreenButton BlackText HoverEffect1 CursorPointer TapSFX1" id="NameGoButton">
+            </div>
+        </div>
     </div>
 
+    <div class="NoNameLayer Hidden FadeOut" id="NoNameLayer">
+        <div class="LayerAlert">
+            <h2 class="ScalableH2">Inserisci un nome!</h2>
+        </div>
+    </div>
+    </div>
 
-    <script type="text/javascript" src="script.js"></script>
+    <div class="ClassificaLayer Hidden FadeOut" id="ClassificaLayer">
+        <div class="LayerBackgroundClassifica">
+            <div class="SettingsHeader">
+                <h2 class="ScalableH2">Classifica</h2>
+                <input type="button" value="X" class="CloseXButton TapSFX2 HoverEffect1 CursorPointer"
+                    id="ClassificaButonCancel">
+            </div>
+            <div class="ClassificaRowsCon" id="ClassificaRowsCon">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="HomePage.js"></script>
 </body>
 
 </html>

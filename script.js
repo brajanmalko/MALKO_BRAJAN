@@ -251,7 +251,9 @@ function ShakeScreen() {
 }
 
 /*Confettiii*/
+let PlayingCombo = false;
 function ComboTextApper(numero) {
+    PlayingCombo = true;
     PanelOpened = true;
     setTimeout(function () {
         ComboTextLayer.classList.remove('FadeOut');
@@ -260,6 +262,7 @@ function ComboTextApper(numero) {
             setTimeout(function () {
                 ComboTextLayer.classList.add('Hidden');
                 PanelOpened = false;
+                PlayingCombo = false;
             }, 320);
             ComboTextLayer.classList.remove('FadeIn')
             ComboTextLayer.classList.add('FadeOut')
@@ -305,7 +308,7 @@ function ComboTextApper(numero) {
     // Function to generate random colors with increased saturation
     function getRandomColor() {
         let hue
-        if (numero == 4) {
+        if (numero == 5) {
             hue = Math.floor(Math.random() * 60 + 300);
         }
         else {
@@ -337,7 +340,7 @@ if (SettingsSaves.CurrentLevel == "facile") {
     dropTraIRad = 7;
     setInterval(() => {
         if (!PanelOpened) {
-            dropTraIRad += 2;
+            dropTraIRad += 1;
         }
     }, 100000);
 }
@@ -505,7 +508,7 @@ function GoBack() {
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
-        window.location.href = "HomePage.html";
+        window.location.href = "index.html";
     }, 500);
 }
 function RePlay() {
@@ -761,8 +764,8 @@ function swap_div() {
                     setTimeout(() => {
                         scambio_perdita_swap();
                     }, 500);
-                }else{
-                    combos = false;  
+                } else {
+                    combos = false;
                 }
             }
 
@@ -812,23 +815,23 @@ function combo(cons_riga, cons_colonna) {
     }
     else if (cons_riga == 3) {
         let tipo = true;
-        
-        verifica_combo_speciale(tipo);
-        if (combos == true) {
-            return    
-        } else if(combos == false){
-            console.log('combo 3 riga');
-            triplo_orizzontale(matrice)
-        }
-        
-    }
-    else if (cons_colonna == 3) {
-        let tipo = false;
-        
+
         verifica_combo_speciale(tipo);
         if (combos == true) {
             return
-        } else if(combos == false){
+        } else if (combos == false) {
+            console.log('combo 3 riga');
+            triplo_orizzontale(matrice)
+        }
+
+    }
+    else if (cons_colonna == 3) {
+        let tipo = false;
+
+        verifica_combo_speciale(tipo);
+        if (combos == true) {
+            return
+        } else if (combos == false) {
             console.log('combo 3 colonna');
             triplo_verticale(matrice);
         }
@@ -1308,7 +1311,9 @@ function triplo_orizzontale(matrice) {
 
 //funzione per implementare la discesa degli elementi in caso verticale
 function quaduplo_verticale() {
-    ComboTextApper(4)
+    if (!PlayingCombo) {
+        ComboTextApper(4)
+    }
     dati_colonna.posizione.reverse();
     let riga = dati_colonna.posizione[0].riga;
     let colonna = dati_colonna.posizione[0].colonna;
@@ -1345,7 +1350,10 @@ function quaduplo_verticale() {
 //funzione per implementare la discesa degli elementi in caso orizzontale
 function quaduplo_orizzontale() {
 
-    ComboTextApper(4)
+    
+    if (!PlayingCombo) {
+        ComboTextApper(4)
+    }
     let riga_punti = dati_riga.posizione[0].riga;
     let colonna = dati_riga.posizione[0].colonna;
 
@@ -1375,7 +1383,10 @@ function quaduplo_orizzontale() {
 
 //funzione per implementare la discesa degli elementi in caso verticale
 function quintuplo_verticale() {
-    ComboTextApper(5)
+    
+    if (!PlayingCombo) {
+        ComboTextApper(5)
+    }
     dati_colonna.posizione.reverse();
     let riga = dati_colonna.posizione[0].riga;
     let colonna = dati_colonna.posizione[0].colonna;
@@ -1412,7 +1423,10 @@ function quintuplo_verticale() {
 
 //funzione per implementare la discesa degli elementi in caso orizzontale
 function quintuplo_orizzontale() {
-    ComboTextApper(5)
+    
+    if (!PlayingCombo) {
+        ComboTextApper(5)
+    }
     let riga_punti = dati_riga.posizione[0].riga;
     let colonna = dati_riga.posizione[0].colonna;
 
@@ -1440,7 +1454,10 @@ function quintuplo_orizzontale() {
 //funzione per far partire la combo ad L se trovata
 
 function quintuplo_croce_sopra() {
-    ComboTextApper(5)
+    
+    if (!PlayingCombo) {
+        ComboTextApper(5)
+    }
     console.log("COMBO CROCE sopra");
 
     dati_colonna.posizione.reverse();
@@ -1499,7 +1516,10 @@ function quintuplo_croce_sopra() {
 }
 
 function quintuplo_croce_sotto() {
-    ComboTextApper(5)
+    
+    if (!PlayingCombo) {
+        ComboTextApper(5)
+    }
     console.log("COMBO CROCE sotto");
 
     let riga = dati_riga.posizione[0].riga;
@@ -1864,7 +1884,7 @@ QuitButton.addEventListener("click", function () {
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
-        window.location.href = "HomePage.html";
+        window.location.href = "index.html";
     }, 500);
 });
 

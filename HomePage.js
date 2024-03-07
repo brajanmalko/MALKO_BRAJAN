@@ -151,7 +151,7 @@ function GoTOPageBlackOverlay() {
     SettingsSaves.CurrentLevel = LevelsArray[SelectedLevel];
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
-        window.location.href = "index.html";
+        window.location.href = "game.html";
     }, 500);
 }
 
