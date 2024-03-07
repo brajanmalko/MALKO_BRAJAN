@@ -877,6 +877,7 @@ function stampa_matrice(matrice) {
             let div = document.createElement("div");
             div.className = "matrice-div";
             div.classList.add('TapSFX3')
+            div.classList.add('HoverAnimation')
             if (FisrtSpawn) {
                 div.classList.add('ScaleInSpawn1');
                 DropsBeforeSpawnCounter++
