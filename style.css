@@ -491,6 +491,32 @@ body {
     transform: scale(1.02);
 }
 
+@keyframes PulseAnimation {
+    0% {
+        scale: 1
+    }
+
+    50% {
+        scale: 1.05
+    }
+
+    100% {
+        scale: 1
+    }
+}
+
+.HoverAnimation:hover{
+
+    animation: PulseAnimation 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+    transform-origin: center;
+}
+
+.HoverAnimation{
+    animation-name: none;
+    animation-duration: 0s;
+    animation-iteration-count: infinite;
+}
+
 
 /* Colors */
 .PaperDivBG {
