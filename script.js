@@ -515,7 +515,7 @@ function RePlay() {
     BlackOverlay.style.opacity = '1';
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
     setTimeout(function () {
-        window.location.href = "index.html";
+        window.location.href = "game.html";
     }, 500);
 }
 
@@ -1221,12 +1221,15 @@ function ShowErrore() {
     }, 150);
     ErrorLayer.classList.remove('Hidden');
 
-    body.classList.add("HideAllOverflow")
-    GameGridLayer.classList.add("ErrorShake");
-    setTimeout(function () {
-        GameGridLayer.classList.remove("ErrorShake");
-        body.classList.remove("HideAllOverflow")
-    }, 400)
+    if (SettingsSaves.ScreenShake) {
+        body.classList.add("HideAllOverflow")
+        GameGridLayer.classList.add("ErrorShake");
+        setTimeout(function () {
+            GameGridLayer.classList.remove("ErrorShake");
+            body.classList.remove("HideAllOverflow")
+        }, 400)
+    }
+
 }
 
 //funzione per scambio con contatore per
@@ -1351,7 +1354,7 @@ function quaduplo_verticale() {
 //funzione per implementare la discesa degli elementi in caso orizzontale
 function quaduplo_orizzontale() {
 
-    
+
     if (!PlayingCombo) {
         ComboTextApper(4)
     }
@@ -1384,7 +1387,7 @@ function quaduplo_orizzontale() {
 
 //funzione per implementare la discesa degli elementi in caso verticale
 function quintuplo_verticale() {
-    
+
     if (!PlayingCombo) {
         ComboTextApper(5)
     }
@@ -1424,7 +1427,7 @@ function quintuplo_verticale() {
 
 //funzione per implementare la discesa degli elementi in caso orizzontale
 function quintuplo_orizzontale() {
-    
+
     if (!PlayingCombo) {
         ComboTextApper(5)
     }
@@ -1455,7 +1458,7 @@ function quintuplo_orizzontale() {
 //funzione per far partire la combo ad L se trovata
 
 function quintuplo_croce_sopra() {
-    
+
     if (!PlayingCombo) {
         ComboTextApper(5)
     }
@@ -1517,7 +1520,7 @@ function quintuplo_croce_sopra() {
 }
 
 function quintuplo_croce_sotto() {
-    
+
     if (!PlayingCombo) {
         ComboTextApper(5)
     }
@@ -1546,7 +1549,7 @@ function quintuplo_croce_sotto() {
 
     dati_colonna.posizione.reverse();
     dati_colonna.posizione.pop();
-    
+
 
     let riga_colonna = dati_colonna.posizione[0].riga;
     let colonna_colonna = dati_colonna.posizione[0].colonna;
