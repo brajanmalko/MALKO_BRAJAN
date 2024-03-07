@@ -1545,11 +1545,12 @@ function quintuplo_croce_sotto() {
 
     dati_colonna.posizione.reverse();
     dati_colonna.posizione.pop();
+    
 
     let riga_colonna = dati_colonna.posizione[0].riga;
     let colonna_colonna = dati_colonna.posizione[0].colonna;
 
-
+    dati_colonna.posizione.shift();
 
     console.log("Valore riga: " + riga + ", Valore colonna: " + colonna);
     for (i = riga_colonna; i > 0; i--) {
@@ -1567,7 +1568,7 @@ function quintuplo_croce_sotto() {
 
     matrice[0][colonna_colonna] = generaNumero(0, colonna_colonna);
 
-    matrice[riga_colonna - 2][colonna_colonna] = 6;
+    matrice[riga_colonna][colonna_colonna] = 6;
 
     stampa_matrice(matrice);
 
