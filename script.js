@@ -80,26 +80,26 @@ if (localStorage.getItem('EcoRushSettings')) {
     //console.log(SettingsSaves.CurrentLevel)
 
     if (SettingsSaves.MusicVolume == 1) {
-        SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
+        SettingsMusicCheckbox.src = "Assets/CheckBoxOn.png"
         MusicaAttivaPerFade = true;
     }
     else {
-        SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
+        SettingsMusicCheckbox.src = "Assets/CheckBoxOff.png"
         MusicaAttivaPerFade = false;
     }
 
     if (SettingsSaves.SFXVolume == 0.2) {
-        SettingsSFXCheckbox.src = "Assets/CheckboxOn.png"
+        SettingsSFXCheckbox.src = "Assets/CheckBoxOn.png"
     }
     else {
-        SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
+        SettingsSFXCheckbox.src = "Assets/CheckBoxOff.png"
     }
 
     if (SettingsSaves.ScreenShake) {
-        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+        ScreenShakeCheckbox.src = "Assets/CheckBoxOn.png"
     }
     else {
-        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+        ScreenShakeCheckbox.src = "Assets/CheckBoxOff.png"
     }
 }
 
@@ -1862,12 +1862,12 @@ SettingsMusicCheckbox.addEventListener("click", function () {
     if (SettingsSaves.MusicVolume == 1) {
         GameMusic.volume = 0
         SettingsSaves.MusicVolume = 0
-        SettingsMusicCheckbox.src = "Assets/CheckboxOff.png"
+        SettingsMusicCheckbox.src = "Assets/CheckBoxOff.png"
     }
     else {
         GameMusic.volume = 1
         SettingsSaves.MusicVolume = 1
-        SettingsMusicCheckbox.src = "Assets/CheckboxOn.png"
+        SettingsMusicCheckbox.src = "Assets/CheckBoxOn.png"
     }
 
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
@@ -1876,11 +1876,11 @@ SettingsMusicCheckbox.addEventListener("click", function () {
 SettingsSFXCheckbox.addEventListener("click", function () {
     if (SettingsSaves.SFXVolume == 0.2) {
         SettingsSaves.SFXVolume = 0
-        SettingsSFXCheckbox.src = "Assets/CheckboxOff.png"
+        SettingsSFXCheckbox.src = "Assets/CheckBoxOff.png"
     }
     else {
         SettingsSaves.SFXVolume = 0.2
-        SettingsSFXCheckbox.src = "Assets/CheckboxOn.png"
+        SettingsSFXCheckbox.src = "Assets/CheckBoxOn.png"
     }
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 })
@@ -1896,11 +1896,11 @@ QuitButton.addEventListener("click", function () {
 ScreenShakeCheckbox.addEventListener("click", function () {
     if (SettingsSaves.ScreenShake) {
         SettingsSaves.ScreenShake = false
-        ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+        ScreenShakeCheckbox.src = "Assets/CheckBoxOff.png"
     }
     else {
         SettingsSaves.ScreenShake = true
-        ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+        ScreenShakeCheckbox.src = "Assets/CheckBoxOn.png"
     }
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 })

@@ -900,7 +900,7 @@ body {
 @media (orientation : landscape) {
     .SettingsBackground {
         width: 70%;
-        height: 70%;
+        height: 80%;
         background-color: #9cdc4d;
         border: 8px #405b1e solid;
         border-radius: 50px;
