@@ -1,6 +1,6 @@
-#ECO RUSH
+ECO RUSH
 ***
-##Benvenuto a "Eco Crush"! Entra nel mondo avventuroso del riciclaggio con questo coinvolgente gioco browser a tema ecologico.
+Benvenuto a "Eco Crush"! Entra nel mondo avventuroso del riciclaggio con questo coinvolgente gioco browser a tema ecologico.
 
 In "Eco Crush", aiuterai Norindo Nutriarelli, la simpatica nutria appassionata dell'ambiente, mentre ti immergi in un'avventura ricca di sfide e scoperte ecologiche.
 Il tuo obiettivo è semplice: riciclare carta, plastica, secco e vetro per proteggere l'ambiente e accumulare punti. Il gioco si svolge su una griglia colorata e vivace di dimensioni variabili: 5x5 per il livello facile, 6x6 per il livello medio e 7x7 per il livello difficile.
