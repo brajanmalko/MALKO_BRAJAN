@@ -284,7 +284,7 @@ function ComboTextApper(numero) {
 
 
     const confettiContainer = document.querySelector('.confetti-container');
-    const confettiCount = 130; // Increase the number of particles
+    const confettiCount = 130;
 
     for (let i = 0; i < confettiCount; i++) {
         const confetti = document.createElement('div');
@@ -293,7 +293,7 @@ function ComboTextApper(numero) {
 
         // Random position around the text
         const angle = Math.random() * 360;
-        const distance = Math.random() * 800 + 300; // Adjust the distance for the spread
+        const distance = Math.random() * 800 + 300;
         const x = Math.cos(angle) * distance;
         const y = Math.sin(angle) * distance;
 
@@ -302,8 +302,13 @@ function ComboTextApper(numero) {
 
         confetti.style.backgroundColor = getRandomColor();
 
-        confetti.style.animationDelay = `${Math.random() * 0.9}s`; // Adjust the delay
+        confetti.style.animationDelay = `${Math.random() * 0.9}s`; 
+
+
     }
+    setTimeout(function(){
+        confettiContainer.innerHTML ="";
+    }, 1000)
 
     // Function to generate random colors with increased saturation
     function getRandomColor() {
