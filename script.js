@@ -54,6 +54,7 @@ let QuitButton = document.getElementById("QuitButton");
 let MusicaAttivaPerFade = true;
 let PanelOpened = false;
 let ScreenShakeCheckbox = document.getElementById("ScreenShakeCheckbox");
+let PopUpCheckbox = document.getElementById("PopUpCheckbox");
 let ComboTextLayer = document.getElementById("ComboTextLayer");
 let ComboText = document.getElementById("ComboText");
 
@@ -68,7 +69,135 @@ let SettingsSaves = {
     "CurrentScore": 0,
     "CurrentLevel": "facile",
     "ScreenShake": true,
-    "VisualEffects": true
+    "VisualEffects": true,
+    "PopUp": true
+}
+
+/*PopUps*/
+let RandomPapers = [
+    [
+        `Sai che il 90% delle scatole in Italia e' realizzato in materiale riciclato!`,
+        `Sai che la filiera della carta fattura circa 25 miliardi di euro!`,
+        `Per produrre una tonnellata di carta servono 15 alberi, 440.000 litri di acqua e 7.600 kWh di energia elettrica!`
+    ],
+    [
+        `Un vecchio giornale oggi, un bosco verde domani. Ricicla la carta e coltiva speranza!`,
+        `Riciclare la carta salva gli alberi e riduce l'inquinamento. Ogni foglio conta!`
+    ],
+    [
+        `In Italia ci sono ben 600 impianti di riciclo della carta!`,
+        `Ogni tonnellata di carta riciclata puo' salvare 17 alberi. Il riciclo fa la differenza!`
+    ]
+];
+
+let RandomPlastic = [
+    [
+        `La plastica impiega centinaia di anni per degradarsi. Puoi vivere cosi' a lungo?`,
+        `Ben 35 imprese lavorano per riciclare la plastica in Italia`
+    ],
+    [
+        `Il 47% della plastica raccolta viene avviata al riciclo. Il 48%, invece, al recupero energetico`,
+        `Il settore che consuma piu' plastica e' quello degli imballaggi!`
+    ],
+    [
+        `La plastica puo' essere una risorsa preziosa o un pericolo per il pianeta. Tu come vuoi utilizzarla?`,
+        `Le reti da pesca rappresentano il 48% della plastica nei mari!`,
+        `I rifiuti possono essere una minaccia per gli animali marini: ingeriscono frammenti di plastica!`
+    ]
+];
+
+let RandomGlass = [
+    [
+        `Il vetro e' infinitamente riciclabile. Non sprecarlo!`,
+        `Riciclare il vetro risparmia fino al 30% dell'energia necessaria per produrne di nuovo!`
+    ],
+    [
+        `L'80% del vetro in Italia viene riciclato!`,
+        `Utilizzare una bottiglia di vetro e' mille volte meglio di utilizzarne una di plastica!`
+    ],
+    [
+        `Un gesto trasparente: ricicla il vetro per dare una nuova luce al nostro ambiente!`,
+        `Il riciclo del vetro aiuta a ridurre l’impatto ambientale: diminuisce i rifiuti in discarica e l’utilizzo di nuove materie prime!`
+    ]
+];
+
+let RandomTrash = [
+    [
+        `Sai che anche il secco può essere ridotto! Cerca di separare correttamente i rifiuti!`,
+        `Entro il 2035 solo il 10% dell'indifferenziato potra' finire in discarica, il resto sara' riciclato!`
+    ],
+    [
+        `Ogni italiano produce in media 502 kg di rifiuti all'anno! Tu quanti ne produci?`,
+        `Gli impianti di termovalorizzazione trasformano l’indifferenziato in energia elettrica e termica`
+    ],
+    [
+        `Il secco può sembrare insignificante, ma accumulandosi diventa un peso per il pianeta. Alleggeriamolo insieme!`,
+        `L’Italia ha esportato oltre 31,1 milioni di tonnellate di rifiuti oltre i confini europei nel 2022`
+    ]
+];
+
+
+let DialogPopUps = {
+    "Paper_15": {
+        "Sprite": 7,
+        "Image": 2,
+        "Text": RandomPapers[0][Math.floor(Math.random() * 3)]
+    },
+    "Paper_30": {
+        "Sprite": 7,
+        "Image": 2,
+        "Text": RandomPapers[1][Math.floor(Math.random() * 2)]
+    },
+    "Paper_45": {
+        "Sprite": 7,
+        "Image": 2,
+        "Text": RandomPapers[2][Math.floor(Math.random() * 2)]
+    },
+    "Plastic_15": {
+        "Sprite": 2,
+        "Image": 2,
+        "Text": RandomPlastic[0][Math.floor(Math.random() * 2)]
+    },
+    "Plastic_30": {
+        "Sprite": 2,
+        "Image": 2,
+        "Text": RandomPlastic[1][Math.floor(Math.random() * 2)]
+    },
+    "Plastic_45": {
+        "Sprite": 2,
+        "Image": 2,
+        "Text": RandomPlastic[2][Math.floor(Math.random() * 3)]
+    },
+    "Glass_15": {
+        "Sprite": 4,
+        "Image": 2,
+        "Text": RandomGlass[0][Math.floor(Math.random() * 2)]
+    },
+    "Glass_30": {
+        "Sprite": 4,
+        "Image": 2,
+        "Text": RandomGlass[1][Math.floor(Math.random() * 2)]
+    },
+    "Glass_45": {
+        "Sprite": 4,
+        "Image": 2,
+        "Text": RandomGlass[2][Math.floor(Math.random() * 2)]
+    },
+    "Trash_15": {
+        "Sprite": 6,
+        "Image": 2,
+        "Text": RandomTrash[0][Math.floor(Math.random() * 2)]
+    },
+    "Trash_30": {
+        "Sprite": 6,
+        "Image": 2,
+        "Text": RandomTrash[1][Math.floor(Math.random() * 2)]
+    },
+    "Trash_45": {
+        "Sprite": 6,
+        "Image": 2,
+        "Text": RandomTrash[2][Math.floor(Math.random() * 2)]
+    }
 }
 
 matrice = [[], [], [], [], []]
@@ -100,6 +229,13 @@ if (localStorage.getItem('EcoRushSettings')) {
     }
     else {
         ScreenShakeCheckbox.src = "Assets/CheckBoxOff.png"
+    }
+
+    if (SettingsSaves.PopUp) {
+        PopUpCheckbox.src = "Assets/CheckBoxOn.png"
+    }
+    else {
+        PopUpCheckbox.src = "Assets/CheckBoxOff.png"
     }
 }
 
@@ -282,7 +418,6 @@ function ComboTextApper(numero) {
         ComboText.innerText = "Combo x5"
     }
 
-
     const confettiContainer = document.querySelector('.confetti-container');
     const confettiCount = 130;
 
@@ -302,15 +437,13 @@ function ComboTextApper(numero) {
 
         confetti.style.backgroundColor = getRandomColor();
 
-        confetti.style.animationDelay = `${Math.random() * 0.9}s`; 
-
-
+        confetti.style.animationDelay = `${Math.random() * 0.9}s`;
     }
-    setTimeout(function(){
-        confettiContainer.innerHTML ="";
+    setTimeout(function () {
+        confettiContainer.innerHTML = "";
     }, 1000)
 
-    // Function to generate random colors with increased saturation
+    //Colore casuale
     function getRandomColor() {
         let hue
         if (numero == 5) {
@@ -319,11 +452,10 @@ function ComboTextApper(numero) {
         else {
             hue = Math.floor(Math.random() * 60 + 90);
         }
-        const saturation = Math.floor(Math.random() * 50) + 50; // Adjust saturation between 50 and 100%
-        const lightness = 50; // Fixed lightness
+        const saturation = Math.floor(Math.random() * 50) + 50;
+        const lightness = 50;
         return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
     }
-
     return
 }
 
@@ -410,7 +542,7 @@ let DialoghiTutorial = {
     "12": {
         "Sprite": 13,
         "Image": 8,
-        "Text": "Non possiamo muoverlo o raccoglierlo"
+        "Text": "Non possiamo muoverli o raccoglierli"
     },
     "13": {
         "Sprite": 14,
@@ -441,6 +573,21 @@ function UpdateTutorial() {
     TutroialNutriaImage.src = SpriteNutria[DialoghiTutorial[TutorialIndex].Sprite];
 }
 
+function PopUpShow(Index) {
+    TutorialButtonBack.classList.add('Hidden')
+    setTimeout(function () {
+        TutrialLayer.classList.remove('FadeOut');
+        TutrialLayer.classList.add('FadeIn');
+    }, 320);
+    TutrialLayer.classList.remove('Hidden');
+
+    console.log(Index)
+
+    TutorialText.innerHTML = `<h2 class="ScalableH2 TextBorderWhite TutrialText" id="TutorialText">${DialogPopUps[Index].Text}</h2>`
+    TutorialImage.src = TutorialImages[DialogPopUps[Index].Image];
+    TutroialNutriaImage.src = SpriteNutria[DialogPopUps[Index].Sprite];
+}
+
 function EndTuorial() {
     setTimeout(function () {
         TutrialLayer.classList.add('Hidden');
@@ -458,8 +605,11 @@ if (!localStorage.getItem('EcoRushTutorial')) {
     TutrialLayer.classList.remove('Hidden');
 
     UpdateTutorial()
-
     TutorialButtonNext.addEventListener("click", function () {
+        if (localStorage.getItem('EcoRushTutorial')) {
+            console.log("Bwaa")
+            EndTuorial()
+        }
         if (TutorialIndex < 14) {
             if (TutorialIndex == 1) {
                 TutorialButtonBack.classList.remove('Hidden')
@@ -480,6 +630,11 @@ if (!localStorage.getItem('EcoRushTutorial')) {
             TutorialIndex--
             UpdateTutorial()
         }
+    })
+}
+else {
+    TutorialButtonNext.addEventListener("click", function () {
+        EndTuorial()
     })
 }
 
@@ -605,12 +760,54 @@ GameGridLayer.addEventListener("click", function () {
 
 }, { once: true })
 
+let PopUpsChecks = {
+    "Paper": {
+        "p15": false,
+        "p30": false,
+        "p45": false
+    },
+    "Plastic":
+    {
+        "p15": false,
+        "p30": false,
+        "p45": false
+    },
+    "Glass":
+    {
+        "p15": false,
+        "p30": false,
+        "p45": false
+    },
+    "Trash":
+    {
+        "p15": false,
+        "p30": false,
+        "p45": false
+    }
+}
+
 //Aggiorna Barre di completamento
 function UpdateBars() {
     ProgressBarText1.innerText = numero_carta
     if (numero_carta == 0) {
         ProgressBarText1.innerText = ""
     }
+
+    if (SettingsSaves.PopUp) {
+        if (numero_carta >= 15 && !PopUpsChecks.Paper.p15) {
+            PopUpShow("Paper_15")
+            PopUpsChecks.Paper.p15 = true
+        }
+        if (numero_carta >= 30 && !PopUpsChecks.Paper.p30) {
+            PopUpShow("Paper_30")
+            PopUpsChecks.Paper.p30 = true
+        }
+        if (numero_carta >= 45 && !PopUpsChecks.Paper.p45) {
+            PopUpShow("Paper_45")
+            PopUpsChecks.Paper.p45 = true
+        }
+    }
+
     if (numero_carta >= 50) {
         ProgressBarText1.innerText = "Completato"
         ProgressBarText1.classList.add("GreenText");
@@ -623,6 +820,22 @@ function UpdateBars() {
     if (numero_plastica == 0) {
         ProgressBarText2.innerText = ""
     }
+
+    if (SettingsSaves.PopUp) {
+        if (numero_plastica >= 15 && !PopUpsChecks.Plastic.p15) {
+            PopUpShow("Plastic_15")
+            PopUpsChecks.Plastic.p15 = true
+        }
+        if (numero_plastica >= 30 && !PopUpsChecks.Plastic.p30) {
+            PopUpShow("Plastic_30")
+            PopUpsChecks.Plastic.p30 = true
+        }
+        if (numero_plastica >= 45 && !PopUpsChecks.Plastic.p45) {
+            PopUpShow("Plastic_45")
+            PopUpsChecks.Plastic.p45 = true
+        }
+    }
+
     if (numero_plastica >= 50) {
         ProgressBarText2.innerText = "Completato"
         ProgressBarText2.classList.add("GreenText");
@@ -635,6 +848,22 @@ function UpdateBars() {
     if (numero_vetro == 0) {
         ProgressBarText3.innerText = ""
     }
+
+    if (SettingsSaves.PopUp) {
+        if (numero_vetro >= 15 && !PopUpsChecks.Glass.p15) {
+            PopUpShow("Glass_15")
+            PopUpsChecks.Glass.p15 = true
+        }
+        if (numero_vetro >= 30 && !PopUpsChecks.Glass.p30) {
+            PopUpShow("Glass_30")
+            PopUpsChecks.Glass.p30 = true
+        }
+        if (numero_vetro >= 45 && !PopUpsChecks.Glass.p45) {
+            PopUpShow("Glass_45")
+            PopUpsChecks.Glass.p45 = true
+        }
+    }
+
     if (numero_vetro >= 50) {
         ProgressBarText3.innerText = "Completato"
         ProgressBarText3.classList.add("GreenText");
@@ -647,6 +876,22 @@ function UpdateBars() {
     if (numero_secco == 0) {
         ProgressBarText4.innerText = ""
     }
+
+    if (SettingsSaves.PopUp) {
+        if (numero_secco >= 15 && !PopUpsChecks.Trash.p15) {
+            PopUpShow("Trash_15")
+            PopUpsChecks.Trash.p15 = true
+        }
+        if (numero_secco >= 30 && !PopUpsChecks.Trash.p30) {
+            PopUpShow("Trash_30")
+            PopUpsChecks.Trash.p30 = true
+        }
+        if (numero_secco >= 45 && !PopUpsChecks.Trash.p45) {
+            PopUpShow("Trash_45")
+            PopUpsChecks.Trash.p45 = true
+        }
+    }
+
     if (numero_secco >= 50) {
         ProgressBarText4.innerText = "Completato"
         ProgressBarText4.classList.add("GreenText");
@@ -1906,6 +2151,18 @@ ScreenShakeCheckbox.addEventListener("click", function () {
     else {
         SettingsSaves.ScreenShake = true
         ScreenShakeCheckbox.src = "Assets/CheckBoxOn.png"
+    }
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+})
+
+PopUpCheckbox.addEventListener("click", function () {
+    if (SettingsSaves.PopUp) {
+        SettingsSaves.PopUp = false
+        PopUpCheckbox.src = "Assets/CheckBoxOff.png"
+    }
+    else {
+        SettingsSaves.PopUp = true
+        PopUpCheckbox.src = "Assets/CheckBoxOn.png"
     }
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 })

@@ -370,7 +370,7 @@ body::-webkit-scrollbar-thumb {
 .SettingsConRowFooter {
     text-align: center;
     width: 70%;
-    margin-top: 10%;
+    /*margin-top: 10%;*/
 }
 
 

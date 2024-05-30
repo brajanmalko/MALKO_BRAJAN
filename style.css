@@ -972,7 +972,7 @@ body {
 .SettingsConRowFooter {
     text-align: center;
     width: 70%;
-    margin-top: 10%;
+    /*margin-top: 10%;*/
 }
 
 /*Button Colors*/

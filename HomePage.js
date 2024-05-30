@@ -23,6 +23,7 @@ let LevelButonDifficile = document.getElementById("LevelButonDifficile");
 let SettingsMusicCheckbox = document.getElementById("SettingsMusicCheckbox");
 let SettingsSFXCheckbox = document.getElementById("SettingsSFXCheckbox");
 let ScreenShakeCheckbox = document.getElementById("ScreenShakeCheckbox");
+let PopUpCheckbox = document.getElementById("PopUpCheckbox");
 let ColseSettingsButton = document.getElementById("ColseSettingsButton");
 let ClassificaRowsCon = document.getElementById("ClassificaRowsCon");
 let BlackOverlay = document.getElementById("BlackOverlay");
@@ -46,7 +47,8 @@ let SettingsSaves = {
     "CurrentScore": 0,
     "CurrentLevel": "facile",
     "ScreenShake": true,
-    "VisualEffects": true
+    "VisualEffects": true,
+    "PopUp": true
 }
 
 if (localStorage.getItem('EcoRushSettings')) {
@@ -71,6 +73,13 @@ if (localStorage.getItem('EcoRushSettings')) {
     }
     else {
         ScreenShakeCheckbox.src = "Assets/CheckboxOff.png"
+    }
+
+    if (SettingsSaves.PopUp) {
+        PopUpCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    else {
+        PopUpCheckbox.src = "Assets/CheckboxOff.png"
     }
     
     if (SettingsSaves.CurrentPlayer != undefined && SettingsSaves.CurrentPlayer != 0 && SettingsSaves.CurrentPlayer != "") {
@@ -254,6 +263,18 @@ ScreenShakeCheckbox.addEventListener("click", function () {
     else {
         SettingsSaves.ScreenShake = true
         ScreenShakeCheckbox.src = "Assets/CheckboxOn.png"
+    }
+    localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
+})
+
+PopUpCheckbox.addEventListener("click", function () {
+    if (SettingsSaves.PopUp) {
+        SettingsSaves.PopUp = false
+        PopUpCheckbox.src = "Assets/CheckboxOff.png"
+    }
+    else {
+        SettingsSaves.PopUp = true
+        PopUpCheckbox.src = "Assets/CheckboxOn.png"
     }
     localStorage.setItem('EcoRushSettings', JSON.stringify(SettingsSaves));
 })
